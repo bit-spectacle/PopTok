@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.poptok.android.service.Util;
+
 
 public class JoinActivity extends AppCompatActivity {
 

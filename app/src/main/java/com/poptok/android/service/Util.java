@@ -1,4 +1,4 @@
-package com.poptok.android.poptok;
+package com.poptok.android.service;
 
 
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 
 //ID & 비밀번호 정규식 설정하는 Class
-public class Util extends AppCompatActivity{
+public class Util{
 
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[_a-zA-Z0-9-.]+@[a-zA-Z0-9-]+.[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);

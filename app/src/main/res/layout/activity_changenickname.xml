@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/myInfoText"
+            android:gravity="center_vertical|right"
+            android:text="내 정보"/>
+
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:text="아이디"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/userIdText"
+            android:layout_height="22dp"
+            android:gravity="right"
+            android:textSize="17sp"
+            android:layout_gravity="right"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:text="현재 닉네임"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/userNickNameText"
+            android:layout_height="22dp"
+            android:text="test"
+            android:gravity="right"
+            android:textSize="17sp"
+            android:layout_gravity="right"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <EditText
+            android:id="@+id/userNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="변경할 닉네임을 입력하세요"
+            android:onClick = "changeNickNameTextClick"
+            android:padding="10dp" />
+        <!-- 여기에 체크박스 추가해서 넣기 그리고 버튼? 같은 형식으로 할 수 있으면 하기.-->
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

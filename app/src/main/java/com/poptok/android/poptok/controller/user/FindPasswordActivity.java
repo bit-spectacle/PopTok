@@ -1,7 +1,9 @@
-package com.poptok.android.poptok;
+package com.poptok.android.poptok.controller.user;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.poptok.android.poptok.R;
 
 
 public class FindPasswordActivity extends AppCompatActivity {

@@ -13,19 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".DrawMapActivity">
+        <activity android:name=".controller.post.PostMapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
         </activity>
-        <activity android:name=".ChangePasswordActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".SettingMenuActivity"></activity>
-        <activity android:name=".JoinActivity"></activity>
-        <activity android:name=".ChangeNickNameActivity"></activity>
-        <activity android:name=".FindPasswordActivity"></activity>
+        <activity android:name=".controller.user.ChangePasswordActivity"></activity>
+        <activity android:name=".controller.user.LoginActivity_"></activity>
+        <activity android:name=".controller.user.SettingMenuActivity"></activity>
+        <activity android:name=".controller.user.JoinActivity"></activity>
+        <activity android:name=".controller.user.ChangeNickNameActivity"></activity>
+        <activity android:name=".controller.user.FindPasswordActivity"></activity>
+        <activity android:name=".controller.post.PostListActivity_"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

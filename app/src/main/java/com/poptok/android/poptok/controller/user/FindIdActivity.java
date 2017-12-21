@@ -1,4 +1,4 @@
-package com.poptok.android.poptok;
+package com.poptok.android.poptok.controller.user;
 
 import android.support.v7.app.AppCompatActivity;
 

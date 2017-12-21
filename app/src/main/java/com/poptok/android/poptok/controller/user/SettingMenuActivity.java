@@ -1,7 +1,9 @@
-package com.poptok.android.poptok;
+package com.poptok.android.poptok.controller.user;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.poptok.android.poptok.R;
 
 
 public class SettingMenuActivity extends AppCompatActivity {
@@ -11,7 +13,7 @@ public class SettingMenuActivity extends AppCompatActivity {
     {
         super.onCreate(saveInstanceState);
 
-        setContentView(R.layout.activity__settingmenu);
+        setContentView(R.layout.activity_settingmenu);
 
     }
 }

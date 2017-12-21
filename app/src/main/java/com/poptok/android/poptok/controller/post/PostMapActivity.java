@@ -1,4 +1,4 @@
-package com.poptok.android.poptok;
+package com.poptok.android.poptok.controller.post;
 
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -10,10 +10,10 @@ import net.daum.mf.map.api.MapView;
  * Created by BIT on 2017-12-19.
  */
 
-public class DrawMapDemoActivity extends FragmentActivity
+public class PostMapActivity extends FragmentActivity
         implements MapView.OpenAPIKeyAuthenticationResultListener, MapView.MapViewEventListener {
 
-    private static final String LOG_TAG = "DrawMapDemoActivity : ";
+    private static final String LOG_TAG = "PostMapActivity : ";
 
     //이거랑 같은거 저 앞에 있는데 필요가 있나?
     //없으면 빨간줄 뜨네;;

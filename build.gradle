@@ -19,6 +19,11 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url 'http://repo.springsource.org/release'
+        }
     }
 }
 

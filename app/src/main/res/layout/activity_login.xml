@@ -65,7 +65,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="51dp"
                 android:layout_marginStart="51dp"
-                android:onClick="loginButtonClick"
                 android:text="Login">
 
             </Button>
@@ -78,7 +77,6 @@
                 android:layout_marginLeft="70dp"
                 android:layout_marginRight="50dp"
                 android:layout_toRightOf="@+id/loginButton"
-                android:onClick="cancelButtonClick"
                 android:text="Cancel" />
 
         </RelativeLayout>
@@ -113,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:text=" 포스트잇 하려면 PopTok에 가입하세요!"
-                android:onClick="joinTextClick"/>
+                />
 
             <TextView
                 android:id="@+id/findIdText"
@@ -121,14 +119,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:text=" 아이디가 기억나지 않으세요?"
-                android:onClick="findIdTextClick"/>
+                />
 
             <TextView
                 android:id="@+id/findPasswordText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=" 비밀번호가 기억나지 않으세요?"
-                android:onClick = "findPasswordTextClick"/>
+                />
 
         </LinearLayout>
     </LinearLayout>

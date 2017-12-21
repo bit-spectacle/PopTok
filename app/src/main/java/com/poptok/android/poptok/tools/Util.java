@@ -1,4 +1,4 @@
-package com.poptok.android.service;
+package com.poptok.android.poptok.tools;
 
 
 import android.support.v7.app.AppCompatActivity;

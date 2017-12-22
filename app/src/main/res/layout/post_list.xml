@@ -4,8 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/listPost"
+    <GridView
+        android:id="@+id/gridPost"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:verticalSpacing="5dp"
+        android:horizontalSpacing="5dp"
+        android:stretchMode="columnWidth"
+        android:numColumns="3"/>
 </LinearLayout>

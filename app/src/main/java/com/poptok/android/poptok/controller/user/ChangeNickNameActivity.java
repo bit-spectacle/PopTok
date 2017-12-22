@@ -17,7 +17,7 @@ public class ChangeNickNameActivity extends AppCompatActivity {
     {
         super.onCreate(saveInstanceState);
 
-        setContentView(R.layout.activity_changenickname);
+        setContentView(R.layout.user_changenickname);
     }
 
     void show(){

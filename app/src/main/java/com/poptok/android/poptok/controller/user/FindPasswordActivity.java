@@ -13,7 +13,7 @@ public class FindPasswordActivity extends AppCompatActivity {
     {
         super.onCreate(saveInstanceState);
 
-        setContentView(R.layout.activity_findpassword);
+        setContentView(R.layout.user_findpassword);
 
     }
 

@@ -29,7 +29,6 @@ public class PostListAdapter extends BaseAdapter {
     @RootContext
     Context context;
 
-    //@Bean(PostItemFinder.class)
     @RestService
     IPostItemFinder postItemFinder;
 

@@ -19,7 +19,7 @@ public class JoinActivity extends AppCompatActivity {
     {
         super.onCreate(saveInstanceState);
 
-        setContentView(R.layout.activity_join);
+        setContentView(R.layout.user_join);
 
         checkAll();
 

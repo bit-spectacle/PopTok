@@ -12,13 +12,13 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
 
-@EActivity(R.layout.activity_post_list)
+@EActivity(R.layout.post_list)
 public class PostListActivity extends AppCompatActivity {
 
     @Bean
     PostListView postListView;
 
-    @ItemClick(R.id.listPost)
+    @ItemClick(R.id.gridPost)
     void listPostItemClicked(PostItem postItem) {
         Log.d("clicked", postItem.getContent());
         Toast.makeText(this, postItem.getContent(), Toast.LENGTH_SHORT).show();

@@ -13,7 +13,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 
-@EActivity(R.layout.activity_login)
+@EActivity(R.layout.user_login)
 public class LoginActivity extends AppCompatActivity {
 
     private static String API_KEY="f1ce1afe4bd1995ca9fe8c5957fcd78b";

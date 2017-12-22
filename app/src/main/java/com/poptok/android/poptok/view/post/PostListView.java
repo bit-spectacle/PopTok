@@ -1,6 +1,7 @@
 package com.poptok.android.poptok.view.post;
 
 import android.content.Context;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.poptok.android.poptok.view.post.PostListAdapter;
@@ -18,20 +19,14 @@ public class PostListView {
     Context context;
 
     @ViewById
-    ListView listPost;
+    GridView gridPost;
 
     @Bean
     PostListAdapter adapter;
 
     @AfterViews
     public void setView() {
-        listPost.setAdapter(adapter);
+        gridPost.setAdapter(adapter);
     }
-
-//    @ItemClick
-//    void listPostItemClicked(PostItem postItem) {
-//        Log.d("clicked", postItem.getContent());
-//        Toast.makeText(context, postItem.getContent(), Toast.LENGTH_LONG).show();
-//    }
 
 }

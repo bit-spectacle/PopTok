@@ -9,16 +9,18 @@ import android.widget.Toast;
 
 import com.poptok.android.poptok.R;
 
+import org.androidannotations.annotations.EActivity;
 
+@EActivity(R.layout.user_changenickname)
 public class ChangeNickNameActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle saveInstanceState)
-    {
-        super.onCreate(saveInstanceState);
-
-        setContentView(R.layout.user_changenickname);
-    }
+//    @Override
+//    protected void onCreate(Bundle saveInstanceState)
+//    {
+//        super.onCreate(saveInstanceState);
+//
+//        setContentView(R.layout.user_changenickname);
+//    }
 
     void show(){
         final EditText editText = new EditText(this);

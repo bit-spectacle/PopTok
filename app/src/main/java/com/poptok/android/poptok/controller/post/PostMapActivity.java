@@ -15,8 +15,6 @@ public class PostMapActivity extends FragmentActivity
 
     private static final String LOG_TAG = "PostMapActivity : ";
 
-    //이거랑 같은거 저 앞에 있는데 필요가 있나?
-    //없으면 빨간줄 뜨네;;
 //    public void onMapViewInitialized(MapView mapView) {
 //        Log.i(LOG_TAG, "onMapViewInitialized() Success");
 //
@@ -47,8 +45,8 @@ public class PostMapActivity extends FragmentActivity
     }
 
     @Override
-    public void onMapViewZoomLevelChanged(MapView mapView, int i) {
-
+    public void onMapViewZoomLevelChanged(MapView mapView, int zoomLevel) {
+        Log.i(LOG_TAG, String.format("MapView onMapViewZoomLevelChanged (%d)", zoomLevel));
     }
 
     @Override
@@ -58,7 +56,6 @@ public class PostMapActivity extends FragmentActivity
 
     @Override
     public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {
-
     }
 
     @Override

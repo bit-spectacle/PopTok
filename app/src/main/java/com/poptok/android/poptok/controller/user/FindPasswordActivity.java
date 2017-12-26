@@ -7,7 +7,7 @@ import com.poptok.android.poptok.R;
 
 import org.androidannotations.annotations.EActivity;
 
-@EActivity(R.layout.activity_findpassword)
+@EActivity(R.layout.user_findpassword)
 public class FindPasswordActivity extends AppCompatActivity {
 
 //    @Override

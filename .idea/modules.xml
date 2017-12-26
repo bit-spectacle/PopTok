@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PopTok.iml" filepath="$PROJECT_DIR$/PopTok.iml" />
+      <module fileurl="file://D:\Workplace\Poptok\PopTok\PopTok.iml" filepath="D:\Workplace\Poptok\PopTok\PopTok.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\Workplace\Poptok\PopTok\app\app.iml" filepath="D:\Workplace\Poptok\PopTok\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -10,7 +10,9 @@ import android.widget.Toast;
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.tools.Util;
 
+import org.androidannotations.annotations.EActivity;
 
+@EActivity(R.layout.user_join)
 public class JoinActivity extends AppCompatActivity {
 
 
@@ -19,8 +21,9 @@ public class JoinActivity extends AppCompatActivity {
     {
         super.onCreate(saveInstanceState);
 
-        setContentView(R.layout.user_join);
+        //setContentView(R.layout.user_join);
 
+        //여기는 닉네임 중복확인 때문에 onCreate 주석처리 안함
         checkAll();
 
 

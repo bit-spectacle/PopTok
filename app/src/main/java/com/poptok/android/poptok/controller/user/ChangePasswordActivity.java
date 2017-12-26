@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.poptok.android.poptok.R;
 
+import org.androidannotations.annotations.EActivity;
 
+@EActivity(R.layout.user_changepassword)
 public class ChangePasswordActivity extends AppCompatActivity {
 
     final Context context = this;

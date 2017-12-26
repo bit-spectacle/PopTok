@@ -6,6 +6,7 @@ package com.poptok.android.poptok.model.post;
 
 public class PostItem {
 
+    private int rownum;
     private int postNo;
     private int userNo;
     private int viewsCnt;
@@ -22,9 +23,10 @@ public class PostItem {
     public PostItem() {
     }
 
-    public PostItem(int postNo, int userNo, int viewsCnt, int likeCnt, int commentCnt,
+    public PostItem(int rownum, int postNo, int userNo, int viewsCnt, int likeCnt, int commentCnt,
                     String content, String image, String kakaoLink, String postDate, String tag,
                     double latitude, double longitude) {
+        this. rownum = rownum;
         this.postNo = postNo;
         this.userNo = userNo;
         this.viewsCnt = viewsCnt;
@@ -39,6 +41,13 @@ public class PostItem {
         this.longitude = longitude;
     }
 
+    public int getRownum() {
+        return rownum;
+    }
+
+    public void setRownum(int rownum) {
+        this.rownum = rownum;
+    }
 
     public int getPostNo() {
         return postNo;

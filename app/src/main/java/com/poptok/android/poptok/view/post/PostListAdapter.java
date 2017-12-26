@@ -24,6 +24,7 @@ import java.util.List;
 @EBean
 public class PostListAdapter extends BaseAdapter {
 
+    private int lastNo;
     private List<PostItem> items;
 
     @RootContext
@@ -39,7 +40,8 @@ public class PostListAdapter extends BaseAdapter {
     @AfterInject
     @Background
     void initAdapter() {
-        items = postItemFinder.findAll();
+        lastNo = 0;
+        items = postItemFinder.findPost(lastNo);
     }
 
     @Override

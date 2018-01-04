@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/side_nav_bar"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="0dp"
+                app:srcCompat="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/textNick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/imageView"
+                android:text="Android Studio"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/imageView"
+                android:background="@android:color/white"
+                android:paddingTop="5px"
+                android:paddingBottom="5px">
+
+                    <RelativeLayout
+                    android:id="@+id/layout_menu_map"
+                    android:layout_width="76dp"
+                    android:layout_height="76dp"
+                    android:layout_marginLeft="3dp"
+                    android:background="@android:color/holo_blue_bright"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:clickable="true">
+
+                    <ImageButton
+                        android:id="@+id/btn_menu_map"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/map" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/btn_menu_map"
+                        android:text="Map"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black" />
+                </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="76dp"
+                        android:layout_height="76dp"
+                        android:layout_marginLeft="3dp"
+                        android:background="@android:color/holo_blue_bright">
+                        <ImageButton
+                            android:id="@+id/btn_menu_list"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitCenter"
+                            android:layout_centerHorizontal="true"
+                            app:srcCompat="@drawable/albums" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/btn_menu_list"
+                            android:text="List"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="76dp"
+                        android:layout_height="76dp"
+                        android:layout_marginLeft="3dp"
+                        android:background="@android:color/holo_blue_bright">
+                        <ImageButton
+                            android:id="@+id/btn_menu_write"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitCenter"
+                            android:layout_centerHorizontal="true"
+                            app:srcCompat="@drawable/write" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/btn_menu_write"
+                            android:text="Write"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="76dp"
+                        android:layout_height="76dp"
+                        android:layout_marginLeft="3dp"
+                        android:background="@android:color/holo_blue_bright">
+                        <ImageButton
+                            android:id="@+id/btn_menu_chat"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@android:color/transparent"
+                            android:scaleType="fitCenter"
+                            android:layout_centerHorizontal="true"
+                            app:srcCompat="@drawable/chat" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/btn_menu_chat"
+                            android:text="Chat"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/black" />
+                    </RelativeLayout>
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btn_menu_close"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/close" />
+
+            <ImageButton
+                android:id="@+id/btn_menu_setting"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="fitXY"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@id/btn_menu_close"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/setting" />
+
+        </RelativeLayout>
+
+    </LinearLayout>

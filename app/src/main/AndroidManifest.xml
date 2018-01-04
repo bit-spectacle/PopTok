@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.poptok.android.poptok">
 
@@ -12,26 +13,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".controller.post.PostMapActivity">
+        <activity
+            android:name=".controller.AppBaseActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".controller.user.ChangePasswordActivity_"></activity>
-        <activity android:name=".controller.user.LoginActivity_"></activity>
-        <activity android:name=".controller.user.SettingMenuActivity_"></activity>
-        <activity android:name=".controller.user.JoinActivity_"></activity>
-        <activity android:name=".controller.user.ChangeNickNameActivity_"></activity>
-        <activity android:name=".controller.user.FindPasswordActivity_"></activity>
-        <activity android:name=".controller.post.PostListActivity_"></activity>
-
+        <activity android:name=".controller.user.ChangePasswordActivity_" />
+        <activity android:name=".controller.user.LoginActivity_" />
+        <activity android:name=".controller.user.SettingMenuActivity_" />
+        <activity android:name=".controller.user.JoinActivity_" />
+        <activity android:name=".controller.user.ChangeNickNameActivity_" />
+        <activity android:name=".controller.user.FindPasswordActivity_" />
+        <activity android:name=".controller.post.PostMapActivity_" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="f1ce1afe4bd1995ca9fe8c5957fcd78b"/>
-
+            android:value="f1ce1afe4bd1995ca9fe8c5957fcd78b" />
     </application>
+
 </manifest>

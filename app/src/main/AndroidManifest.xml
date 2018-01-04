@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".controller.post.PostListActivity_">
+        <activity android:name=".controller.post.PostMapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -26,7 +26,8 @@
         <activity android:name=".controller.user.JoinActivity_"></activity>
         <activity android:name=".controller.user.ChangeNickNameActivity_"></activity>
         <activity android:name=".controller.user.FindPasswordActivity_"></activity>
-        <activity android:name=".controller.post.PostMapActivity"></activity>
+        <activity android:name=".controller.post.PostListActivity_"></activity>
+
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

@@ -1,7 +1,11 @@
 package com.poptok.android.poptok.controller.post;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.ViewGroup;
+
+import com.poptok.android.poptok.R;
 
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -21,6 +25,30 @@ public class PostMapActivity extends FragmentActivity
 //        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithCONGCoord());
 //
 //    }
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    MapView mapView = new MapView(this);
+    // MapView.clearMapTilePersistentCache();
+    // mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+
+    MapView.CurrentLocationEventListener mCurrentLocationEventListener = null;
+
+    onMapViewInitialized(mapView);
+
+    //MapPoint mapPoint;
+
+//      mapView.setCurrentLocationEventListener(mCurrentLocationEventListener);
+
+    setContentView(R.layout.activity_drawmap);
+
+    ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+    mapViewContainer.addView(mapView);
+
+
+}
+
+
     public void onMapViewInitialized(MapView mapView) {
 
         //DAUM 지도 api를 사용하기 위해서 REST KEY를 사용해준다.
@@ -51,36 +79,38 @@ public class PostMapActivity extends FragmentActivity
 
     @Override
     public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
-
+        Log.i(LOG_TAG, "onMapViewSingleTapped() call");
     }
 
     @Override
     public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {
+        Log.i(LOG_TAG, "onMapViewDoubleTapped() call");
     }
 
     @Override
     public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
-
+        Log.i(LOG_TAG, "onMapViewLongPressed() call");
     }
 
     @Override
     public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
-
+        Log.i(LOG_TAG, "onMapViewCenterPointMoved() call");
     }
 
     @Override
     public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
-
+        Log.i(LOG_TAG, "onMapViewDragEnded() call");
     }
 
     @Override
     public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
-
+        Log.i(LOG_TAG, "onMapViewMoveFinished() call");
     }
 
     @Override
-    public void onDaumMapOpenAPIKeyAuthenticationResult(MapView mapView, int i, String s) {
+    public void onDaumMapOpenAPIKeyAuthenticationResult(MapView mapView, int resultCode, String resultMessage) {
 
+        Log.i(LOG_TAG,	String.format("Open API Key Authentication Result : code=%d, message=%s", resultCode, resultMessage));
     }
 }
 

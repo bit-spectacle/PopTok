@@ -26,7 +26,7 @@ public class PostItem {
     public PostItem(int rownum, int postNo, int userNo, int viewsCnt, int likeCnt, int commentCnt,
                     String content, String image, String kakaoLink, String postDate, String tag,
                     double latitude, double longitude) {
-        this. rownum = rownum;
+        this.rownum = rownum;
         this.postNo = postNo;
         this.userNo = userNo;
         this.viewsCnt = viewsCnt;

@@ -10,7 +10,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 
 import java.util.List;
 
-@Rest(rootUrl = "http://192.168.1.9:3000", converters = {MappingJackson2HttpMessageConverter.class}, interceptors = { HttpBasicAuthenticatorInterceptor.class })
+@Rest(rootUrl = "http://192.168.1.9:3000",
+        converters = {MappingJackson2HttpMessageConverter.class},
+        interceptors = { HttpBasicAuthenticatorInterceptor.class })
 public interface IPostItemFinder {
 
     @Get("/posting/{lastNo}")

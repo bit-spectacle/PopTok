@@ -45,6 +45,9 @@ public class PostMarkerActivity extends FragmentActivity implements MapView.MapV
         @Override
         public View getPressedCalloutBalloon(MapPOIItem mapPOIItem) {
             //여기서 클릭한게 뭔지 알아내서 리스트를 보여줘야함
+            //
+            MapPoint pressCalloutBalloonPoint = mapPOIItem.getMapPoint();
+            String pressCalloutBalloonName = mapPOIItem.getItemName();
             return null;
         }
 
@@ -53,7 +56,10 @@ public class PostMarkerActivity extends FragmentActivity implements MapView.MapV
 //    private void addDefaultMarker(int count){
 //        //해당 좌표에 몇개나 글이 있는지 알아야하기 때문에 int count를 변수로 받아온다.
 //        MapPoint.GeoCoordinate mapPointGeo = centerPoint.getMapPointGeoCoord();
+
 //    }
+
+
 
     private void createDefaultMarker(MapView mapView) {
         defaultMarker = new MapPOIItem();

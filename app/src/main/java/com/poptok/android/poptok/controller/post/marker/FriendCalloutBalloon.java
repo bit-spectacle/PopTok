@@ -18,7 +18,7 @@ import net.daum.mf.map.api.MapView;
  * Created by BIT on 2017-12-26.
  */
 
-public class MultiMarker extends FragmentActivity implements MapView.MapViewEventListener, MapView.POIItemEventListener {
+public class FriendCalloutBalloon extends FragmentActivity implements MapView.MapViewEventListener, MapView.POIItemEventListener {
 
     private MapPoint centerPoint ;
     private MapView mapView;
@@ -36,7 +36,7 @@ public class MultiMarker extends FragmentActivity implements MapView.MapViewEven
         @Override
         public View getCalloutBalloon(MapPOIItem poiItem){
             // ((ImageView) defaultCalloutBalloon.findViewById(R.id.badge)).setImageURI("./");
-            //여기서 조건문 image가 없을 경우~ 라는 조건을 달아서 이미지가 없으면 이미지를 넣어주지 않도록.
+            //여기서 조건문 image가 없을 경우~ 조건 달아서 해줘야함
             ((ImageView) defaultCalloutBalloon.findViewById(R.id.badge)).setImageResource(R.drawable.ic_launcher);
             ((TextView) defaultCalloutBalloon.findViewById(R.id.title)).setText(poiItem.getItemName());
             ((TextView) defaultCalloutBalloon.findViewById(R.id.desc)).setText("지니 귀여워");
@@ -51,24 +51,21 @@ public class MultiMarker extends FragmentActivity implements MapView.MapViewEven
 
     }
 
-//    private void addDefaultMarker(int count){
-//        //해당 좌표에 몇개나 글이 있는지 알아야하기 때문에 int count를 변수로 받아온다.
-//        MapPoint.GeoCoordinate mapPointGeo = centerPoint.getMapPointGeoCoord();
-//    }
 
-    private void createMultiMarker(MapView mapView) {
-        multiMarker = new MapPOIItem();
+
+    private void createDefaultMarker(MapView mapView) {
+        defaultMarker = new MapPOIItem();
         String name = "Default Marker";
-        multiMarker.setItemName(name);
-        multiMarker.setTag(0);
+        defaultMarker.setItemName(name);
+        defaultMarker.setTag(0);
         //mapPoint를 받아와야함 --> 현재 사용자가 화면으로 보고 있는 위치 기준이 가장 좋겠지
         //일단 기본으로 getMapCenterPoint()로 한다
-        multiMarker.setMapPoint(mapView.getMapCenterPoint());
-        multiMarker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-        multiMarker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+        defaultMarker.setMapPoint(mapView.getMapCenterPoint());
+        defaultMarker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+        defaultMarker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
-        mapView.addPOIItem(multiMarker);
-        mapView.selectPOIItem(multiMarker, true);
+        mapView.addPOIItem(defaultMarker);
+        mapView.selectPOIItem(defaultMarker, true);
         mapView.setMapCenterPoint(mapView.getMapCenterPoint(), false);
     }
 

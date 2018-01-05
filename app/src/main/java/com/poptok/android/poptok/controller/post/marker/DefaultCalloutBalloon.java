@@ -18,14 +18,12 @@ import net.daum.mf.map.api.MapView;
  * Created by BIT on 2017-12-26.
  */
 
-public class FriendMarker extends FragmentActivity implements MapView.MapViewEventListener, MapView.POIItemEventListener {
+public class DefaultCalloutBalloon extends FragmentActivity implements MapView.MapViewEventListener, MapView.POIItemEventListener {
 
     private MapPoint centerPoint ;
     private MapView mapView;
-    private MapPOIItem multiMarker;
     private MapPOIItem defaultMarker;
-    private MapPOIItem friendMarker;
-    private MapPOIItem secretMarker;
+    private int count = 0;
 
     class DefaultCalloutBalloonAdapter implements CalloutBalloonAdapter{
         private final View defaultCalloutBalloon;
@@ -51,18 +49,26 @@ public class FriendMarker extends FragmentActivity implements MapView.MapViewEve
 
     }
 
-
+//    private void addDefaultMarker(int count){
+//        //해당 좌표에 몇개나 글이 있는지 알아야하기 때문에 int count를 변수로 받아온다.
+//        MapPoint.GeoCoordinate mapPointGeo = centerPoint.getMapPointGeoCoord();
+//    }
 
     private void createDefaultMarker(MapView mapView) {
         defaultMarker = new MapPOIItem();
-        String name = "Default Marker";
+        //default marker마다 이름을 다르게 해줘야 삭제하거나 할 때 유용!
+        String name = "Default Marker"+count;
+        count++;
         defaultMarker.setItemName(name);
         defaultMarker.setTag(0);
+       // defaultMarker.set
+
         //mapPoint를 받아와야함 --> 현재 사용자가 화면으로 보고 있는 위치 기준이 가장 좋겠지
         //일단 기본으로 getMapCenterPoint()로 한다
         defaultMarker.setMapPoint(mapView.getMapCenterPoint());
-        defaultMarker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-        defaultMarker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+        //defaultMarker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+        //defaultMarker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+
 
         mapView.addPOIItem(defaultMarker);
         mapView.selectPOIItem(defaultMarker, true);

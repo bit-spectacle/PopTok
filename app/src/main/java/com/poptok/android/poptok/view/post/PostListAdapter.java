@@ -42,9 +42,11 @@ public class PostListAdapter extends BaseAdapter {
         Log.d("initAdapter", "before");
         lastNo = 0;
         while (true) {
-            items = postItemFinder.findPost(lastNo);
-            Log.d("initAdapter", String.format("item count:%d", items.size()));
-            if(items.size() > 0) {
+            List<PostItem> postItems = postItemFinder.findPost(lastNo);
+            Log.d("initAdapter", String.format("item count:%d", postItems.size()));
+            if(postItems.size() > 0) {
+                items.addAll(postItems);
+                lastNo = (postItems.get(postItems.size() - 1)).getPostNo();
                 break;
             }
         }
@@ -52,6 +54,7 @@ public class PostListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
+        Log.d("getView", String.format("%d", position) );
         PostItemView itemView;
         if(convertView == null) {
             itemView = PostItemView_.build(context);
@@ -65,7 +68,16 @@ public class PostListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return items.size();
+        int itemSize = items.size();
+        while(itemSize == 0) {
+            try {
+                Thread.sleep(10);
+                itemSize = items.size();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return itemSize;
     }
 
     @Override

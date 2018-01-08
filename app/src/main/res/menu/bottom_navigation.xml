@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_map"
+        android:enabled="true"
+        android:icon="@drawable/map"
+        android:title="Map"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/navigation_list"
+        android:icon="@drawable/albums"
+        android:title="List"
+        app:showAsAction="always|withText"/>
+
+    <item
+        android:id="@+id/navigation_write"
+        android:icon="@drawable/write"
+        android:title="Write"
+        app:showAsAction="always|withText"/>
+
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@drawable/chat"
+        android:title="Chat"
+        app:showAsAction="always|withText" />
+
+</menu>

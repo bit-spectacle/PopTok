@@ -23,6 +23,9 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/notice.txt'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 def AAVersion = "4.4.0"

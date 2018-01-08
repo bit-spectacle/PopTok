@@ -2,9 +2,7 @@ package com.poptok.android.poptok.controller.post;
 
 
 import android.app.Fragment;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.GridView;
 import android.widget.Toast;
 

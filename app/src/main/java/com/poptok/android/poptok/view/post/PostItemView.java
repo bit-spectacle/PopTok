@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.model.post.PostItem;
 
@@ -33,7 +34,11 @@ public class PostItemView extends RelativeLayout {
         Log.d("bind", String.format("%d", postItem.getPostNo()));
         textPost.setText(postItem.getContent());
         textTag.setText(postItem.getTag());
-        Glide.with(this).load(postItem.getImage()).into(imagePost);
+        Glide.with(this)
+                .load(postItem.getImage())
+                .apply(new RequestOptions()
+                        .placeholder(R.drawable.loading))
+                .into(imagePost);
     }
 
 }

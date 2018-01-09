@@ -1,11 +1,16 @@
 package com.poptok.android.poptok.controller.post;
 
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Display;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.model.LocationParam;
 
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -24,6 +29,8 @@ import static net.daum.mf.map.api.MapView.CurrentLocationTrackingMode.TrackingMo
 public class PostMapActivity extends FragmentActivity
         implements MapView.OpenAPIKeyAuthenticationResultListener, MapView.MapViewEventListener {
 
+
+
     private static final String LOG_TAG = "PostMapActivity : ";
 
     //    public void onMapViewInitialized(MapView mapView) {
@@ -32,20 +39,16 @@ public class PostMapActivity extends FragmentActivity
 //        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithCONGCoord());
 //
 //    }
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MapView mapView = new MapView(this);
-        // MapView.clearMapTilePersistentCache();
-        // mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+        final MapView mapView = new MapView(this);
 
         MapView.CurrentLocationEventListener mCurrentLocationEventListener = null;
 
         onMapViewInitialized(mapView);
-
-        //MapPoint mapPoint;
-
-//      mapView.setCurrentLocationEventListener(mCurrentLocationEventListener);
 
         setContentView(R.layout.activity_drawmap);
 
@@ -53,21 +56,42 @@ public class PostMapActivity extends FragmentActivity
         mapViewContainer.addView(mapView);
 
 
-    }
+        //*************************************************Button Listener
+        Button trackingOffButton = (Button) findViewById(R.id.trackingOffButton);
+        trackingOffButton.setOnClickListener(new Button.OnClickListener(){
 
-    @Click(R.id.trackingOffButton)
-    void trackingOffButton(MapView mapView) {
-        Log.i(LOG_TAG, "trackingOffButton Clicked");
-        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+            @Override
+            public void onClick(View v) {
+                Log.i(LOG_TAG, "trackingOffButton Clicked");
+                mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+                mapView.setShowCurrentLocationMarker(false);
+                //Log.i(LOG_TAG, "getCurrentLocationTrackinMoid() " + mapView.getCurrentLocationTrackingMode());
+            }});
 
-    }
+        Button trackingOnButton = (Button) findViewById(R.id.trackingOnButton);
+        trackingOnButton.setOnClickListener(new Button.OnClickListener(){
 
-    @Click(R.id.tackingOnButton)
-    void trackingOnButton(MapView mapView){
-        Log.i(LOG_TAG, "trackingOnButton Clicked");
-        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
-    }
+            @Override
+            public void onClick(View v) {
+                Log.i(LOG_TAG, "trackingOnButton Clicked");
+                mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+            }
+        });
 
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+
+        MapPoint center = mapView.getMapCenterPoint();
+
+        LocationParam locationParam = LocationParam.getLoacationParam(mapView.getZoomLevel(), size.x, size.y, center.getMapPointGeoCoord().latitude,  center.getMapPointGeoCoord().longitude );
+        Log.i(LOG_TAG,
+                String.format("display size check %f %f %f %f",
+                        locationParam.top.latitude, locationParam.top.longitude,
+                        locationParam.bottom.latitude, locationParam.bottom.longitude) );
+
+//
+        }
 
     public void onMapViewInitialized(MapView mapView) {
 
@@ -90,10 +114,10 @@ public class PostMapActivity extends FragmentActivity
     @Override
     public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapCenterPoint) {
         Log.i(LOG_TAG, "onMapViewCenterPointMoved() call");
-//        MapPoint.GeoCoordinate mapPointGeo = mapCenterPoint.getMapPointGeoCoord();
-//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
-//        mapView.setShowCurrentLocationMarker(false);
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude), false);
+        MapPoint.GeoCoordinate mapPointGeo = mapCenterPoint.getMapPointGeoCoord();
+        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+        mapView.setShowCurrentLocationMarker(false);
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude), false);
 
 
     }
@@ -124,11 +148,11 @@ public class PostMapActivity extends FragmentActivity
     public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
         Log.i(LOG_TAG, "onMapViewCenterPointMoved() call");
         //위치 트래킹 모드 off
-//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
-//        mapView.setShowCurrentLocationMarker(false);
-//        MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
-//
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude), false);
+        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+        mapView.setShowCurrentLocationMarker(false);
+        MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
+
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude), false);
 
     }
 
@@ -136,22 +160,22 @@ public class PostMapActivity extends FragmentActivity
     public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
         Log.i(LOG_TAG, "onMapViewDragEnded() call");
         //위치 트래킹모드 off
-//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
-//        mapView.setShowCurrentLocationMarker(false);
-//        MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
-//
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude), false);
+        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+        mapView.setShowCurrentLocationMarker(false);
+        MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
+
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude), false);
     }
 
     @Override
     public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
         Log.i(LOG_TAG, "onMapViewMoveFinished() call");
         //위치 트래킹모드 off
-//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
-//        mapView.setShowCurrentLocationMarker(false);
-//        MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
-//
-//        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude), false);
+        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+        mapView.setShowCurrentLocationMarker(false);
+        MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
+
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude), false);
     }
 
     @Override

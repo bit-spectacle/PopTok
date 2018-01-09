@@ -3,11 +3,18 @@ package com.poptok.android.poptok.controller.post;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.model.LocationParam;
 
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -34,9 +41,18 @@ public class PostMapFragment extends Fragment
     @ViewById(R.id.map_view)
     ViewGroup mapViewContainer;
 
+    @ViewById(R.id.trackingOffButton)
+    Button trackingOffButton;
+
+    @ViewById(R.id.trackingOnButton)
+    Button trackingOnButton;
+
+
+
+
     @AfterViews
     public void init() {
-        MapView mapView = new MapView(this.getActivity());
+        final MapView mapView = new MapView(this.getActivity());
         // MapView.clearMapTilePersistentCache();
         // mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
 
@@ -49,23 +65,69 @@ public class PostMapFragment extends Fragment
 
         //setContentView(R.layout.activity_drawmap);
 
+       //Button trackingOffButton = (Button) trackingOffButton;
+        trackingOffButton.setOnClickListener(new Button.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.i(LOG_TAG, "trackingOffButton Clicked");
+                mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+                mapView.setShowCurrentLocationMarker(false);
+                //Log.i(LOG_TAG, "getCurrentLocationTrackinMoid() " + mapView.getCurrentLocationTrackingMode());
+            }
+        });
+
+       // Button trackingOnButton = (Button) trackingOnButton;
+        trackingOnButton.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Log.i(LOG_TAG, "trackingOnButton Clicked");
+                //mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+
+                // Display display = ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth()
+                // Display display = this.getActivity().getWindowManager().getDefaultDisplay();
+                DisplayMetrics metrics = v.getResources().getDisplayMetrics();
+                int width = metrics.widthPixels;
+                int height = metrics.heightPixels;
+                //Point size = new Point();
+                //display.getSize(size);
+
+                //mapView.setZoomLevel(-2, false);
+                int zoomLevel = mapView.getZoomLevel();
+                MapPoint center = mapView.getMapCenterPoint();
+                MapPoint.GeoCoordinate gc = center.getMapPointGeoCoord();
+
+                LocationParam locationParam = LocationParam.getLoacationParam(zoomLevel, width, height, gc.latitude,  gc.longitude );
+                Log.i(LOG_TAG,
+                        String.format("display size check %f %f %f %f",
+                                locationParam.top.latitude, locationParam.top.longitude,
+                                locationParam.bottom.latitude, locationParam.bottom.longitude) );
+            }
+        });
+
+
+
+
         if(mapViewContainer != null) {
             mapViewContainer.addView(mapView);
         }
-    }
 
-    @Click(R.id.trackingOffButton)
-    void trackingOffButton(MapView mapView) {
-        Log.i(LOG_TAG, "trackingOffButton Clicked");
-        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
 
     }
 
-    @Click(R.id.tackingOnButton)
-    void trackingOnButton(MapView mapView){
-        Log.i(LOG_TAG, "trackingOnButton Clicked");
-        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
-    }
+//    @Click(R.id.trackingOffButton)
+//    void trackingOffButton(MapView mapView) {
+//        Log.i(LOG_TAG, "trackingOffButton Clicked");
+//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+//
+//    }
+//
+//    @Click(R.id.trackingOnButton)
+//    void trackingOnButton(MapView mapView){
+//        Log.i(LOG_TAG, "trackingOnButton Clicked");
+//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+//    }
 
 
     public void onMapViewInitialized(MapView mapView) {

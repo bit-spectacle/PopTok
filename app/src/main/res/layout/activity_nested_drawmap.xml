@@ -5,22 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/trackingOffButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="right"
-        android:text="X"/>
-
-    <Button
-        android:id = "@+id/tackingOnButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/trackingOffButton"
-        android:text="O" />
 
     <net.daum.mf.map.api.MapView
         android:id="@+id/map_view"

@@ -28,7 +28,8 @@
         <activity android:name=".controller.user.JoinActivity_" />
         <activity android:name=".controller.user.ChangeNickNameActivity_" />
         <activity android:name=".controller.user.FindPasswordActivity_" />
-        <activity android:name=".controller.post.PostMapActivity_"/>
+        <activity android:name=".controller.post.PostMapActivity_"
+           />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

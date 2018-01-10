@@ -66,6 +66,8 @@ public class DefaultCalloutBalloon extends FragmentActivity implements MapView.M
         //mapPoint를 받아와야함 --> 현재 사용자가 화면으로 보고 있는 위치 기준이 가장 좋겠지
         //일단 기본으로 getMapCenterPoint()로 한다
         defaultMarker.setMapPoint(mapView.getMapCenterPoint());
+        //중심을 가져와서 그 주변에 보이는 곳의 말풍선을 다 그려줘야함.
+        //중심을 가져왔으니까
         //defaultMarker.setMarkerType(MapPOIItem.MarkerType.BluePin);
         //defaultMarker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 

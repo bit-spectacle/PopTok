@@ -3,6 +3,7 @@ package com.poptok.android.poptok.controller.post;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -59,6 +60,13 @@ public class PostMapFragment extends Fragment
         MapView.CurrentLocationEventListener mCurrentLocationEventListener = null;
         onMapViewInitialized(mapView);
 
+
+
+
+
+
+
+
         //MapPoint mapPoint;
 
 //      mapView.setCurrentLocationEventListener(mCurrentLocationEventListener);
@@ -83,8 +91,9 @@ public class PostMapFragment extends Fragment
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "trackingOnButton Clicked");
-                //mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+                mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
 
+                //******************************************************************************************************
                 // Display display = ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth()
                 // Display display = this.getActivity().getWindowManager().getDefaultDisplay();
                 DisplayMetrics metrics = v.getResources().getDisplayMetrics();
@@ -103,9 +112,11 @@ public class PostMapFragment extends Fragment
                         String.format("display size check %f %f %f %f",
                                 locationParam.top.latitude, locationParam.top.longitude,
                                 locationParam.bottom.latitude, locationParam.bottom.longitude) );
+
+
+
             }
         });
-
 
 
 
@@ -115,6 +126,7 @@ public class PostMapFragment extends Fragment
 
 
     }
+
 
 //    @Click(R.id.trackingOffButton)
 //    void trackingOffButton(MapView mapView) {
@@ -144,6 +156,7 @@ public class PostMapFragment extends Fragment
 
 
         Log.i(LOG_TAG, "onMapViewInitialized");
+
         //mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
 
     }

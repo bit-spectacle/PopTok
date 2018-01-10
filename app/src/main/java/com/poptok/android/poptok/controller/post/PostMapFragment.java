@@ -32,12 +32,6 @@ public class PostMapFragment extends Fragment
 
     private static final String LOG_TAG = "PostMapActivity : ";
 
-    //    public void onMapViewInitialized(MapView mapView) {
-//        Log.i(LOG_TAG, "onMapViewInitialized() Success");
-//
-//        mapView.setMapCenterPointAndZoomLevel(MapPoint.mapPointWithCONGCoord());
-//
-//    }
 
     @ViewById(R.id.map_view)
     ViewGroup mapViewContainer;

@@ -73,13 +73,17 @@ public class AppBaseActivity extends AppCompatActivity
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.i("saveInstaceState : ", ""+savedInstanceState );
 
         setContentView(R.layout.activity_app_base);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
 
 
         // 플로팅 버튼 이벤트
@@ -109,11 +113,22 @@ public class AppBaseActivity extends AppCompatActivity
         headerView.findViewById(R.id.btn_menu_map).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(LOG_TAG, "nav_map Clicked" + a);
-                Intent intent = new Intent(a, PostMapActivity_.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                a.startActivity(intent);
+                Log.i(LOG_TAG, "nav_map Clicked" + a +" saveInstance : " + savedInstanceState);
 
+                setFragment(R.id.nav_map);
+               // Intent intent = new Intent(a, PostMapActivity_.class);
+              //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+             //   a.startActivity(intent);
+//                if( savedInstanceState))
+//                {
+//                    onBackPressed();
+//                }
+//                else {
+//
+////                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    a.startActivity(intent);
+//                }
 
 
 
@@ -124,8 +139,7 @@ public class AppBaseActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "nav_list Clicked");
-                Intent intent = new Intent(AppBaseActivity.this, PostListFragment.class);
-                startActivity(intent);
+                setFragment(R.id.nav_list);
             }
         });
 
@@ -134,9 +148,8 @@ public class AppBaseActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "nav_write Clicked");
+                setFragment(R.id.nav_write);
 
-                Intent intent = new Intent(AppBaseActivity.this, PostWriteFragment.class);
-                startActivity(intent);
             }
         });
 

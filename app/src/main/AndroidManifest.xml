@@ -29,7 +29,10 @@
         <activity android:name=".controller.user.ChangeNickNameActivity_" />
         <activity android:name=".controller.user.FindPasswordActivity_" />
         <activity android:name=".controller.post.PostMapActivity_"
-           />
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:taskAffinity="">
+        </activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

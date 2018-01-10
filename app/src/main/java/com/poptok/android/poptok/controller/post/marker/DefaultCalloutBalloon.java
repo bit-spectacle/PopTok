@@ -44,6 +44,10 @@ public class DefaultCalloutBalloon extends FragmentActivity implements MapView.M
         @Override
         public View getPressedCalloutBalloon(MapPOIItem mapPOIItem) {
             //여기서 클릭한게 뭔지 알아내서 리스트를 보여줘야함
+            String name = mapPOIItem.getItemName();
+            //이름 가지고 경도위도 알아내서 같은 경도 위도에 있는 애들 쫙 뿌려줘야하니까
+
+
             return null;
         }
 

@@ -45,7 +45,7 @@ public class DefaultCalloutBalloon extends FragmentActivity implements MapView.M
         public View getPressedCalloutBalloon(MapPOIItem mapPOIItem) {
             //여기서 클릭한게 뭔지 알아내서 리스트를 보여줘야함
             String name = mapPOIItem.getItemName();
-            //이름 가지고 경도위도 알아내서 같은 경도 위도에 있는 애들 쫙 뿌려줘야하니까
+            //이름 가지고 경도위도 알아내서 같은 경도 위도에 있는 글들 쫙 뿌려줘야하니까
 
 
             return null;
@@ -68,10 +68,9 @@ public class DefaultCalloutBalloon extends FragmentActivity implements MapView.M
        // defaultMarker.set
 
         //mapPoint를 받아와야함 --> 현재 사용자가 화면으로 보고 있는 위치 기준이 가장 좋겠지
-        //일단 기본으로 getMapCenterPoint()로 한다
         defaultMarker.setMapPoint(mapView.getMapCenterPoint());
         //중심을 가져와서 그 주변에 보이는 곳의 말풍선을 다 그려줘야함.
-        //중심을 가져왔으니까
+        //중심을 가져왔으니까 화면 크기 계산해서
         //defaultMarker.setMarkerType(MapPOIItem.MarkerType.BluePin);
         //defaultMarker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
 
@@ -106,10 +105,13 @@ public class DefaultCalloutBalloon extends FragmentActivity implements MapView.M
     @Override
     public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
 
+        //지도가 이동되었기때문에 이동한 위치에 있는 다른 말풍선들이 그려지도록
+
     }
 
     @Override
     public void onMapViewZoomLevelChanged(MapView mapView, int i) {
+        //switch문으로 Zoom레벨별로 축척 계산해서 말풍선 뿌려줘야할듯
 
     }
 
@@ -136,10 +138,16 @@ public class DefaultCalloutBalloon extends FragmentActivity implements MapView.M
     @Override
     public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
 
+        //드래그가 끝나면 그려주는걸로?
+
+
     }
 
     @Override
     public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
+
+
+        //이거 역시 이동이 끝나면 그려주는 것으로
 
     }
 

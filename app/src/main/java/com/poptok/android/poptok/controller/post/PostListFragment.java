@@ -7,7 +7,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.poptok.android.poptok.R;
-import com.poptok.android.poptok.model.post.PostItem;
+import com.poptok.android.poptok.model.post.PostListItem;
 import com.poptok.android.poptok.view.post.PostListAdapter;
 
 import org.androidannotations.annotations.AfterViews;
@@ -36,7 +36,7 @@ public class PostListFragment extends Fragment {
 
 
     @ItemClick(R.id.gridPost)
-    void listPostItemClicked(PostItem postItem) {
+    void listPostItemClicked(PostListItem postItem) {
         Log.d("clicked", postItem.getContent());
         Toast.makeText(getActivity(), postItem.getContent(), Toast.LENGTH_SHORT).show();
     }

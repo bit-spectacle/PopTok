@@ -6,14 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.poptok.android.poptok.model.post.PostItem;
+import com.poptok.android.poptok.model.post.PostListItem;
 import com.poptok.android.poptok.service.post.IPostItemFinder;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-import org.androidannotations.annotations.UiThread;
 import org.androidannotations.rest.spring.annotations.RestService;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ import java.util.List;
 public class PostListAdapter extends BaseAdapter {
 
     private int lastNo;
-    private List<PostItem> items;
+    private List<PostListItem> items;
 
     @RootContext
     Context context;
@@ -33,7 +32,7 @@ public class PostListAdapter extends BaseAdapter {
 
     public PostListAdapter() {
         Log.d("PostListAdapter", "before");
-        items = new ArrayList<PostItem>();
+        items = new ArrayList<PostListItem>();
     }
 
     @AfterInject
@@ -42,7 +41,7 @@ public class PostListAdapter extends BaseAdapter {
         Log.d("initAdapter", "before");
         lastNo = 0;
         while (true) {
-            List<PostItem> postItems = postItemFinder.findPost(lastNo);
+            List<PostListItem> postItems = postItemFinder.findPostList(lastNo);
             Log.d("initAdapter", String.format("item count:%d", postItems.size()));
             if(postItems.size() > 0) {
                 items.addAll(postItems);
@@ -81,7 +80,7 @@ public class PostListAdapter extends BaseAdapter {
     }
 
     @Override
-    public PostItem getItem(int i) {
+    public PostListItem getItem(int i) {
         return items.get(i);
     }
 

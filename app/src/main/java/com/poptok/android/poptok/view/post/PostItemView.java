@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.poptok.android.poptok.R;
-import com.poptok.android.poptok.model.post.PostItem;
+import com.poptok.android.poptok.model.post.PostListItem;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -30,7 +30,7 @@ public class PostItemView extends RelativeLayout {
         super(context);
     }
 
-    public void bind(PostItem postItem) {
+    public void bind(PostListItem postItem) {
         Log.d("bind", String.format("%d", postItem.getPostNo()));
         textPost.setText(postItem.getContent());
         textTag.setText(postItem.getTag());

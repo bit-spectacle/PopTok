@@ -2,29 +2,29 @@ package com.poptok.android.poptok.controller.post;
 
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Point;
-import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.model.LocationParam;
+import com.poptok.android.poptok.model.post.PostListItem;
+import com.poptok.android.poptok.model.post.PostMapItem;
+import com.poptok.android.poptok.service.post.PostThread;
 
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
 
 @EFragment(R.layout.activity_drawmap)
 public class PostMapFragment extends Fragment
@@ -42,8 +42,8 @@ public class PostMapFragment extends Fragment
     @ViewById(R.id.trackingOnButton)
     Button trackingOnButton;
 
-
-
+    @Bean
+    PostThread postThread;
 
     @AfterViews
     public void init() {
@@ -53,13 +53,6 @@ public class PostMapFragment extends Fragment
 
         MapView.CurrentLocationEventListener mCurrentLocationEventListener = null;
         onMapViewInitialized(mapView);
-
-
-
-
-
-
-
 
         //MapPoint mapPoint;
 
@@ -107,20 +100,27 @@ public class PostMapFragment extends Fragment
                                 locationParam.top.latitude, locationParam.top.longitude,
                                 locationParam.bottom.latitude, locationParam.bottom.longitude) );
 
-
-
+                Message.obtain(postThread.backHandler, PostThread.cPostMap, locationParam).sendToTarget();
             }
         });
-
-
 
         if(mapViewContainer != null) {
             mapViewContainer.addView(mapView);
         }
 
-
+        postThread.setMainHandler(postDataHandler);
+        postThread.setDaemon(true);
+        postThread.start();
     }
 
+    // postThread에서 postMap data가 넘어오면 UI 처리를 해준다.
+    private Handler postDataHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            List<PostMapItem> list = (List<PostMapItem>)msg.obj;
+            Log.d(LOG_TAG, String.format("postDataHandler size: %d", list.size()));
+        }
+    };
 
 //    @Click(R.id.trackingOffButton)
 //    void trackingOffButton(MapView mapView) {

@@ -4,10 +4,10 @@ package com.poptok.android.poptok.model.post;
  * Created by BIT on 2017-12-19.
  */
 
-public class PostItem {
+public class PostMapItem {
 
-    private int rownum;
     private int postNo;
+    private int groupCount;
     private int userNo;
     private int viewsCnt;
     private int likeCnt;
@@ -20,14 +20,14 @@ public class PostItem {
     private double latitude;
     private double longitude;
 
-    public PostItem() {
+    public PostMapItem() {
     }
 
-    public PostItem(int rownum, int postNo, int userNo, int viewsCnt, int likeCnt, int commentCnt,
-                    String content, String image, String kakaoLink, String postDate, String tag,
-                    double latitude, double longitude) {
-        this.rownum = rownum;
+    public PostMapItem(int postNo, int groupCount, int userNo, int viewsCnt, int likeCnt, int commentCnt,
+                       String content, String image, String kakaoLink, String postDate, String tag,
+                       double latitude, double longitude) {
         this.postNo = postNo;
+        this.groupCount = groupCount;
         this.userNo = userNo;
         this.viewsCnt = viewsCnt;
         this.likeCnt = likeCnt;
@@ -41,20 +41,20 @@ public class PostItem {
         this.longitude = longitude;
     }
 
-    public int getRownum() {
-        return rownum;
-    }
-
-    public void setRownum(int rownum) {
-        this.rownum = rownum;
-    }
-
     public int getPostNo() {
         return postNo;
     }
 
     public void setPostNo(int postNo) {
         this.postNo = postNo;
+    }
+
+    public int getGroupCount() {
+        return groupCount;
+    }
+
+    public void setGroupCount(int groupCount) {
+        this.groupCount = groupCount;
     }
 
     public int getUserNo() {

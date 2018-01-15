@@ -31,15 +31,15 @@ public class FriendCalloutBalloon extends FragmentActivity implements MapView.Ma
         private final View defaultCalloutBalloon;
 
         public DefaultCalloutBalloonAdapter() {
-            defaultCalloutBalloon = getLayoutInflater().inflate(R.layout.post_custom_callout_balloon, null);
+            defaultCalloutBalloon = getLayoutInflater().inflate(R.layout.post_balloon_basic, null);
         }
         @Override
         public View getCalloutBalloon(MapPOIItem poiItem){
             // ((ImageView) defaultCalloutBalloon.findViewById(R.id.badge)).setImageURI("./");
             //여기서 조건문 image가 없을 경우~ 조건 달아서 해줘야함
-            ((ImageView) defaultCalloutBalloon.findViewById(R.id.badge)).setImageResource(R.drawable.ic_launcher);
-            ((TextView) defaultCalloutBalloon.findViewById(R.id.title)).setText(poiItem.getItemName());
-            ((TextView) defaultCalloutBalloon.findViewById(R.id.desc)).setText("지니 귀여워");
+//            ((ImageView) defaultCalloutBalloon.findViewById(R.id.imagePost)).setImageResource(R.drawable.ic_launcher);
+//            ((TextView) defaultCalloutBalloon.findViewById(R.id.textPost)).setText(poiItem.getItemName());
+//            ((TextView) defaultCalloutBalloon.findViewById(R.id.textTag)).setText("지니 귀여워");
             return defaultCalloutBalloon;
         }
 

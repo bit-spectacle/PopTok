@@ -43,8 +43,8 @@ public class PostThread extends Thread {
             switch (msg.what) {
                 case PostThread.cPostMap :
                     LocationParam locationParam = (LocationParam)msg.obj;
-                    //result.obj = postItemFinder.findPostMap(locationParam.top.latitude,locationParam.top.longitude,locationParam.bottom.latitude,locationParam.bottom.longitude,1,6);
-                    result.obj = postItemFinder.findPostMap(37.498918388671875 , 127.03491187792969, 37.490278388671875, 127.02108787792969,1,6);
+                    result.obj = postItemFinder.findPostMap(locationParam.top.latitude,locationParam.top.longitude,locationParam.bottom.latitude,locationParam.bottom.longitude,1,6);
+                    //result.obj = postItemFinder.findPostMap(37.498918388671875 , 127.03491187792969, 37.490278388671875, 127.02108787792969,1,6);
                     break;
                 case PostThread.cPostList :
                     break;

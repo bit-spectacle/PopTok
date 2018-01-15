@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.poptok.android.poptok.R;
 
@@ -35,10 +34,10 @@ public class PostMarkerActivity extends FragmentActivity implements MapView.MapV
         public View getCalloutBalloon(MapPOIItem poiItem){
            // ((ImageView) defaultCalloutBalloon.findViewById(R.id.badge)).setImageURI("./");
             //여기서 조건문 image가 없을 경우~ 조건 달아서 해줘야함
-            View defaultCalloutBalloon = getLayoutInflater().inflate(R.layout.post_custom_callout_balloon, null);
-            ((ImageView) defaultCalloutBalloon.findViewById(R.id.badge)).setImageResource(R.drawable.ic_launcher);
-            ((TextView) defaultCalloutBalloon.findViewById(R.id.title)).setText(poiItem.getItemName());
-            ((TextView) defaultCalloutBalloon.findViewById(R.id.desc)).setText("지니 귀여워");
+            View defaultCalloutBalloon = getLayoutInflater().inflate(R.layout.post_balloon_basic, null);
+//            ((ImageView) defaultCalloutBalloon.findViewById(R.id.balloon_image)).setImageResource(R.drawable.ic_launcher);
+//            ((TextView) defaultCalloutBalloon.findViewById(R.id.title)).setText(poiItem.getItemName());
+//            ((TextView) defaultCalloutBalloon.findViewById(R.id.desc)).setText("지니 귀여워");
             return defaultCalloutBalloon;
         }
 

@@ -1,21 +1,27 @@
 package com.poptok.android.poptok.controller.post;
 
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.LayoutRes;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.controller.post.marker.DefaultCalloutBalloonAdapter;
 import com.poptok.android.poptok.model.LocationParam;
-import com.poptok.android.poptok.model.post.PostListItem;
 import com.poptok.android.poptok.model.post.PostMapItem;
 import com.poptok.android.poptok.service.post.PostThread;
 
+import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
@@ -28,7 +34,7 @@ import java.util.List;
 
 @EFragment(R.layout.activity_drawmap)
 public class PostMapFragment extends Fragment
-        implements MapView.OpenAPIKeyAuthenticationResultListener, MapView.MapViewEventListener{
+        implements MapView.OpenAPIKeyAuthenticationResultListener, MapView.MapViewEventListener, MapView.POIItemEventListener{
 
     private static final String LOG_TAG = "PostMapActivity : ";
 
@@ -45,22 +51,20 @@ public class PostMapFragment extends Fragment
     @Bean
     PostThread postThread;
 
+    @Bean
+    DefaultCalloutBalloonAdapter defaultCalloutBalloonAdapter;
+
+    MapView mapView;
+
     @AfterViews
     public void init() {
-        final MapView mapView = new MapView(this.getActivity());
-        // MapView.clearMapTilePersistentCache();
-        // mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+
+        Activity activity = this.getActivity();
+        mapView = new MapView(activity);
 
         MapView.CurrentLocationEventListener mCurrentLocationEventListener = null;
         onMapViewInitialized(mapView);
 
-        //MapPoint mapPoint;
-
-//      mapView.setCurrentLocationEventListener(mCurrentLocationEventListener);
-
-        //setContentView(R.layout.activity_drawmap);
-
-       //Button trackingOffButton = (Button) trackingOffButton;
         trackingOffButton.setOnClickListener(new Button.OnClickListener() {
 
             @Override
@@ -68,11 +72,9 @@ public class PostMapFragment extends Fragment
                 Log.i(LOG_TAG, "trackingOffButton Clicked");
                 mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
                 mapView.setShowCurrentLocationMarker(false);
-                //Log.i(LOG_TAG, "getCurrentLocationTrackinMoid() " + mapView.getCurrentLocationTrackingMode());
             }
         });
 
-       // Button trackingOnButton = (Button) trackingOnButton;
         trackingOnButton.setOnClickListener(new Button.OnClickListener(){
 
             @Override
@@ -80,16 +82,10 @@ public class PostMapFragment extends Fragment
                 Log.i(LOG_TAG, "trackingOnButton Clicked");
                 mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
 
-                //******************************************************************************************************
-                // Display display = ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth()
-                // Display display = this.getActivity().getWindowManager().getDefaultDisplay();
                 DisplayMetrics metrics = v.getResources().getDisplayMetrics();
                 int width = metrics.widthPixels;
                 int height = metrics.heightPixels;
-                //Point size = new Point();
-                //display.getSize(size);
 
-                //mapView.setZoomLevel(-2, false);
                 int zoomLevel = mapView.getZoomLevel();
                 MapPoint center = mapView.getMapCenterPoint();
                 MapPoint.GeoCoordinate gc = center.getMapPointGeoCoord();
@@ -108,6 +104,8 @@ public class PostMapFragment extends Fragment
             mapViewContainer.addView(mapView);
         }
 
+        mapView.setCalloutBalloonAdapter(defaultCalloutBalloonAdapter);
+
         postThread.setMainHandler(postDataHandler);
         postThread.setDaemon(true);
         postThread.start();
@@ -119,21 +117,22 @@ public class PostMapFragment extends Fragment
         public void handleMessage(Message msg) {
             List<PostMapItem> list = (List<PostMapItem>)msg.obj;
             Log.d(LOG_TAG, String.format("postDataHandler size: %d", list.size()));
+
+            for(int i=0; i< list.size(); i++) {
+                createCustomMarker(mapView, list.get(i));
+            }
         }
     };
 
-//    @Click(R.id.trackingOffButton)
-//    void trackingOffButton(MapView mapView) {
-//        Log.i(LOG_TAG, "trackingOffButton Clicked");
-//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
-//
-//    }
-//
-//    @Click(R.id.trackingOnButton)
-//    void trackingOnButton(MapView mapView){
-//        Log.i(LOG_TAG, "trackingOnButton Clicked");
-//        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
-//    }
+    private void createCustomMarker(MapView mapView, PostMapItem item) {
+        MapPOIItem marker = new MapPOIItem();
+        marker.setItemName(item.getContent());
+        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(item.getLatitude(), item.getLongitude()));
+        marker.setUserObject(item);
+
+        mapView.addPOIItem(marker);
+        mapView.selectPOIItem(marker, false);
+    }
 
 
     public void onMapViewInitialized(MapView mapView) {
@@ -228,4 +227,23 @@ public class PostMapFragment extends Fragment
         Log.i(LOG_TAG, String.format("Open API Key Authentication Result : code=%d, message=%s", resultCode, resultMessage));
     }
 
+    @Override
+    public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+
+    }
+
+    @Override
+    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+    }
 }

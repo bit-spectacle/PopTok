@@ -66,6 +66,7 @@ public class DefaultCalloutBalloon extends FragmentActivity implements MapView.M
         defaultMarker.setItemName(name);
         defaultMarker.setTag(0);
        // defaultMarker.set
+//        defaultMarker.setMarker
 
         //mapPoint를 받아와야함 --> 현재 사용자가 화면으로 보고 있는 위치 기준이 가장 좋겠지
         defaultMarker.setMapPoint(mapView.getMapCenterPoint());

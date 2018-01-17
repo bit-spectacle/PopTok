@@ -1,7 +1,6 @@
 package com.poptok.android.poptok.service.post;
 
-import com.poptok.android.poptok.model.post.PostListItem;
-import com.poptok.android.poptok.model.post.PostMapItem;
+import com.poptok.android.poptok.model.post.*;
 import com.poptok.android.poptok.service.HttpBasicAuthenticatorInterceptor;
 
 import org.androidannotations.rest.spring.annotations.Get;
@@ -21,4 +20,7 @@ public interface IPostItemFinder {
 
     @Get("/posting/map/{topLat}/{topLong}/{botLat}/{botLong}/{zoomLevel}/{userNo}")
     List<PostMapItem> findPostMap(@Path double topLat, @Path double topLong, @Path double botLat, @Path double botLong, @Path int zoomLevel, @Path int userNo);
+
+    @Get("/posting/get/{postNo}")
+    PostItem findPost(@Path int postNo);
 }

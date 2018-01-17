@@ -21,10 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.poptok.android.poptok.R;
-import com.poptok.android.poptok.controller.post.GoogleMapFragment;
 import com.poptok.android.poptok.controller.post.GoogleMapFragment_;
 import com.poptok.android.poptok.controller.post.PostListFragment_;
-import com.poptok.android.poptok.controller.post.PostMapFragment_;
 import com.poptok.android.poptok.controller.post.PostWriteFragment_;
 import com.poptok.android.poptok.controller.user.SettingMenuActivity;
 import com.poptok.android.poptok.tools.BottomNavigationViewHelper;

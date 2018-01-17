@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#880E4F</color>
     <color name="colorAccent">#1A237E</color>
     <color name="navigation_item_color">#51032d</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

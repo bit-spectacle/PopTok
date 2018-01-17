@@ -18,11 +18,12 @@ import org.androidannotations.rest.spring.annotations.RestService;
 public class PostThread extends Thread {
     public final static int cPostMap = 1;
     public final static int cPostList = 2;
+    public final static int cPostGet = 3;
 
     @RestService
-    static IPostItemFinder postItemFinder;
+    IPostItemFinder postItemFinder;
 
-    public static Handler mainHandler;
+    public Handler mainHandler;
     public Handler backHandler;
 
     public void setMainHandler(Handler handler) {
@@ -35,7 +36,7 @@ public class PostThread extends Thread {
         Looper.loop();
     }
 
-    public static class PostMessageHandler extends Handler {
+    public class PostMessageHandler extends Handler {
 
         @Override
         public void handleMessage(Message msg) {
@@ -44,15 +45,20 @@ public class PostThread extends Thread {
                 case PostThread.cPostMap :
                     LocationParam locationParam = (LocationParam)msg.obj;
                     result.obj = postItemFinder.findPostMap(locationParam.top.latitude,locationParam.top.longitude,locationParam.bottom.latitude,locationParam.bottom.longitude,1,6);
-                    //result.obj = postItemFinder.findPostMap(37.498918388671875 , 127.03491187792969, 37.490278388671875, 127.02108787792969,1,6);
                     break;
                 case PostThread.cPostList :
+                    break;
+                case PostThread.cPostGet:
+                    int postNo = (int)msg.obj;
+                    result.obj = postItemFinder.findPost(postNo);
                     break;
                 default:
                     break;
             }
 
-            mainHandler.sendMessage(result);
+            if(mainHandler != null) {
+                mainHandler.sendMessage(result);
+            }
         }
     }
 }

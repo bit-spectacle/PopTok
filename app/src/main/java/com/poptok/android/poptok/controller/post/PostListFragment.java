@@ -2,6 +2,7 @@ package com.poptok.android.poptok.controller.post;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -18,9 +19,6 @@ import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.post_list)
 public class PostListFragment extends Fragment {
-//
-//    @Bean
-//    PostListView postListView;
 
     @ViewById
     GridView gridPost;
@@ -37,8 +35,10 @@ public class PostListFragment extends Fragment {
 
     @ItemClick(R.id.gridPost)
     void listPostItemClicked(PostListItem postItem) {
-        Log.d("clicked", postItem.getContent());
-        Toast.makeText(getActivity(), postItem.getContent(), Toast.LENGTH_SHORT).show();
+        int postNo = postItem.getPostNo();
+        Intent intent = new Intent(this.getActivity(), PostDetailActivity_.class);
+        intent.putExtra("postNo", postNo);
+        startActivity(intent);
     }
 
 }

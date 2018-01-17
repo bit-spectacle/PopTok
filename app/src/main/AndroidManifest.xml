@@ -19,20 +19,21 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".controller.user.ChangePasswordActivity_" />
-
         <activity android:name=".controller.user.SettingMenuActivity_" />
         <activity android:name=".controller.user.JoinActivity_" />
         <activity android:name=".controller.user.ChangeNickNameActivity_" />
         <activity android:name=".controller.user.FindPasswordActivity_" />
-        <activity android:name=".controller.post.PostMapActivity_"
-            android:launchMode="singleInstance"
+        <activity android:name=".controller.post.PostDetailActivity_" />
+        <activity
+            android:name=".controller.post.PostMapActivity_"
             android:excludeFromRecents="true"
-            android:taskAffinity="">
-        </activity>
+            android:launchMode="singleInstance"
+            android:taskAffinity=""></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -40,6 +41,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
+
     </application>
 
 </manifest>

@@ -5,8 +5,8 @@
         <variable name="controller" type="com.poptok.android.poptok.controller.AppBaseActivity"/>
     </data>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
         android:background="@drawable/side_nav_bar"
         android:gravity="top"
         android:orientation="vertical"
@@ -46,8 +46,8 @@
 
                 <RelativeLayout
                     android:id="@+id/layout_menu_map"
-                    android:layout_width="76dp"
-                    android:layout_height="76dp"
+                    android:layout_width="67dp"
+                    android:layout_height="55dp"
                     android:layout_marginLeft="3dp"
                     android:background="@android:color/holo_blue_bright"
                     android:focusable="true"
@@ -56,8 +56,8 @@
 
                     <ImageButton
                         android:id="@+id/btn_menu_map"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_centerHorizontal="true"
                         android:background="@android:color/transparent"
                         android:scaleType="fitCenter"
@@ -73,73 +73,73 @@
 
                 </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="76dp"
-                        android:layout_height="76dp"
-                        android:layout_marginLeft="3dp"
-                        android:background="@android:color/holo_blue_bright">
-                        <ImageButton
-                            android:id="@+id/btn_menu_list"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@android:color/transparent"
-                            android:scaleType="fitCenter"
-                            android:layout_centerHorizontal="true"
-                            app:srcCompat="@drawable/albums" />
+                <RelativeLayout
+                    android:layout_width="67dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="2dp"
+                    android:background="@android:color/holo_blue_bright">
+                    <ImageButton
+                        android:id="@+id/btn_menu_list"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:layout_centerHorizontal="true"
+                        app:srcCompat="@drawable/albums" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/btn_menu_list"
-                            android:text="List"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black" />
-                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/btn_menu_list"
+                        android:text="List"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black" />
+                </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="76dp"
-                        android:layout_height="76dp"
-                        android:layout_marginLeft="3dp"
-                        android:background="@android:color/holo_blue_bright">
-                        <ImageButton
-                            android:id="@+id/btn_menu_write"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@android:color/transparent"
-                            android:scaleType="fitCenter"
-                            android:layout_centerHorizontal="true"
-                            app:srcCompat="@drawable/write" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/btn_menu_write"
-                            android:text="Write"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black" />
-                    </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="67dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="2dp"
+                    android:background="@android:color/holo_blue_bright">
+                    <ImageButton
+                        android:id="@+id/btn_menu_write"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:layout_centerHorizontal="true"
+                        app:srcCompat="@drawable/write" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/btn_menu_write"
+                        android:text="Write"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black" />
+                </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="76dp"
-                        android:layout_height="76dp"
-                        android:layout_marginLeft="3dp"
-                        android:background="@android:color/holo_blue_bright">
-                        <ImageButton
-                            android:id="@+id/btn_menu_chat"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@android:color/transparent"
-                            android:scaleType="fitCenter"
-                            android:layout_centerHorizontal="true"
-                            app:srcCompat="@drawable/chat" />
+                <RelativeLayout
+                    android:layout_width="67dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="2dp"
+                    android:background="@android:color/holo_blue_bright">
+                    <ImageButton
+                        android:id="@+id/btn_menu_chat"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:layout_centerHorizontal="true"
+                        app:srcCompat="@drawable/chat" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/btn_menu_chat"
-                            android:text="Chat"
-                            android:textAlignment="center"
-                            android:textColor="@android:color/black" />
-                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/btn_menu_chat"
+                        android:text="Chat"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black" />
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -153,7 +153,7 @@
                 android:background="@android:color/transparent"
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/close"
-               />
+                />
 
             <ImageButton
                 android:id="@+id/btn_menu_setting"

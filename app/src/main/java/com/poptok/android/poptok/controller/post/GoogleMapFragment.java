@@ -1,7 +1,6 @@
 package com.poptok.android.poptok.controller.post;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
@@ -55,9 +54,7 @@ import com.poptok.android.poptok.service.post.PostThread;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.RootContext;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -95,6 +92,7 @@ import java.util.List;
 @EFragment
 public class GoogleMapFragment extends Fragment
         implements OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener
@@ -166,8 +164,6 @@ public class GoogleMapFragment extends Fragment
             for(int i=0; i< list.size(); i++) {
                 addMarker(list.get(i), false);
             }
-//            addMarker(list.get(0), false);
-//            addMarker(list.get(list.size()-1), false);
         }
     };
 
@@ -184,7 +180,10 @@ public class GoogleMapFragment extends Fragment
         markerOptions.position(position);
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(marker_root_view)));
 
-        return googleMap.addMarker(markerOptions);
+        Marker marker = googleMap.addMarker(markerOptions);;
+        marker.setTag(postMapItem.getPostNo());
+
+        return marker;
     }
 
     @Override
@@ -298,7 +297,6 @@ public class GoogleMapFragment extends Fragment
         } else {
             setGoogleMapEvent();
         }
-        //callPostMapApi(DEFAULT_LOCATION);
     }
 
     private void setGoogleMapEvent() {
@@ -325,6 +323,8 @@ public class GoogleMapFragment extends Fragment
                     callPostMapApi();
                 }
             });
+
+            googleMap.setOnMarkerClickListener(this);
         }
     }
 
@@ -511,5 +511,15 @@ public class GoogleMapFragment extends Fragment
             }
         });
 
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+
+        int postNo = (int)marker.getTag();
+        Intent intent = new Intent(this.getActivity(), PostDetailActivity_.class);
+        intent.putExtra("postNo", postNo);
+        startActivity(intent);
+        return true;
     }
 }

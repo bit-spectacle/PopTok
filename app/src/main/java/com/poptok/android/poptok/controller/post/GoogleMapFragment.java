@@ -48,7 +48,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.poptok.android.poptok.R;
-import com.poptok.android.poptok.model.LocationParam;
+import com.poptok.android.poptok.model.location.LocationParam;
 import com.poptok.android.poptok.model.post.PostMapItem;
 import com.poptok.android.poptok.service.post.PostThread;
 
@@ -113,8 +113,14 @@ public class GoogleMapFragment extends Fragment
     private GoogleMap googleMap = null;
     private GoogleApiClient googleApiClient = null;
     private Marker currentMarker = null;
-    View marker_root_view;
-    TextView tv_marker;
+    View ballonBasic;
+    View ballonFriend;
+    View ballonGroup;
+    View ballonSecret;
+    TextView textPostBasic;
+    TextView textPostFriend;
+    TextView textPostGroup;
+    TextView textPostSecret;
 
     private final static int MAXENTRIES = 5;
     private String[] LikelyPlaceNames = null;
@@ -141,8 +147,14 @@ public class GoogleMapFragment extends Fragment
         mapView = (MapView)layout.findViewById(R.id.map);
         mapView.getMapAsync(this);
 
-        marker_root_view = LayoutInflater.from(this.getActivity()).inflate(R.layout.post_balloon_basic, null);
-        tv_marker = (TextView) marker_root_view.findViewById(R.id.textPost);
+        ballonBasic = LayoutInflater.from(this.getActivity()).inflate(R.layout.post_balloon_basic, null);
+        ballonFriend = LayoutInflater.from(this.getActivity()).inflate(R.layout.post_balloon_friend, null);
+        ballonGroup = LayoutInflater.from(this.getActivity()).inflate(R.layout.post_balloon_group, null);
+        ballonSecret = LayoutInflater.from(this.getActivity()).inflate(R.layout.post_balloon_secret, null);
+        textPostBasic = (TextView) ballonBasic.findViewById(R.id.textPostBasic);
+        textPostFriend = (TextView) ballonFriend.findViewById(R.id.textPostFriend);
+        textPostGroup = (TextView) ballonGroup.findViewById(R.id.textPostGroup);
+        textPostSecret = (TextView) ballonSecret.findViewById(R.id.textPostSecret);
 
         postThread.setMainHandler(postDataHandler);
         postThread.setDaemon(true);
@@ -170,15 +182,22 @@ public class GoogleMapFragment extends Fragment
     private Marker addMarker(PostMapItem postMapItem, boolean isSelectedMarker) {
 
         LatLng position = new LatLng(postMapItem.getLatitude(), postMapItem.getLongitude());
-        tv_marker.setText(postMapItem.getContent());
-
-        tv_marker.setBackgroundResource(R.drawable.custom_callout_balloon);
-        tv_marker.setTextColor(Color.BLACK);
-
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.title(postMapItem.getPostDate());
         markerOptions.position(position);
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(marker_root_view)));
+
+        if(postMapItem.getGroupCount() == 1) {
+            textPostBasic.setText(postMapItem.getContent());
+            textPostBasic.setBackgroundResource(R.drawable.balloon_basic);
+            textPostBasic.setTextColor(Color.BLACK);
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(ballonBasic)));
+        }
+        else {
+            textPostGroup.setText(postMapItem.getContent());
+            textPostGroup.setBackgroundResource(R.drawable.balloon_group);
+            textPostGroup.setTextColor(Color.BLACK);
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(ballonGroup)));
+        }
 
         Marker marker = googleMap.addMarker(markerOptions);;
         marker.setTag(postMapItem.getPostNo());

@@ -3,21 +3,17 @@ package com.poptok.android.poptok.controller.post;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.LayoutRes;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.controller.post.marker.DefaultCalloutBalloonAdapter;
-import com.poptok.android.poptok.model.LocationParam;
+import com.poptok.android.poptok.model.location.LocationParam;
 import com.poptok.android.poptok.model.post.PostMapItem;
 import com.poptok.android.poptok.service.post.PostThread;
 

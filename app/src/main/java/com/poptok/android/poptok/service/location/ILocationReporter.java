@@ -1,26 +1,27 @@
-package com.poptok.android.poptok.service.post;
+package com.poptok.android.poptok.service.location;
 
-import com.poptok.android.poptok.model.post.*;
+import com.poptok.android.poptok.model.ApiResult;
+import com.poptok.android.poptok.model.location.LocationLocalLog;
 import com.poptok.android.poptok.service.HttpBasicAuthenticatorInterceptor;
 
+import org.androidannotations.rest.spring.annotations.Body;
 import org.androidannotations.rest.spring.annotations.Get;
 import org.androidannotations.rest.spring.annotations.Path;
+import org.androidannotations.rest.spring.annotations.Post;
 import org.androidannotations.rest.spring.annotations.Rest;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 import java.util.List;
 
+
 @Rest(rootUrl = "http://192.168.2.9:3000",
         converters = {MappingJackson2HttpMessageConverter.class},
         interceptors = { HttpBasicAuthenticatorInterceptor.class })
-public interface IPostItemFinder {
+public interface ILocationReporter {
 
-    @Get("/posting/list/{lastNo}")
-    List<PostListItem> findPostList(@Path int lastNo);
+    @Get("/report/location/{userNo}")
+    ApiResult reportLocation(@Path int userNo);
 
-    @Get("/posting/map/{topLat}/{topLong}/{botLat}/{botLong}/{zoomLevel}/{userNo}")
-    List<PostMapItem> findPostMap(@Path double topLat, @Path double topLong, @Path double botLat, @Path double botLong, @Path int zoomLevel, @Path int userNo);
-
-    @Get("/posting/get/{postNo}")
-    PostItem findPost(@Path int postNo);
+    @Post("/report/location/{userNo}")
+    ApiResult reportLocation(@Path int userNo, @Body List<LocationLocalLog> locationLogList);
 }

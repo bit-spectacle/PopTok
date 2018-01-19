@@ -1,9 +1,13 @@
 package com.poptok.android.poptok.controller;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -25,53 +29,33 @@ import com.poptok.android.poptok.controller.post.GoogleMapFragment_;
 import com.poptok.android.poptok.controller.post.PostListFragment_;
 import com.poptok.android.poptok.controller.post.PostWriteFragment_;
 import com.poptok.android.poptok.controller.user.SettingMenuActivity;
+import com.poptok.android.poptok.service.location.LocationCollectService;
+import com.poptok.android.poptok.service.location.LocationReportService;
+import com.poptok.android.poptok.service.location.LocationReportService_;
 import com.poptok.android.poptok.tools.BottomNavigationViewHelper;
 
 public class AppBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String LOG_TAG = "AppBaseActivity";
+    BroadcastReceiver receiver;
 
-    private static final String LOG_TAG = "AppBaseActivity : ";
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Log.i(LOG_TAG, "onTouch Called");
-            switch (item.getItemId()) {
-                case R.id.navigation_map:
-                    setFragment(R.id.nav_map);
-                    Log.i(LOG_TAG, "nav_map Clicked");
-                    return true;
-                case R.id.navigation_list:
-                    setFragment(R.id.nav_list);
-                    Log.i(LOG_TAG, "nav_list Clicked");
-                    return true;
-                case R.id.navigation_write:
-                    setFragment(R.id.nav_write);
-                    Log.i(LOG_TAG, "nav_write Clicked");
-                    return true;
-                case R.id.navigation_chat:
-                    Log.i(LOG_TAG, "nav_chat Clicked");
-                    return true;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i("saveInstaceState : ", ""+savedInstanceState );
-
         setContentView(R.layout.activity_app_base);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setEvent(savedInstanceState, toolbar);
 
-        //View basicBalloon = getLayoutInflater().inflate(R.layout.post_nested_postitem, null);
+        // 기본 프레그먼트 : 맵
+        setFragment(R.id.nav_map);
+        setService();
+    }
 
+    private void setEvent(final Bundle savedInstanceState, Toolbar toolbar) {
         // 플로팅 버튼 이벤트
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +75,7 @@ public class AppBaseActivity extends AppCompatActivity
 
         // 왼쪽 메뉴 이벤트 핸들러
         NavigationView navigationView = findViewById(R.id.nav_view);
-       // navigationView.setNavigationItemSelectedListener(this);
+        // navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_app_base);
         final Activity a = this;
 
@@ -100,24 +84,7 @@ public class AppBaseActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "nav_map Clicked" + a +" saveInstance : " + savedInstanceState);
-
                 setFragment(R.id.nav_map);
-               // Intent intent = new Intent(a, PostMapActivity_.class);
-              //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-             //   a.startActivity(intent);
-//                if( savedInstanceState))
-//                {
-//                    onBackPressed();
-//                }
-//                else {
-//
-////                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    a.startActivity(intent);
-//                }
-
-
-
             }
         });
 
@@ -173,24 +140,52 @@ public class AppBaseActivity extends AppCompatActivity
             }
         });
 
-
-
-
         // 하단 메뉴 이벤트 핸들러
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
-
-        // 기본 프레그먼트 : 맵
-        setFragment(R.id.nav_map);
-
-
-
-
-
-
     }
 
+
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setService() {
+        Context context = getApplicationContext();
+        Intent collectIntent = new Intent(context, LocationCollectService.class);
+        startService(collectIntent);
+
+//        Intent reportIntent = new Intent(context, LocationReportService.class);
+//        startService(reportIntent);
+        LocationReportService_.intent(context).start();
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Log.i(LOG_TAG, "onTouch Called");
+            switch (item.getItemId()) {
+                case R.id.navigation_map:
+                    setFragment(R.id.nav_map);
+                    Log.i(LOG_TAG, "nav_map Clicked");
+                    return true;
+                case R.id.navigation_list:
+                    setFragment(R.id.nav_list);
+                    Log.i(LOG_TAG, "nav_list Clicked");
+                    return true;
+                case R.id.navigation_write:
+                    setFragment(R.id.nav_write);
+                    Log.i(LOG_TAG, "nav_write Clicked");
+                    return true;
+                case R.id.navigation_chat:
+                    Log.i(LOG_TAG, "nav_chat Clicked");
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     public void onBackPressed() {

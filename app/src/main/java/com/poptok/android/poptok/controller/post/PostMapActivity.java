@@ -10,16 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.poptok.android.poptok.R;
-import com.poptok.android.poptok.model.LocationParam;
+import com.poptok.android.poptok.model.location.LocationParam;
 
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ItemClick;
-
-import static net.daum.mf.map.api.MapView.CurrentLocationTrackingMode.TrackingModeOff;
 
 /**
  * Created by BIT on 2017-12-19.

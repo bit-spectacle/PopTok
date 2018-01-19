@@ -1,4 +1,4 @@
-package com.poptok.android.poptok.model;
+package com.poptok.android.poptok.model.location;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.Projection;

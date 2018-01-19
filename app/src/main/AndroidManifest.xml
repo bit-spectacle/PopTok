@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_SERVICE" />
+
+    <uses-permission android:name="android.permission.BIND_JOB_SERVICE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -42,6 +48,30 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+
+        <!-- GPS 서비스 -->
+        <service
+            android:name=".service.location.LocationCollectService"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+        <service
+            android:name=".service.location.LocationReportService_"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
+
+        <!--<receiver-->
+            <!--android:name=".service.RestartService"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="false"-->
+            <!--android:label="RestartService"-->
+            <!--android:process=":remote" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="ACTION.RESTART.PersistentService" />-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
     </application>
 

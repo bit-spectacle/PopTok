@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.poptok.android.poptok.model.LocationParam;
+import com.poptok.android.poptok.model.location.LocationParam;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.rest.spring.annotations.RestService;

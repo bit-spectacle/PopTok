@@ -1,4 +1,4 @@
-package com.poptok.android.poptok.model;
+package com.poptok.android.poptok.model.location;
 
 public class LocationPoint {
     public double latitude;

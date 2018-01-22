@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.poptok.android.poptok.R;
-import com.poptok.android.poptok.tools.Util;
 
 import org.androidannotations.annotations.EActivity;
 
@@ -59,29 +58,29 @@ public class JoinActivity extends AppCompatActivity {
         EditText passwordConfirm = (EditText)findViewById(R.id.passwordConfirmEditText);
 
 
-
-
-        if(Util.validateEmail(email.getText().toString()))
-        {
-            if(password.getText().toString() == passwordConfirm.getText().toString())
-            {
-
-            }
-
-        }
-
-        if(R.id.passwordEditText != R.id.passwordConfirmEditText)
-        {
-            //비밀번호와 비밀번호 확인이 다른 경우
-            Toast toast = Toast.makeText(getApplicationContext(), "비밀번호가 다릅니다.", Toast.LENGTH_LONG);
-
-
-        }
-        else if(R.id.passwordEditText == R.id.passwordConfirmEditText)
-        {
-
-        }
-
+//
+//
+//        if(Util.validateEmail(email.getText().toString()))
+//        {
+//            if(password.getText().toString() == passwordConfirm.getText().toString())
+//            {
+//
+//            }
+//
+//        }
+//
+//        if(R.id.passwordEditText != R.id.passwordConfirmEditText)
+//        {
+//            //비밀번호와 비밀번호 확인이 다른 경우
+//            Toast toast = Toast.makeText(getApplicationContext(), "비밀번호가 다릅니다.", Toast.LENGTH_LONG);
+//
+//
+//        }
+//        else if(R.id.passwordEditText == R.id.passwordConfirmEditText)
+//        {
+//
+//        }
+//
 
     }
 }

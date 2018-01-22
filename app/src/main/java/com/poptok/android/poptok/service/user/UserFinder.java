@@ -18,8 +18,8 @@ public interface UserFinder {
     @Get("/users/userinfo/{email}")
     List<User> findUser(@Path String email);
 
-    @Get("/auth/login/{email}/{password}")
-    JSONResult userLogin(@Path String email, @Path String password);
+//    @Get("/auth/login/{email}/{password}")
+//    JSONResult userLogin(@Path String email, @Path String password);
 
     @Get("/auth/join/{email}/{password}/{nickname}")
     List<User> userJoin(@Path String email, @Path String password, @Path String nickname);

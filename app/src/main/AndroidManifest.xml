@@ -35,6 +35,7 @@
         <activity android:name=".controller.user.ChangeNickNameActivity_" />
         <activity android:name=".controller.user.FindPasswordActivity_" />
         <activity android:name=".controller.post.PostDetailActivity_" />
+        <activity android:name=".controller.user.ProfileActivity_"/>
         <activity
             android:name=".controller.post.PostMapActivity_"
             android:excludeFromRecents="true"
@@ -62,15 +63,15 @@
         </service>
 
         <!--<receiver-->
-            <!--android:name=".service.RestartService"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="false"-->
-            <!--android:label="RestartService"-->
-            <!--android:process=":remote" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="ACTION.RESTART.PersistentService" />-->
-                <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
-            <!--</intent-filter>-->
+        <!--android:name=".service.RestartService"-->
+        <!--android:enabled="true"-->
+        <!--android:exported="false"-->
+        <!--android:label="RestartService"-->
+        <!--android:process=":remote" >-->
+        <!--<intent-filter>-->
+        <!--<action android:name="ACTION.RESTART.PersistentService" />-->
+        <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+        <!--</intent-filter>-->
         <!--</receiver>-->
 
     </application>

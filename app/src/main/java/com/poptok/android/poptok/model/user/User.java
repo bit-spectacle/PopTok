@@ -7,6 +7,7 @@ package com.poptok.android.poptok.model.user;
 public class User {
     private int userNo;
     private String email;
+    private String password;
     private String nickname;
     private String profileImage;
     private String role;
@@ -16,9 +17,12 @@ public class User {
     public User() {
     }
 
-    public User(int userNo, String email, String nickname, String profileImage, String role, String joindate, String lastlogin) {
+
+
+    public User(int userNo, String email, String password, String nickname, String profileImage, String role, String joindate, String lastlogin) {
         this.userNo = userNo;
         this.email = email;
+        this.password = password;
         this.nickname = nickname;
         this.profileImage = profileImage;
         this.role = role;
@@ -40,6 +44,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getNickname() {

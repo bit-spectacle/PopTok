@@ -64,8 +64,8 @@ public class UserThread extends Thread {
                     UserLogin userLogin = (UserLogin)msg.obj;
                     //result.obj = userFinder.userLogin(userLogin.email, userLogin.password);
 
-                    JSONResult<User> jsonResult = userFinder.userLogin(userLogin.email, userLogin.password);
-                    result.obj = jsonResult;
+//                    JSONResult<User> jsonResult = userFinder.userLogin(userLogin.email, userLogin.password);
+//                    result.obj = jsonResult;
 
                     Log.i("handleMessage ", "userLogin.email : "+userLogin.email + " / userLogin.password " + userLogin.password);
 

@@ -163,4 +163,6 @@ public class PostItem {
     public void setPoststatus(int poststatus) {
         this.poststatus = poststatus;
     }
+
+
 }

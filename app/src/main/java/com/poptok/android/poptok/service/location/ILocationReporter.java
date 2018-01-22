@@ -2,7 +2,7 @@ package com.poptok.android.poptok.service.location;
 
 import com.poptok.android.poptok.model.ApiResult;
 import com.poptok.android.poptok.model.location.LocationLocalLog;
-import com.poptok.android.poptok.service.HttpBasicAuthenticatorInterceptor;
+import com.poptok.android.poptok.service.interceptor.CookiePreserveHttpRequestInterceptor;
 
 import org.androidannotations.rest.spring.annotations.Body;
 import org.androidannotations.rest.spring.annotations.Get;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Rest(rootUrl = "http://192.168.2.9:3000",
         converters = {MappingJackson2HttpMessageConverter.class},
-        interceptors = { HttpBasicAuthenticatorInterceptor.class })
+        interceptors = { CookiePreserveHttpRequestInterceptor.class })
 public interface ILocationReporter {
 
     @Get("/report/location/{userNo}")

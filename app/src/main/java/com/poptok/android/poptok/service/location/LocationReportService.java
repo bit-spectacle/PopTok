@@ -41,13 +41,13 @@ public class LocationReportService extends Service implements Runnable {
 
     @Override
     public void run() {
-        reportLocation();
+        //reportLocation();
         handler.postDelayed(this, LOCATION_UPDATE_DELAY);
     }
 
     @Background
     public void reportLocation() {
-        int userNo = 102;
+        int userNo = 100;
         if(userNo > 0) {
             List<LocationLocalLog> list = db.getAll();
             for(LocationLocalLog log : list) {

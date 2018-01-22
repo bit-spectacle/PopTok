@@ -7,6 +7,7 @@ package com.poptok.android.poptok.service.user;
 public class JSONResult<DataType> {
     private String code;
     private String message;
+    private String sessionId;
     private DataType data;
 
     public JSONResult(){
@@ -16,6 +17,7 @@ public class JSONResult<DataType> {
     public JSONResult(String code, String message, String sessionId, DataType data) {
         this.code = code;
         this.message = message;
+        this.sessionId = sessionId;
         this.data = data;
     }
 
@@ -35,13 +37,13 @@ public class JSONResult<DataType> {
         this.message = message;
     }
 
-//    public String getSessionId() {
-//        return sessionId;
-//    }
-//
-//    public void setSessionId(String sessionId) {
-//        this.sessionId = sessionId;
-//    }
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
 
     public DataType getData() {
         return data;

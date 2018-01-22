@@ -7,7 +7,7 @@ import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.GsonBuilder;
 import com.poptok.android.poptok.exception.HttpResponseException;
 import com.poptok.android.poptok.exception.JSONResultException;
-import com.poptok.android.poptok.model.user.User;
+import com.poptok.android.poptok.model.user.UserInfo;
 
 import java.net.HttpURLConnection;
 import java.util.List;
@@ -26,9 +26,9 @@ public class UserProvider {
         this.context = context;
     }
 
-    public User login(String email, String password) throws HttpResponseException, JSONResultException {
+    public UserInfo login(String email, String password) throws HttpResponseException, JSONResultException {
 
-        String url = "http://192.168.1.39:3000/auth/login/"+email + "/" + password;
+        String url = "http://192.168.2.9:3000/auth/login/"+email + "/" + password;
 //        String url = "http://192.168.1.39:3000/auth/login/";
 //        String query = "/" + email + "/" + password;
 
@@ -82,9 +82,9 @@ public class UserProvider {
 
     }
 
-    public List<User> fetchUserList() throws HttpResponseException, JSONResultException {
+    public List<UserInfo> fetchUserList() throws HttpResponseException, JSONResultException {
         String url =
-                "http://192.168.1.39:3000/posting/list/0";
+                "http://192.168.2.9:3000/posting/list/0";
         HttpRequest request = HttpRequest.get( url );
 
         // session 얻어오기
@@ -120,21 +120,21 @@ public class UserProvider {
         return result.getData();
     }
 
-    private class JSONResultLogin extends JSONResult<User> {}
-    private class JSONResultFetchUserList extends com.poptok.android.poptok.service.user.JSONResult<List<User>> {}
+    private class JSONResultLogin extends JSONResult<UserInfo> {}
+    private class JSONResultFetchUserList extends com.poptok.android.poptok.service.user.JSONResult<List<UserInfo>> {}
 
 }
-//public class UserProvider implements UserFinder {
+//public class UserProvider implements IUserFinder {
 //    @Override
-//    public List<User> findUser(String email) {
-//        List<User> user = null;
+//    public List<UserInfo> findUser(String email) {
+//        List<UserInfo> user = null;
 //        return user;
 //    }
 //
 //    @Override
-//    public List<User> userLogin(String email, String password) {
+//    public List<UserInfo> userLogin(String email, String password) {
 //
-//        List<User> user = null;
+//        List<UserInfo> user = null;
 //        String url = "http://192.168.1.39:3000";
 //
 //
@@ -143,14 +143,14 @@ public class UserProvider {
 //    }
 //
 //    @Override
-//    public List<User> userJoin(String email, String password, String nickname) {
-//        List<User> user = null;
+//    public List<UserInfo> userJoin(String email, String password, String nickname) {
+//        List<UserInfo> user = null;
 //        return user;
 //    }
 //
 //    @Override
-//    public List<User> userLogout(int userNo) {
-//        List<User> user = null;
+//    public List<UserInfo> userLogout(int userNo) {
+//        List<UserInfo> user = null;
 //        return user;
 //    }
 //}

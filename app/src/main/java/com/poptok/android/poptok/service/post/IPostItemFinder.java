@@ -1,7 +1,9 @@
 package com.poptok.android.poptok.service.post;
 
-import com.poptok.android.poptok.model.post.*;
-import com.poptok.android.poptok.service.HttpBasicAuthenticatorInterceptor;
+import com.poptok.android.poptok.model.post.PostItem;
+import com.poptok.android.poptok.model.post.PostListItem;
+import com.poptok.android.poptok.model.post.PostMapItem;
+import com.poptok.android.poptok.service.interceptor.CookiePreserveHttpRequestInterceptor;
 
 import org.androidannotations.rest.spring.annotations.Get;
 import org.androidannotations.rest.spring.annotations.Path;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Rest(rootUrl = "http://192.168.2.9:3000",
         converters = {MappingJackson2HttpMessageConverter.class},
-        interceptors = { HttpBasicAuthenticatorInterceptor.class })
+        interceptors = { CookiePreserveHttpRequestInterceptor.class })
 public interface IPostItemFinder {
 
     @Get("/posting/list/{lastNo}")

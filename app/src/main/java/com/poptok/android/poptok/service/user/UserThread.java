@@ -6,9 +6,9 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
-import com.poptok.android.poptok.model.UserLogin;
+import com.poptok.android.poptok.model.user.UserLoginParam;
 import com.poptok.android.poptok.model.auth.AuthStore;
-import com.poptok.android.poptok.model.user.User;
+import com.poptok.android.poptok.model.user.UserInfo;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -24,14 +24,13 @@ public class UserThread extends Thread {
     public final static int uLogin = 1;
     public final static int uLogout = 2;
 
-    private AsyncTask<User> asyncTask;
 
     @Bean
     AuthStore authStore;
 
 
     @RestService
-    static UserFinder userFinder;
+    static IUserFinder userFinder;
 
     public Handler mainHandler;
     public Handler backHandler;
@@ -61,13 +60,10 @@ public class UserThread extends Thread {
             Message result = new Message();
             switch (msg.what) {
                 case UserThread.uLogin :
-                    UserLogin userLogin = (UserLogin)msg.obj;
-                    //result.obj = userFinder.userLogin(userLogin.email, userLogin.password);
-
-//                    JSONResult<User> jsonResult = userFinder.userLogin(userLogin.email, userLogin.password);
-//                    result.obj = jsonResult;
-
-                    Log.i("handleMessage ", "userLogin.email : "+userLogin.email + " / userLogin.password " + userLogin.password);
+                    UserLoginParam userLoginParam = (UserLoginParam)msg.obj;
+                    JSONResult<UserInfo> jsonResult = userFinder.userLogin(userLoginParam.email, userLoginParam.password);
+                    result.obj = jsonResult;
+                    Log.i("handleMessage ", "userLoginParam.email : "+ userLoginParam.email + " / userLoginParam.password " + userLoginParam.password);
 
                     break;
 

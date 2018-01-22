@@ -1,6 +1,6 @@
 package com.poptok.android.poptok.model.auth;
 
-import com.poptok.android.poptok.model.user.User;
+import com.poptok.android.poptok.model.user.UserInfo;
 
 import org.androidannotations.annotations.EBean;
 
@@ -10,7 +10,7 @@ import org.androidannotations.annotations.EBean;
 public class AuthStore {
 
     String sessionID;
-    User user;
+    UserInfo userInfo;
 
     public String getSessionID() {
         return sessionID;
@@ -20,11 +20,18 @@ public class AuthStore {
         this.sessionID = sessionID;
     }
 
-    public User getUser() {
-        return user;
+    public UserInfo getUserInfo() {
+        return userInfo;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    public boolean isLogin() {
+        if(sessionID != null && !sessionID.equals("") && userInfo != null && userInfo.getUserNo() > 0) {
+            return  true;
+        }
+        return  false;
     }
 }

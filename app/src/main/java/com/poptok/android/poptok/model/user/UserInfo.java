@@ -4,25 +4,23 @@ package com.poptok.android.poptok.model.user;
  * Created by BIT on 2018-01-22.
  */
 
-public class User {
+public class UserInfo {
     private int userNo;
     private String email;
-    private String password;
     private String nickname;
     private String profileImage;
     private String role;
     private String joindate;
     private String lastlogin;
 
-    public User() {
+    public UserInfo() {
     }
 
 
 
-    public User(int userNo, String email, String password, String nickname, String profileImage, String role, String joindate, String lastlogin) {
+    public UserInfo(int userNo, String email, String nickname, String profileImage, String role, String joindate, String lastlogin) {
         this.userNo = userNo;
         this.email = email;
-        this.password = password;
         this.nickname = nickname;
         this.profileImage = profileImage;
         this.role = role;
@@ -44,14 +42,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getNickname() {

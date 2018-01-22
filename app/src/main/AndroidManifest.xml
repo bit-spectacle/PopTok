@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".controller.user.LoginActivity_"
+            android:name=".controller.AppBaseActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -29,13 +29,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".controller.user.LoginActivity_" />
         <activity android:name=".controller.user.ChangePasswordActivity_" />
         <activity android:name=".controller.user.SettingMenuActivity_" />
         <activity android:name=".controller.user.JoinActivity_" />
         <activity android:name=".controller.user.ChangeNickNameActivity_" />
         <activity android:name=".controller.user.FindPasswordActivity_" />
-        <activity android:name=".controller.post.PostDetailActivity_" />
         <activity android:name=".controller.user.ProfileActivity_"/>
+        <activity android:name=".controller.post.PostDetailActivity_" />
         <activity
             android:name=".controller.post.PostMapActivity_"
             android:excludeFromRecents="true"

@@ -28,9 +28,10 @@ import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.controller.post.GoogleMapFragment_;
 import com.poptok.android.poptok.controller.post.PostListFragment_;
 import com.poptok.android.poptok.controller.post.PostWriteFragment_;
+import com.poptok.android.poptok.controller.user.ProfileActivity;
+import com.poptok.android.poptok.controller.user.ProfileActivity_;
 import com.poptok.android.poptok.controller.user.SettingMenuActivity;
 import com.poptok.android.poptok.service.location.LocationCollectService;
-import com.poptok.android.poptok.service.location.LocationReportService;
 import com.poptok.android.poptok.service.location.LocationReportService_;
 import com.poptok.android.poptok.tools.BottomNavigationViewHelper;
 
@@ -79,6 +80,13 @@ public class AppBaseActivity extends AppCompatActivity
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_app_base);
         final Activity a = this;
 
+        headerView.findViewById(R.id.textNick).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(LOG_TAG, "textNick Clicked" + a +" saveInstance : " + savedInstanceState);
+                ProfileActivity_.intent(getApplicationContext()).start();
+            }
+        });
 
         headerView.findViewById(R.id.btn_menu_map).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +144,6 @@ public class AppBaseActivity extends AppCompatActivity
                 Log.i(LOG_TAG, "nav_setting Clicked");
                 Intent intent = new Intent(AppBaseActivity.this, SettingMenuActivity.class);
                 startActivity(intent);
-
             }
         });
 
@@ -155,8 +162,6 @@ public class AppBaseActivity extends AppCompatActivity
         Intent collectIntent = new Intent(context, LocationCollectService.class);
         startService(collectIntent);
 
-//        Intent reportIntent = new Intent(context, LocationReportService.class);
-//        startService(reportIntent);
         LocationReportService_.intent(context).start();
     }
 

@@ -1,33 +1,30 @@
 package com.poptok.android.poptok.model.user;
 
 /**
- * Created by BIT on 2018-01-12.
+ * Created by BIT on 2018-01-22.
  */
 
 public class User {
-
     private int userNo;
     private String email;
     private String nickname;
-//    private String password;
+    private String profileImage;
     private String role;
     private String joindate;
-    private String lastLogin;
+    private String lastlogin;
 
-    public User(){
-
+    public User() {
     }
 
-    public User(int userNo, String email, String nickname,/* String password , */String role, String joindate , String lastLogin){
+    public User(int userNo, String email, String nickname, String profileImage, String role, String joindate, String lastlogin) {
         this.userNo = userNo;
         this.email = email;
         this.nickname = nickname;
-        //this.password = password;
+        this.profileImage = profileImage;
         this.role = role;
         this.joindate = joindate;
-        this.lastLogin = lastLogin;
+        this.lastlogin = lastlogin;
     }
-
 
     public int getUserNo() {
         return userNo;
@@ -53,13 +50,13 @@ public class User {
         this.nickname = nickname;
     }
 
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
 
     public String getRole() {
         return role;
@@ -77,12 +74,11 @@ public class User {
         this.joindate = joindate;
     }
 
-    public String getLastLogin() {
-        return lastLogin;
+    public String getLastlogin() {
+        return lastlogin;
     }
 
-    public void setLastLogin(String lastLogin) {
-        this.lastLogin = lastLogin;
+    public void setLastlogin(String lastlogin) {
+        this.lastlogin = lastlogin;
     }
 }
-

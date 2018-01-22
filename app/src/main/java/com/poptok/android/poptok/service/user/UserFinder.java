@@ -15,10 +15,18 @@ import java.util.List;
         interceptors = {HttpBasicAuthenticatorInterceptor.class})
 public interface UserFinder {
 
-    @Get("/Users/userinfo/{email}")
+    @Get("/users/userinfo/{email}")
     List<User> findUser(@Path String email);
 
-    @Get("/Users/login/{email}/{password}")
-    List<User> userLogin(@Path String email, @Path String password);
+    @Get("/auth/login/{email}/{password}")
+    JSONResult userLogin(@Path String email, @Path String password);
+
+    @Get("/auth/join/{email}/{password}/{nickname}")
+    List<User> userJoin(@Path String email, @Path String password, @Path String nickname);
+
+    @Get("/auth/logout/{userNo}")
+    List<User> userLogout(@Path int userNo );
+
+
 
 }

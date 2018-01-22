@@ -1,6 +1,8 @@
 package com.poptok.android.poptok.controller.user;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,10 +11,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.controller.AppBaseActivity;
 import com.poptok.android.poptok.model.UserLogin;
+import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.user.User;
+import com.poptok.android.poptok.service.user.JSONResult;
 import com.poptok.android.poptok.service.user.UserThread;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -37,6 +43,41 @@ public class LoginActivity extends AppCompatActivity {
     @Bean
     UserThread userThread;
 
+    @Bean
+    AuthStore authStore;
+
+    Context context;
+
+    @AfterViews
+    void init(){
+        context = this.getApplicationContext();
+        userThread.setMainHandler(loginHandler);
+        userThread.setDaemon(true);
+        userThread.start();
+    }
+
+    private Handler loginHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            JSONResult<User> jsonResult = (JSONResult)msg.obj;
+            Log.i(LOG_TAG, "loginHandler called() ");
+
+            if(jsonResult.getCode().equals("SUCC")){
+                authStore.setSessionID(jsonResult.getSessionId());
+                authStore.setUser(jsonResult.getData());
+
+                Intent intent = new Intent(context, AppBaseActivity.class);
+                startActivity(intent);
+            }
+            else {
+
+            }
+
+        }
+    };
+
+    private class JSONResultLogin extends JSONResult<User> {}
+
 
 
 
@@ -55,9 +96,9 @@ public class LoginActivity extends AppCompatActivity {
         UserLogin userLogin = UserLogin.getUserLogin(email, password);
 
         Message.obtain(userThread.backHandler, UserThread.uLogin, userLogin).sendToTarget();
+        //Message.obtain(UserThread.uLogin, userLogin).sendToTarget();
 
-
-        Log.i("loginbutton", "" + email + " " + password);
+        //Log.i("loginbutton", "" + email + " " + password);
     }
 
     @Click

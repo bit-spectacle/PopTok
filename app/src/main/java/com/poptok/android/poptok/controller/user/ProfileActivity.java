@@ -2,10 +2,10 @@ package com.poptok.android.poptok.controller.user;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.model.auth.AuthStore;
-import com.poptok.android.poptok.model.post.PostItem;
 import com.poptok.android.poptok.model.user.UserInfo;
 import com.poptok.android.poptok.service.user.IUserFinder;
 import com.poptok.android.poptok.service.user.JSONResult;
@@ -15,6 +15,7 @@ import com.poptok.android.poptok.view.user.UserProfile;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.rest.spring.annotations.RestService;
 
 /**
@@ -36,6 +37,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Bean
     AuthStore authStore;
+
+    @ViewById(R.id.changeNickNameButton)
+    Button changeNickNameButton;
 
     @AfterViews
     public void init() {

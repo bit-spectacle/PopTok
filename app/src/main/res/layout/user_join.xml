@@ -3,18 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_activity_main_background"
-   >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp">
+    android:orientation="vertical">
+    <!--android:background="@drawable/ic_activity_main_background"-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop = "35dp"
             >
 
             <EditText
@@ -66,20 +64,21 @@
                 android:onClick="agreeCheckBoxClick"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_gravity="center"
             >
 
             <Button
                 android:id="@+id/joinButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="55dp"
                 android:layout_marginRight="45dp"
                 android:onClick="joinButtonClick"
                 android:text="Join"
-                android:enabled="false"/>
+               />
+            <!--  android:enabled="false"-->
 
             <Button
                 android:layout_width="wrap_content"
@@ -92,14 +91,15 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="80dp">
 
             <TextView
                 android:id="@+id/findIdText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:text=" 아이디가 기억나지 않으세요?"
@@ -107,7 +107,7 @@
 
             <TextView
                 android:id="@+id/findPasswordText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" 비밀번호가 기억나지 않으세요?"
                 android:onClick="findPasswordTextClick"/>
@@ -116,5 +116,3 @@
         </LinearLayout>
     </LinearLayout>
 
-
-</LinearLayout>

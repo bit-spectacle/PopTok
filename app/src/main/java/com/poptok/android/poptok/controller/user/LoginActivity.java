@@ -8,13 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.controller.AppBaseActivity;
+import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.user.UserInfo;
 import com.poptok.android.poptok.model.user.UserLoginParam;
-import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.service.user.JSONResult;
 import com.poptok.android.poptok.service.user.UserThread;
 
@@ -29,9 +28,6 @@ import org.androidannotations.annotations.ViewById;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "LoginActivity : ";
-
-    @ViewById(R.id.poptokTextView)
-    TextView poptokTextView;
 
     @ViewById(R.id.userNameEditText)
     EditText userNameEditText;

@@ -28,7 +28,6 @@ import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.controller.post.GoogleMapFragment_;
 import com.poptok.android.poptok.controller.post.PostListFragment_;
 import com.poptok.android.poptok.controller.post.PostWriteFragment_;
-import com.poptok.android.poptok.controller.user.ProfileActivity;
 import com.poptok.android.poptok.controller.user.ProfileActivity_;
 import com.poptok.android.poptok.controller.user.SettingMenuActivity;
 import com.poptok.android.poptok.service.location.LocationCollectService;

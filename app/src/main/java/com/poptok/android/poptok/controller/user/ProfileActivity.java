@@ -49,6 +49,9 @@ public class ProfileActivity extends AppCompatActivity {
     @ViewById(R.id.changeNickNameButton)
     Button changeNickNameButton;
 
+    @ViewById(R.id.backButton)
+    Button backButton;
+
     @RestService
     IUserFinder userFinder;
 
@@ -74,8 +77,13 @@ public class ProfileActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-//        userProfileAsyncTask = new UserProfileAsyncTask(this, userFinder);
-//        userProfileAsyncTask.execute(authStore.getUserInfo().getEmail());
+        userProfileAsyncTask = new UserProfileAsyncTask(this, userFinder);
+        userProfileAsyncTask.execute(authStore.getUserInfo().getEmail());
+    }
+
+    @Click
+    public void backButton(){
+        onBackPressed();
     }
 
     @Click
@@ -91,7 +99,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     @Click
-    public void ChangeNickNameButton(){
+    public void changeNickNameButton(){
 
     }
 

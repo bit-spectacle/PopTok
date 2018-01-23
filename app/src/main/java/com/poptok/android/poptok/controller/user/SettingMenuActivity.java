@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.model.auth.AuthStore;
+import com.poptok.android.poptok.model.auth.AuthStore_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -36,35 +39,18 @@ public class SettingMenuActivity extends AppCompatActivity {
     @AfterViews
     void init(){
 
-//        changeProfileText.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(this,ProfileActivity_.class);
-//                startActivity(intent);
-//            }
-//        });
     }
 
     @Click
     public void changeProfileText(){
-        Intent intent = new Intent(this,ProfileActivity_.class);
-        startActivity(intent);
+        AuthStore authStore = AuthStore_.getInstance_(this.getApplicationContext());
+        if(authStore.isLogin() == false) {
+            LoginActivity_.intent(this).start();
+            Toast.makeText(getApplicationContext(), "로그인을 해주세요.", Toast.LENGTH_LONG).show();
+        }
+        else{
+            Intent intent = new Intent(this,ProfileActivity_.class);
+            startActivity(intent);
+        }
     }
-
-
-
-
-
-
-//
-//    public void changeProfileText(){
-////        Intent intent = new Intent(this, ProfileActivity.class);
-////        startActivity(intent);
-//        //LoginActivity_.intent(this.getActivity()).start();
-//        //ProfileActivity.intent(this).start();
-//        Intent intent = new Intent(this, ProfileActivity.class);
-//        startActivity(intent);
-//    }
-
 }

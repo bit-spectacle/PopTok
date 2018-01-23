@@ -20,14 +20,14 @@
 />
 
 
-        <TextView
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="22dp"
-            android:text = " ㄴ 비밀번호 변경"
-            android:textSize="15sp"
-            android:textColor="#000000"
-            />
+        <!--<TextView-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="22dp"-->
+            <!--android:text = " ㄴ 비밀번호 변경"-->
+            <!--android:textSize="15sp"-->
+            <!--android:textColor="#000000"-->
+            <!--/>-->
 
         <!--<TextView-->
             <!--android:id="@+id/changeNickNameText"-->
@@ -39,14 +39,14 @@
             <!--android:textColor="#000000"/>-->
 
 
-        <!--<TextView-->
-            <!--android:id="@+id/changePasswordText"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text=" ㄴ 비밀번호 변경"-->
-            <!--android:textSize="15sp"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:textColor="#000000"/>-->
+        <TextView
+            android:id="@+id/changePasswordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" ㄴ 비밀번호 변경"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"/>
 
 
         <TextView
@@ -67,12 +67,11 @@
             />
 
         <Switch
+            android:id="@+id/allAlramSwitch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="전체 알림"
-            android:id="@+id/allAlramSwitch"
-            android:textSize="15dp"
-            />
+            android:textSize="15dp" />
 
         <Switch
             android:layout_width="match_parent"
@@ -105,6 +104,7 @@
             android:textSize="15dp"
             android:id="@+id/gpsSwitch"
             />
+
 
 
 

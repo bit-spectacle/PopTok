@@ -29,7 +29,7 @@ import com.poptok.android.poptok.controller.post.GoogleMapFragment_;
 import com.poptok.android.poptok.controller.post.PostListFragment_;
 import com.poptok.android.poptok.controller.post.PostWriteFragment_;
 import com.poptok.android.poptok.controller.user.ProfileActivity_;
-import com.poptok.android.poptok.controller.user.SettingMenuActivity;
+import com.poptok.android.poptok.controller.user.SettingMenuActivity_;
 import com.poptok.android.poptok.service.location.LocationCollectService;
 import com.poptok.android.poptok.service.location.LocationReportService_;
 import com.poptok.android.poptok.tools.BottomNavigationViewHelper;
@@ -141,8 +141,12 @@ public class AppBaseActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "nav_setting Clicked");
-                Intent intent = new Intent(AppBaseActivity.this, SettingMenuActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(AppBaseActivity.this, SettingMenuActivity.class);
+//                startActivity(intent);
+                //LoginActivity_.intent(this.getActivity()).start();
+                SettingMenuActivity_.intent(AppBaseActivity.this).start();
+
+
             }
         });
 

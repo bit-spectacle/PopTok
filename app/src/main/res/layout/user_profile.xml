@@ -57,6 +57,7 @@
         android:gravity="center"
         android:layout_marginTop="20dp">
         <TextView
+            android:id="@+id/userNickNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NickName"
@@ -71,15 +72,18 @@
         android:layout_marginTop="20dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@drawable/jini"
             android:id="@+id/profileImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:src="@drawable/ic_launcher"
             app:civ_border_color="#FFFFFF"
-            app:civ_border_width="2dp" />
+            app:civ_border_width="2dp"
+/>
+            <!--android:src="@drawable/default_profile"-->
+
 
 
     </LinearLayout>
@@ -92,6 +96,7 @@
         android:layout_marginTop="15dp">
 
         <TextView
+            android:id="@+id/userStatusTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="test"

@@ -32,9 +32,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "LoginActivity : ";
 
-    @ViewById(R.id.poptokTextView)
-    TextView poptokTextView;
-
     @ViewById(R.id.userNameEditText)
     EditText userNameEditText;
 

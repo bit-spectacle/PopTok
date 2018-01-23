@@ -28,7 +28,6 @@ import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.controller.post.GoogleMapFragment_;
 import com.poptok.android.poptok.controller.post.PostListFragment_;
 import com.poptok.android.poptok.controller.post.PostWriteFragment_;
-import com.poptok.android.poptok.controller.user.ProfileActivity;
 import com.poptok.android.poptok.controller.user.ProfileActivity_;
 import com.poptok.android.poptok.controller.user.SettingMenuActivity;
 import com.poptok.android.poptok.service.location.LocationCollectService;
@@ -237,7 +236,6 @@ public class AppBaseActivity extends AppCompatActivity
         Fragment fragment = null;
         switch (id) {
             case R.id.nav_map:
-                //fragment = new PostMapFragment_().builder().build();
                 fragment = new GoogleMapFragment_().builder().build();
                 break;
             case R.id.nav_list:

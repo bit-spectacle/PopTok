@@ -41,7 +41,7 @@ public class LocationReportService extends Service implements Runnable {
 
     @Override
     public void run() {
-        //reportLocation();
+        reportLocation();
         handler.postDelayed(this, LOCATION_UPDATE_DELAY);
     }
 

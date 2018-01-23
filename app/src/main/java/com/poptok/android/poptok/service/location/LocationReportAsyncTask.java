@@ -1,6 +1,5 @@
 package com.poptok.android.poptok.service.location;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -8,7 +7,6 @@ import com.poptok.android.poptok.model.ApiResult;
 import com.poptok.android.poptok.model.location.LocationLocalLog;
 import com.poptok.android.poptok.service.localDB.LocalDBOpenHelper;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class LocationReportAsyncTask extends AsyncTask<Integer, String, ApiResult> {

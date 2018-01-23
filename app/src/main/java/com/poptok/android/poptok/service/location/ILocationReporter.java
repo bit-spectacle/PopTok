@@ -2,6 +2,7 @@ package com.poptok.android.poptok.service.location;
 
 import com.poptok.android.poptok.model.ApiResult;
 import com.poptok.android.poptok.model.location.LocationLocalLog;
+import com.poptok.android.poptok.service.Config;
 import com.poptok.android.poptok.service.interceptor.CookiePreserveHttpRequestInterceptor;
 
 import org.androidannotations.rest.spring.annotations.Body;
@@ -14,7 +15,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import java.util.List;
 
 
-@Rest(rootUrl = "http://192.168.2.9:3000",
+@Rest(rootUrl = Config.apiUrl,
         converters = {MappingJackson2HttpMessageConverter.class},
         interceptors = { CookiePreserveHttpRequestInterceptor.class })
 public interface ILocationReporter {

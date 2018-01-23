@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.controller.BaseActivity;
 import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.post.PostItem;
 import com.poptok.android.poptok.model.user.UserInfo;
@@ -23,7 +24,7 @@ import org.androidannotations.rest.spring.annotations.RestService;
 
 
 @EActivity(R.layout.user_profile)
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseActivity {
 
 
     @RestService
@@ -43,8 +44,10 @@ public class ProfileActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        userProfileAsyncTask = new UserProfileAsyncTask(this, userFinder);
-        userProfileAsyncTask.execute(authStore.getUserInfo().getEmail());
+        if(authStore.isLogin()) {
+            userProfileAsyncTask = new UserProfileAsyncTask(this, userFinder);
+            userProfileAsyncTask.execute(authStore.getUserInfo().getEmail());
+        }
     }
 
     public void setView(JSONResult<UserInfo> jsonResult) {

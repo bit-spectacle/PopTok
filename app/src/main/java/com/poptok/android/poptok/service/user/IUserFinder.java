@@ -1,6 +1,7 @@
 package com.poptok.android.poptok.service.user;
 
 import com.poptok.android.poptok.model.user.UserInfo;
+import com.poptok.android.poptok.service.Config;
 import com.poptok.android.poptok.service.interceptor.CookiePreserveHttpRequestInterceptor;
 
 import org.androidannotations.rest.spring.annotations.Get;
@@ -10,7 +11,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 
 import java.util.List;
 
-@Rest(rootUrl = "http://192.168.2.9:3000",
+@Rest(rootUrl = Config.apiUrl,
         converters = {MappingJackson2HttpMessageConverter.class},
         interceptors = {CookiePreserveHttpRequestInterceptor.class})
 public interface IUserFinder {

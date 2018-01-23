@@ -7,8 +7,10 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.controller.AppBaseActivity;
@@ -46,10 +48,13 @@ public class LoginActivity extends AppCompatActivity {
     AuthStore authStore;
 
     Context context;
+    InputMethodManager imm;
 
     @AfterViews
     void init(){
         context = this.getApplicationContext();
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
         userThread.setMainHandler(loginHandler);
         userThread.setDaemon(true);
         userThread.start();
@@ -62,14 +67,12 @@ public class LoginActivity extends AppCompatActivity {
             Log.i(LOG_TAG, "loginHandler called() ");
 
             if(jsonResult.getCode().equals("SUCC")){
-                authStore.setSessionID(jsonResult.getSessionId());
                 authStore.setUserInfo(jsonResult.getData());
-
-                Intent intent = new Intent(context, AppBaseActivity.class);
-                startActivity(intent);
+                goToMain();
             }
             else {
-
+                hideKeyboard();
+                Toast.makeText(getApplicationContext(), "로그인 실패. 다시 한번 확인해주세요.", Toast.LENGTH_LONG).show();
             }
 
         }
@@ -78,40 +81,59 @@ public class LoginActivity extends AppCompatActivity {
     private class JSONResultLogin extends JSONResult<UserInfo> {}
 
 
+    private void hideKeyboard()
+    {
+        imm.hideSoftInputFromWindow(userNameEditText.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(passwordEditText.getWindowToken(), 0);
+    }
 
+    private void goToMain() {
+        Intent intent = new Intent(this, AppBaseActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
+    @Click(R.id.loginLayout)
+    public void userLoginLayoutClicked(View v) {
+        hideKeyboard();
+    }
 
     @Click
     public void loginButton(View v){
-        //db랑 연결해서 회원인지 확인하는 것이 필요.
-        //회원이 아니거나 비밀번호가 다를 경우 확인해달라는 toast 띄워야함
-
-//        String Email  = UserInfo.class.get
-//        Log.i(LOG_TAG, ""+ UserInfo.getEmail().toString());
-//        Log.i(LOG_TAG, String.format(UserInfo.getEmail(), ""));
 
         String email = userNameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        if(email == null || email.trim().length() == 0) {
+            Toast.makeText(getApplicationContext(), "아이디를 입력해주세요.", Toast.LENGTH_LONG).show();
+            userNameEditText.requestFocus();
+            return;
+        }
+
+        if(password == null || password.trim().length() == 0) {
+            Toast.makeText(getApplicationContext(), "비밀번호를 입력해주세요.", Toast.LENGTH_LONG).show();
+            passwordEditText.requestFocus();
+            return;
+        }
 
         UserLoginParam userLoginParam = UserLoginParam.getUserLogin(email, password);
-
         Message.obtain(userThread.backHandler, UserThread.uLogin, userLoginParam).sendToTarget();
-        //Message.obtain(UserThread.uLogin, userLoginParam).sendToTarget();
-
-        //Log.i("loginbutton", "" + email + " " + password);
+        hideKeyboard();
     }
 
     @Click
     public void cancelButton(View v){
-        //이게 여기 있을 필요가 있는가?
+        goToMain();
+    }
 
+    @Override
+    public void onBackPressed() {
+        goToMain();
     }
 
     @Click
     public void joinText(View v){
 
-        Intent intent = new Intent(this, JoinActivity.class);
-        startActivity(intent);
-
+        JoinActivity_.intent(this).start();
     }
 
     @Click

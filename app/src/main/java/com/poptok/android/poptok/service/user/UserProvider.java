@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import com.poptok.android.poptok.exception.HttpResponseException;
 import com.poptok.android.poptok.exception.JSONResultException;
 import com.poptok.android.poptok.model.user.UserInfo;
+import com.poptok.android.poptok.service.Config;
 
 import java.net.HttpURLConnection;
 import java.util.List;
@@ -28,7 +29,7 @@ public class UserProvider {
 
     public UserInfo login(String email, String password) throws HttpResponseException, JSONResultException {
 
-        String url = "http://192.168.2.9:3000/auth/login/"+email + "/" + password;
+        String url = Config.apiUrl + "/auth/login/"+email + "/" + password;
 //        String url = "http://192.168.1.39:3000/auth/login/";
 //        String query = "/" + email + "/" + password;
 
@@ -83,8 +84,7 @@ public class UserProvider {
     }
 
     public List<UserInfo> fetchUserList() throws HttpResponseException, JSONResultException {
-        String url =
-                "http://192.168.2.9:3000/posting/list/0";
+        String url = Config.apiUrl + "/posting/list/0";
         HttpRequest request = HttpRequest.get( url );
 
         // session 얻어오기

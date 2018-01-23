@@ -35,7 +35,7 @@
         <activity android:name=".controller.user.JoinActivity_" />
         <activity android:name=".controller.user.ChangeNickNameActivity_" />
         <activity android:name=".controller.user.FindPasswordActivity_" />
-        <activity android:name=".controller.user.ProfileActivity_"/>
+        <activity android:name=".controller.user.ProfileActivity_" android:noHistory="true" />
         <activity android:name=".controller.post.PostDetailActivity_" />
         <activity
             android:name=".controller.post.PostMapActivity_"

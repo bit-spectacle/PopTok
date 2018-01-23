@@ -3,7 +3,6 @@ package com.poptok.android.poptok.controller.post;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.model.post.PostItem;
@@ -16,7 +15,6 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
-import org.androidannotations.annotations.Touch;
 import org.androidannotations.rest.spring.annotations.RestService;
 
 @EActivity(R.layout.post_detail)

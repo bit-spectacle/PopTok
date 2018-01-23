@@ -1,7 +1,6 @@
 package com.poptok.android.poptok.controller.user;
 
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
@@ -9,22 +8,33 @@ import android.widget.Toast;
 
 import com.poptok.android.poptok.R;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.user_join)
 public class JoinActivity extends AppCompatActivity {
 
+    /*
+    * EditText email = (EditText)findViewById(R.id.IdEditText);
+        EditText password = (EditText)findViewById(R.id.passwordEditText);
+        EditText passwordConfirm = (EditText)findViewById(R.id.passwordConfirmEditText);
+    * */
 
-    @Override
-    protected void onCreate(Bundle saveInstanceState)
-    {
-        super.onCreate(saveInstanceState);
+    @ViewById(R.id.IdEditText)
+    EditText idEditText;
 
-        //setContentView(R.layout.user_join);
+    @ViewById(R.id.passwordEditText)
+    EditText passwordEditText;
 
-        //여기는 닉네임 중복확인 때문에 onCreate 주석처리 안함
-        checkAll();
+    @ViewById(R.id.passwordConfirmEditText)
+    EditText passwordConfirmEditText;
 
+
+    @AfterViews
+    void init(){
+
+        //중복확인 및 비밀번호 체크
 
     }
 
@@ -56,6 +66,7 @@ public class JoinActivity extends AppCompatActivity {
         EditText email = (EditText)findViewById(R.id.IdEditText);
         EditText password = (EditText)findViewById(R.id.passwordEditText);
         EditText passwordConfirm = (EditText)findViewById(R.id.passwordConfirmEditText);
+
 
 
 //

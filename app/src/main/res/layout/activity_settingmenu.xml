@@ -11,45 +11,59 @@
         android:orientation="vertical"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp">
-
-
         <TextView
             android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="정보 수정"
+            android:textSize="20dp"
+/>
+
+
+        <TextView
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="22dp"
-            android:text = "비밀번호 변경"
-            android:textSize="17sp"
-            android:layout_gravity="center"
-            android:gravity="center" />
+            android:text = " ㄴ 비밀번호 변경"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            />
 
-        <TextView
-            android:id="@+id/changeNickNameText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="닉네임 변경"
-            android:layout_marginTop="20dp"/>
+        <!--<TextView-->
+            <!--android:id="@+id/changeNickNameText"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text=" ㄴ 닉네임 변경"-->
+            <!--android:textSize="15sp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:textColor="#000000"/>-->
 
 
-        <TextView
-            android:id="@+id/changePasswordText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="비밀번호 변경"
-            android:layout_marginTop="5dp"/>
+        <!--<TextView-->
+            <!--android:id="@+id/changePasswordText"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text=" ㄴ 비밀번호 변경"-->
+            <!--android:textSize="15sp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:textColor="#000000"/>-->
 
 
         <TextView
             android:id="@+id/changeProfileText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="프로필 이미지 설정"
-            android:layout_marginTop="5dp"/>
+            android:text=" ㄴ 프로필 이미지 및 닉네임 설정"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="알림 설정 "
             android:layout_marginTop="20dp"
+            android:textSize="20dp"
             />
 
         <Switch
@@ -57,12 +71,14 @@
             android:layout_height="wrap_content"
             android:text="전체 알림"
             android:id="@+id/allAlramSwitch"
+            android:textSize="15dp"
             />
 
         <Switch
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=" ㄴ 친구 포스팅"
+            android:textSize="15dp"
             android:id="@+id/friendPostingAlramSwitch"
             />
 
@@ -71,18 +87,22 @@
             android:layout_height="wrap_content"
             android:text=" ㄴ 댓글"
             android:id="@+id/commentAlramSwitch"
+            android:textSize="15dp"
+
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="위치"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:textSize="20dp"/>
 
         <Switch
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="위치 추적"
+            android:text=" ㄴ 위치 추적"
+            android:textSize="15dp"
             android:id="@+id/gpsSwitch"
             />
 

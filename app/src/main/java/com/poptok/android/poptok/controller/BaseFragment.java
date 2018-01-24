@@ -11,10 +11,6 @@ import com.poptok.android.poptok.controller.user.LoginActivity_;
 import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.auth.AuthStore_;
 
-/**
- * Created by BIT on 2018-01-22.
- */
-
 public class BaseFragment extends Fragment {
 
     @Override

@@ -1,7 +1,9 @@
 package com.poptok.android.poptok.controller.post;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -50,6 +52,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.model.location.LocationParam;
 import com.poptok.android.poptok.model.post.PostMapItem;
+import com.poptok.android.poptok.service.location.LocationProvider;
 import com.poptok.android.poptok.service.post.PostThread;
 
 import org.androidannotations.annotations.Bean;
@@ -98,7 +101,7 @@ public class GoogleMapFragment extends Fragment
         LocationListener
 {
 
-    private static final String LOG_TAG = "GoogleMapFragment : ";
+    private static final String LOG_TAG = "GoogleMapFragment";
 
     private static final LatLng DEFAULT_LOCATION = new LatLng(37.56, 126.97);
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -108,6 +111,8 @@ public class GoogleMapFragment extends Fragment
 
     @Bean
     PostThread postThread;
+
+    LocationProvider locationProvider;
 
     private MapView mapView = null;
     private GoogleMap googleMap = null;
@@ -155,6 +160,8 @@ public class GoogleMapFragment extends Fragment
         textPostFriend = (TextView) ballonFriend.findViewById(R.id.textPostFriend);
         textPostGroup = (TextView) ballonGroup.findViewById(R.id.textPostGroup);
         textPostSecret = (TextView) ballonSecret.findViewById(R.id.textPostSecret);
+
+        locationProvider = new LocationProvider(this.getActivity());
 
         postThread.setMainHandler(postDataHandler);
         postThread.setDaemon(true);
@@ -240,7 +247,7 @@ public class GoogleMapFragment extends Fragment
         mapView.onPause();
 
         if ( googleApiClient != null && googleApiClient.isConnected()) {
-            LocationServices.getFusedLocationProviderClient(getActivity()).removeLocationUpdates(
+            LocationServices.getFusedLocationProviderClient(this.activity).removeLocationUpdates(
                     new LocationCallback() {
 
                     }
@@ -265,7 +272,7 @@ public class GoogleMapFragment extends Fragment
             googleApiClient.unregisterConnectionFailedListener(this);
 
             if ( googleApiClient.isConnected()) {
-                LocationServices.getFusedLocationProviderClient(getActivity()).removeLocationUpdates(
+                LocationServices.getFusedLocationProviderClient(this.activity).removeLocationUpdates(
                         new LocationCallback() {
 
                         }
@@ -275,6 +282,7 @@ public class GoogleMapFragment extends Fragment
         }
     }
 
+    Activity activity;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -285,6 +293,7 @@ public class GoogleMapFragment extends Fragment
         {
             mapView.onCreate(savedInstanceState);
         }
+        this.activity = getActivity();
     }
 
     @Override
@@ -303,12 +312,12 @@ public class GoogleMapFragment extends Fragment
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // 사용권한체크
-            int hasFineLocationPermission = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+            int hasFineLocationPermission = ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION);
 
             if ( hasFineLocationPermission == PackageManager.PERMISSION_DENIED) {
                 //사용권한이 없을경우
                 //권한 재요청
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
             } else {
                 //사용권한이 있는경우
                 setGoogleMapEvent();
@@ -316,6 +325,7 @@ public class GoogleMapFragment extends Fragment
         } else {
             setGoogleMapEvent();
         }
+
     }
 
     private void setGoogleMapEvent() {
@@ -323,7 +333,7 @@ public class GoogleMapFragment extends Fragment
             buildGoogleApiClient();
         }
 
-        if ( ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        if ( ActivityCompat.checkSelfPermission(this.activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
             googleMap.setMyLocationEnabled(true);
 
@@ -351,7 +361,7 @@ public class GoogleMapFragment extends Fragment
     private Bitmap createDrawableFromView(View view) {
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        this.activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
         view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
@@ -365,7 +375,7 @@ public class GoogleMapFragment extends Fragment
     }
 
     private void buildGoogleApiClient() {
-        googleApiClient = new GoogleApiClient.Builder(getActivity())
+        googleApiClient = new GoogleApiClient.Builder(this.activity)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
@@ -377,7 +387,7 @@ public class GoogleMapFragment extends Fragment
     }
 
     public boolean checkLocationServicesStatus() {
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) this.activity.getSystemService(Context.LOCATION_SERVICE);
 
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -402,19 +412,22 @@ public class GoogleMapFragment extends Fragment
             return;
         }
 
+        Location nowLocation = locationProvider.getLocation();
+        LatLng nowLatLng = nowLocation == null ? DEFAULT_LOCATION : new LatLng(nowLocation.getLatitude(), nowLocation.getLongitude());
+
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(DEFAULT_LOCATION);
+        markerOptions.position(nowLatLng);
         markerOptions.title(markerTitle);
         markerOptions.snippet(markerSnippet);
         markerOptions.draggable(true);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         currentMarker = this.googleMap.addMarker(markerOptions);
 
-        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(DEFAULT_LOCATION));
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(nowLatLng));
     }
 
     private  void callPostMapApi() {
-        LocationParam locationParam = LocationParam.getGoogleLoacationParam(googleMap);
+        LocationParam locationParam = LocationParam.getGoogleLocationParam(googleMap);
         Message.obtain(postThread.backHandler, PostThread.cPostMap, locationParam).sendToTarget();
     }
 
@@ -431,7 +444,7 @@ public class GoogleMapFragment extends Fragment
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if ( !checkLocationServicesStatus()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
             builder.setTitle("위치 서비스 비활성화");
             builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n" +
                     "위치 설정을 수정하십시오.");
@@ -459,17 +472,17 @@ public class GoogleMapFragment extends Fragment
         locationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
 
         if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if ( ActivityCompat.checkSelfPermission(getActivity(),
+            if ( ActivityCompat.checkSelfPermission(this.activity,
                     Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-                LocationServices.getFusedLocationProviderClient(getActivity()).requestLocationUpdates(locationRequest,
+                LocationServices.getFusedLocationProviderClient(this.activity).requestLocationUpdates(locationRequest,
                         new LocationCallback() {
                         },
                         null
                 );
             }
         } else {
-            LocationServices.getFusedLocationProviderClient(getActivity()).requestLocationUpdates(locationRequest,
+            LocationServices.getFusedLocationProviderClient(this.activity).requestLocationUpdates(locationRequest,
                     new LocationCallback() {
                     },
                     null
@@ -536,7 +549,7 @@ public class GoogleMapFragment extends Fragment
     public boolean onMarkerClick(Marker marker) {
 
         int postNo = (int)marker.getTag();
-        Intent intent = new Intent(this.getActivity(), PostDetailActivity_.class);
+        Intent intent = new Intent(this.activity, PostDetailActivity_.class);
         intent.putExtra("postNo", postNo);
         startActivity(intent);
         return true;

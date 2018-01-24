@@ -5,8 +5,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.location.LocationParam;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.rest.spring.annotations.RestService;
 
@@ -22,6 +24,9 @@ public class PostThread extends Thread {
 
     @RestService
     IPostItemFinder postItemFinder;
+
+    @Bean
+    AuthStore authStore;
 
     public Handler mainHandler;
     public Handler backHandler;
@@ -44,7 +49,8 @@ public class PostThread extends Thread {
             switch (msg.what) {
                 case PostThread.cPostMap :
                     LocationParam locationParam = (LocationParam)msg.obj;
-                    result.obj = postItemFinder.findPostMap(locationParam.top.latitude,locationParam.top.longitude,locationParam.bottom.latitude,locationParam.bottom.longitude,1,6);
+                    int userNo = authStore.isLogin() ? authStore.getUserInfo().getUserNo() : 0;
+                    result.obj = postItemFinder.findPostMap(locationParam.top.latitude,locationParam.top.longitude,locationParam.bottom.latitude,locationParam.bottom.longitude,1, userNo);
                     break;
                 case PostThread.cPostList :
                     break;

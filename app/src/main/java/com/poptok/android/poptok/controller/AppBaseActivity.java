@@ -25,9 +25,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.controller.cloud.WordcloudActivity;
+import com.poptok.android.poptok.controller.cloud.WordcloudActivity_;
 import com.poptok.android.poptok.controller.post.GoogleMapFragment_;
 import com.poptok.android.poptok.controller.post.PostListFragment_;
 import com.poptok.android.poptok.controller.post.PostWriteFragment_;
+import com.poptok.android.poptok.controller.search.SearchFilterActivity_;
 import com.poptok.android.poptok.controller.user.ProfileActivity_;
 import com.poptok.android.poptok.controller.user.SettingMenuActivity_;
 import com.poptok.android.poptok.service.location.LocationCollectService;
@@ -40,6 +43,8 @@ public class AppBaseActivity extends AppCompatActivity
     private static final String LOG_TAG = "AppBaseActivity";
     BroadcastReceiver receiver;
 
+    int lastFragmentId = R.id.nav_map;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -49,10 +54,14 @@ public class AppBaseActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setEvent(savedInstanceState, toolbar);
-
-        // 기본 프레그먼트 : 맵
-        setFragment(R.id.nav_map);
         setService();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // 기본 프레그먼트 : 맵
+        setFragment(lastFragmentId);
     }
 
     private void setEvent(final Bundle savedInstanceState, Toolbar toolbar) {
@@ -61,8 +70,7 @@ public class AppBaseActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            WordcloudActivity_.intent(AppBaseActivity.this).start();
             }
         });
 
@@ -114,10 +122,11 @@ public class AppBaseActivity extends AppCompatActivity
         });
 
         //chat으로 갈 때
-        headerView.findViewById(R.id.btn_menu_chat).setOnClickListener(new View.OnClickListener() {
+        headerView.findViewById(R.id.btn_menu_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "nav_chat Clicked");
+                SearchFilterActivity_.intent(AppBaseActivity.this).startForResult(0);
             }
         });
 
@@ -187,8 +196,9 @@ public class AppBaseActivity extends AppCompatActivity
                     setFragment(R.id.nav_write);
                     Log.i(LOG_TAG, "nav_write Clicked");
                     return true;
-                case R.id.navigation_chat:
-                    Log.i(LOG_TAG, "nav_chat Clicked");
+                case R.id.navigation_search:
+                    Log.i(LOG_TAG, "nav_search Clicked");
+                    SearchFilterActivity_.intent(AppBaseActivity.this).startForResult(0);
                     return true;
             }
             return false;
@@ -237,6 +247,7 @@ public class AppBaseActivity extends AppCompatActivity
     }
 
     public void setFragment(int id) {
+        lastFragmentId = id;
         Fragment fragment = null;
         switch (id) {
             case R.id.nav_map:

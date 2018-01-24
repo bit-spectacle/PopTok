@@ -102,7 +102,8 @@
             <RelativeLayout
                 android:layout_above="@id/linearDetail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#33000000">
                 <ImageView android:id="@+id/imageDetailUser"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -147,6 +148,20 @@
                     android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:text="컨텐츠." />
+
+                <Button
+                    android:id="@+id/btnKakaoChat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_below="@+id/textDetailContent"
+                    android:background="@color/colorPrimary"
+                    android:textColor="#ffffff"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    android:text="카카오톡 오픈채팅가기" />
+
             </RelativeLayout>
         </RelativeLayout>
     </FrameLayout>

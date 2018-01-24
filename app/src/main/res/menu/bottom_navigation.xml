@@ -22,9 +22,9 @@
         app:showAsAction="always|withText"/>
 
     <item
-        android:id="@+id/navigation_chat"
-        android:icon="@drawable/chat"
-        android:title="Chat"
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/search"
+        android:title="Search"
         app:showAsAction="always|withText" />
 
 </menu>

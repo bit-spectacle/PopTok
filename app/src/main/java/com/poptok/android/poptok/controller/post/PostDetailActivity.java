@@ -37,6 +37,7 @@ public class PostDetailActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+        postDetail.setActivity(this);
         postAsyncTask = new PostAsyncTask(this, postItemFinder);
         postAsyncTask.execute(postNo);
     }

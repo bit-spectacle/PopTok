@@ -37,7 +37,8 @@ public class PostItemView extends RelativeLayout {
         Glide.with(this)
                 .load(postItem.getImage())
                 .apply(new RequestOptions()
-                        .placeholder(R.drawable.loading))
+                        .placeholder(R.drawable.loading)
+                        )
                 .into(imagePost);
     }
 

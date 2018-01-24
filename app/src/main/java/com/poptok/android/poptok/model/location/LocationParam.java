@@ -35,7 +35,7 @@ public class LocationParam {
         return  locationParam;
     }
 
-    public static LocationParam getGoogleLoacationParam(GoogleMap googleMap) {
+    public static LocationParam getGoogleLocationParam(GoogleMap googleMap) {
         Projection projection = googleMap.getProjection();
         LatLngBounds bounds = projection.getVisibleRegion().latLngBounds;
         LatLng center = googleMap.getCameraPosition().target;

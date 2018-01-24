@@ -128,19 +128,19 @@
                     android:background="@android:color/holo_blue_bright">
 
                     <ImageButton
-                        android:id="@+id/btn_menu_chat"
+                        android:id="@+id/btn_menu_search"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_centerHorizontal="true"
                         android:background="@android:color/transparent"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/chat" />
+                        app:srcCompat="@drawable/search" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/btn_menu_chat"
-                        android:text="Chat"
+                        android:layout_below="@id/btn_menu_search"
+                        android:text="Search"
                         android:textAlignment="center"
                         android:textColor="@android:color/black" />
                 </RelativeLayout>

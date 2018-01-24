@@ -1,9 +1,13 @@
 package com.poptok.android.poptok.view.post;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,8 +15,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.controller.post.PostDetailActivity;
 import com.poptok.android.poptok.model.post.PostItem;
 
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.UiThread;
@@ -41,6 +47,9 @@ public class PostDetail {
     TextView textDetailNick;
 
     @ViewById
+    Button btnKakaoChat;
+
+    @ViewById
     ImageView imageDetailBack;
     @ViewById
     ImageView imageDetail;
@@ -58,30 +67,58 @@ public class PostDetail {
     @ViewById
     FrameLayout frameDetail;
 
+    PostItem postItem;
+
+    Activity activity;
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
     @UiThread
     public void setView(PostItem postItem) {
         Log.d("PostDetail", String.format("postNo: %d", postItem.getPostNo()));
+        this.postItem = postItem;
 
         textDetailNick.setText(postItem.getNickname());
 
+        String imageUrl = postItem.getImage();
+
         Glide.with(context)
-                .load(postItem.getImage())
+                .load(imageUrl)
                 .apply(bitmapTransform(new BlurTransformation(25)))
                 .apply(bitmapTransform(new ColorFilterTransformation(Color.argb(80, 40, 40, 40))))
                 .apply(new RequestOptions()
                         .placeholder(R.drawable.loading))
                 .into(imageDetailBack);
-        Glide.with(context)
-                .load(postItem.getImage())
-                .apply(new RequestOptions()
-                        .placeholder(R.drawable.loading))
-                .into(imageDetail);
+        if(imageUrl.contains("poptok_logo_back")) {
+            imageDetail.setVisibility(View.INVISIBLE);
+        }
+        else {
+            Glide.with(context)
+                    .load(imageUrl)
+                    .apply(new RequestOptions()
+                            .placeholder(R.drawable.loading))
+                    .into(imageDetail);
+        }
 
         textDetailDate.setText(postItem.getPostDate());
         textDetailContent.setText(postItem.getContent());
         textDetailViewCount.setText(String.format("%d views", postItem.getViewsCnt()));
         textDetailCommentCount.setText(String.format("%d", postItem.getCommentCnt()));
         textDetailLikeCount.setText(String.format("%d",postItem.getLikeCnt()));
+
+        if(postItem.getKakaoLink().length() > 0) {
+            btnKakaoChat.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Click
+    public void btnKakaoChatClicked(View v) {
+        Uri uri = Uri.parse(postItem.getKakaoLink());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        activity.startActivity(intent);
     }
 
     public void toggleDetail() {
@@ -89,4 +126,6 @@ public class PostDetail {
         int visibility = nowVisibility == View.VISIBLE ? View.INVISIBLE : View.VISIBLE;
         frameDetail.setVisibility(visibility);
     }
+
+
 }

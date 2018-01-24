@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#dddddd"
+        android:orientation="vertical">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/selector_fieldset_background"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="40dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnToday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="오늘" />
+
+                    <Button
+                        android:id="@+id/btnWeek"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="일주일" />
+
+                    <Button
+                        android:id="@+id/btnMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="한달" />
+
+                    <Button
+                        android:id="@+id/btnSelect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="선택" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/textFirst"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:padding="10dp"
+                        android:text="2017-01-01" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="~" />
+
+                    <TextView
+                        android:id="@+id/textLast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border"
+                        android:padding="10dp"
+                        android:text="2017-01-01" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/calendarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone">
+
+                    <CalendarView
+                        android:id="@+id/calendarView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:background="#ffffff"
+                android:text="날짜선택" />
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/selector_fieldset_background"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="40dp">
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="3">
+
+                    <CheckBox
+                        android:id="@+id/chkMyposition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="내위치" />
+
+                    <CheckBox
+                        android:id="@+id/chkEnjoy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="관광/여가/오락" />
+
+                    <CheckBox
+                        android:id="@+id/chkLand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="부동산" />
+
+                    <CheckBox
+                        android:id="@+id/chkLife"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="생활서비스" />
+
+                    <CheckBox
+                        android:id="@+id/chkStore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="소매" />
+
+                    <CheckBox
+                        android:id="@+id/chkMotel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="숙박" />
+
+                    <CheckBox
+                        android:id="@+id/chkFood"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="음식" />
+
+                    <CheckBox
+                        android:id="@+id/chkMedic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="의료" />
+
+                    <CheckBox
+                        android:id="@+id/chkEdu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="학문/교육" />
+
+                </GridLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:background="#ffffff"
+                android:text="위치지정" />
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/selector_fieldset_background"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="40dp">
+
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioKindOpen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="모두" />
+
+                    <RadioButton
+                        android:id="@+id/radioKindFriend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="친구" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:background="#ffffff"
+                android:text="모든글/친구글 선택" />
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/selector_fieldset_background"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="40dp">
+
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioPostNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="일반" />
+
+                    <RadioButton
+                        android:id="@+id/radioPostAppoint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="모임" />
+
+                    <RadioButton
+                        android:id="@+id/radioPostTresure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="보물" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:background="#ffffff"
+                android:text="글종류 선택" />
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/selector_fieldset_background"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <EditText
+                    android:id="@+id/textSearchWord"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:hint="검색어 입력."
+                    android:padding="10dp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="CLEAR"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:text="OK"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -8,6 +8,7 @@ public class UserInfo {
     private int userNo;
     private String email;
     private String nickname;
+    private String status;
     private String profileImage;
     private String role;
     private String joindate;
@@ -18,16 +19,24 @@ public class UserInfo {
 
 
 
-    public UserInfo(int userNo, String email, String nickname, String profileImage, String role, String joindate, String lastlogin) {
+
+    public UserInfo(int userNo, String email, String nickname, String status , String profileImage, String role, String joindate, String lastlogin) {
         this.userNo = userNo;
         this.email = email;
         this.nickname = nickname;
+        this.status = status;
         this.profileImage = profileImage;
         this.role = role;
         this.joindate = joindate;
         this.lastlogin = lastlogin;
     }
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
     public int getUserNo() {
         return userNo;
     }

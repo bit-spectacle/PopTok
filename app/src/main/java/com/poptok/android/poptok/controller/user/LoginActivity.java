@@ -14,10 +14,10 @@ import android.widget.Toast;
 
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.controller.AppBaseActivity;
-import com.poptok.android.poptok.model.user.UserInfo;
-import com.poptok.android.poptok.model.user.UserLoginParam;
-import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.JSONResult;
+import com.poptok.android.poptok.model.auth.AuthStore;
+import com.poptok.android.poptok.model.user.UserInfo;
+import com.poptok.android.poptok.model.user.UserParam;
 import com.poptok.android.poptok.service.user.UserThread;
 
 import org.androidannotations.annotations.AfterViews;
@@ -116,8 +116,8 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        UserLoginParam userLoginParam = UserLoginParam.getUserLogin(email, password);
-        Message.obtain(userThread.backHandler, UserThread.uLogin, userLoginParam).sendToTarget();
+        UserParam userParam = UserParam.getUserLogin(email, password);
+        Message.obtain(userThread.backHandler, UserThread.uLogin, userParam).sendToTarget();
         hideKeyboard();
     }
 

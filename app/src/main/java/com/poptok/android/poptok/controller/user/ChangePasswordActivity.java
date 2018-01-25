@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.controller.BaseActivity;
 
 import org.androidannotations.annotations.EActivity;
 
 @EActivity(R.layout.user_changepassword)
-public class ChangePasswordActivity extends AppCompatActivity {
+public class ChangePasswordActivity extends BaseActivity {
 
     final Context context = this;
 

@@ -24,11 +24,18 @@ public interface IUserFinder {
     JSONResult<UserInfo> userLogin(@Path String email, @Path String password);
 
     @Get("/auth/join/{email}/{password}/{nickname}")
-    List<UserInfo> userJoin(@Path String email, @Path String password, @Path String nickname);
+    JSONResult<Integer> userJoin(@Path String email, @Path String password, @Path String nickname);
 
     @Get("/auth/logout/{userNo}")
     List<UserInfo> userLogout(@Path int userNo );
 
+    @Get("/auth/changeNickname/{nickname}/{userNo}")
+    JSONResult<UserInfo> changeNickname(@Path String nickname, @Path int userNo);
 
+    @Get("/auth/checkNickname/{nickname}")
+    JSONResult<Integer> checkNickname(@Path String nickname);
+
+    @Get("/auth/changeStatus/{status}/{userNo}")
+    JSONResult<UserInfo> changeStatus(@Path String status, @Path int userNo);
 
 }

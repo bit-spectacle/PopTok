@@ -5,16 +5,18 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_SERVICE" />
+
     <uses-permission android:name="android.permission.BIND_JOB_SERVICE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
-
-
-    출처: http://superwony.tistory.com/5 [개발자 키우기]
+    <!-- 20이하 버전 에서는 camera를 지원하고 21버전 이상에서는 camera2를 지원한다. -->
+    <uses-feature android:name="android.hardware.camera2"/>
 
     <application
         android:allowBackup="true"
@@ -41,7 +43,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.user.LoginActivity_" android:noHistory="true" />
+        <activity android:name=".controller.user.LoginActivity_" />
         <activity android:name=".controller.user.ChangePasswordActivity_" />
         <activity android:name=".controller.user.SettingMenuActivity_" />
         <activity android:name=".controller.user.JoinActivity_" />
@@ -49,9 +51,11 @@
         <activity android:name=".controller.user.FindPasswordActivity_" />
         <activity android:name=".controller.user.ProfileActivity_" android:noHistory="true" />
         <activity android:name=".controller.post.PostDetailActivity_" />
-        <activity android:name=".controller.post.PostWriteActivity_" android:noHistory="true" />
-        <activity android:name=".controller.search.SearchFilterActivity_" android:noHistory="true" />
-        <activity android:name=".controller.cloud.WordcloudActivity_" />
+        <activity
+            android:name=".controller.post.PostMapActivity_"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

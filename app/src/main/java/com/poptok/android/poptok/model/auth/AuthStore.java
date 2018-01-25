@@ -20,6 +20,10 @@ public class AuthStore {
         this.userInfo = userInfo;
     }
 
+    public void setUserStatus(String status){
+        this.userInfo.setStatus(status);
+    }
+
     public boolean isLogin() {
         if(userInfo != null && userInfo.getUserNo() > 0) {
             return  true;

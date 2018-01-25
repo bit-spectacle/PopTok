@@ -1,6 +1,6 @@
 package com.poptok.android.poptok.service.location;
 
-import com.poptok.android.poptok.model.ApiResult;
+import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.model.location.LocationLocalLog;
 import com.poptok.android.poptok.service.Config;
 import com.poptok.android.poptok.service.interceptor.CookiePreserveHttpRequestInterceptor;
@@ -20,9 +20,6 @@ import java.util.List;
         interceptors = { CookiePreserveHttpRequestInterceptor.class })
 public interface ILocationReporter {
 
-    @Get("/report/location/{userNo}")
-    ApiResult reportLocation(@Path int userNo);
-
     @Post("/report/location/{userNo}")
-    ApiResult reportLocation(@Path int userNo, @Body List<LocationLocalLog> locationLogList);
+    JSONResult<Integer> reportLocation(@Path int userNo, @Body List<LocationLocalLog> locationLogList);
 }

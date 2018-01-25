@@ -10,7 +10,7 @@ import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.user.UserInfo;
 import com.poptok.android.poptok.service.user.IUserFinder;
-import com.poptok.android.poptok.service.user.JSONResult;
+import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.service.user.UserProfileAsyncTask;
 import com.poptok.android.poptok.view.user.UserProfile;
 

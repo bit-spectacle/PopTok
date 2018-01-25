@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.model.post.PostItem;
 import com.poptok.android.poptok.service.post.IPostItemFinder;
-import com.poptok.android.poptok.service.post.PostAsyncTask;
+import com.poptok.android.poptok.service.post.PostDetailAsyncTask;
 import com.poptok.android.poptok.view.post.PostDetail;
 
 import org.androidannotations.annotations.AfterViews;
@@ -29,7 +29,7 @@ public class PostDetailActivity extends AppCompatActivity {
     @Bean
     PostDetail postDetail;
 
-    PostAsyncTask postAsyncTask;
+    PostDetailAsyncTask postDetailAsyncTask;
 
     @AfterViews
     public void init() {
@@ -38,8 +38,8 @@ public class PostDetailActivity extends AppCompatActivity {
             actionBar.hide();
         }
         postDetail.setActivity(this);
-        postAsyncTask = new PostAsyncTask(this, postItemFinder);
-        postAsyncTask.execute(postNo);
+        postDetailAsyncTask = new PostDetailAsyncTask(this, postItemFinder);
+        postDetailAsyncTask.execute(postNo);
     }
 
     public void setView(PostItem postItem) {

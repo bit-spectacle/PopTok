@@ -17,7 +17,7 @@ import org.androidannotations.rest.spring.annotations.RestService;
  */
 
 @EBean
-public class PostThread extends Thread {
+public class PostMapThread extends Thread {
     public final static int cPostMap = 1;
     public final static int cPostList = 2;
     public final static int cPostGet = 3;
@@ -47,14 +47,14 @@ public class PostThread extends Thread {
         public void handleMessage(Message msg) {
             Message result = new Message();
             switch (msg.what) {
-                case PostThread.cPostMap :
+                case PostMapThread.cPostMap :
                     LocationParam locationParam = (LocationParam)msg.obj;
                     int userNo = authStore.isLogin() ? authStore.getUserInfo().getUserNo() : 0;
                     result.obj = postItemFinder.findPostMap(locationParam.top.latitude,locationParam.top.longitude,locationParam.bottom.latitude,locationParam.bottom.longitude,1, userNo);
                     break;
-                case PostThread.cPostList :
+                case PostMapThread.cPostList :
                     break;
-                case PostThread.cPostGet:
+                case PostMapThread.cPostGet:
                     int postNo = (int)msg.obj;
                     result.obj = postItemFinder.findPost(postNo);
                     break;

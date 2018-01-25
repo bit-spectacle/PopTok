@@ -13,7 +13,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -25,11 +24,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.poptok.android.poptok.R;
-import com.poptok.android.poptok.controller.cloud.WordcloudActivity;
 import com.poptok.android.poptok.controller.cloud.WordcloudActivity_;
 import com.poptok.android.poptok.controller.post.GoogleMapFragment_;
 import com.poptok.android.poptok.controller.post.PostListFragment_;
-import com.poptok.android.poptok.controller.post.PostWriteFragment_;
+import com.poptok.android.poptok.controller.post.PostWriteActivity_;
 import com.poptok.android.poptok.controller.search.SearchFilterActivity_;
 import com.poptok.android.poptok.controller.user.ProfileActivity_;
 import com.poptok.android.poptok.controller.user.SettingMenuActivity_;
@@ -83,7 +81,7 @@ public class AppBaseActivity extends AppCompatActivity
 
         // 왼쪽 메뉴 이벤트 핸들러
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_app_base);
         final Activity a = this;
 
@@ -116,8 +114,7 @@ public class AppBaseActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "nav_write Clicked");
-                setFragment(R.id.nav_write);
-
+                PostWriteActivity_.intent(getApplicationContext()).start();
             }
         });
 
@@ -150,12 +147,7 @@ public class AppBaseActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "nav_setting Clicked");
-//                Intent intent = new Intent(AppBaseActivity.this, SettingMenuActivity.class);
-//                startActivity(intent);
-                //LoginActivity_.intent(this.getActivity()).start();
                 SettingMenuActivity_.intent(AppBaseActivity.this).start();
-
-
             }
         });
 
@@ -193,7 +185,8 @@ public class AppBaseActivity extends AppCompatActivity
                     Log.i(LOG_TAG, "nav_list Clicked");
                     return true;
                 case R.id.navigation_write:
-                    setFragment(R.id.nav_write);
+                    //setFragment(R.id.nav_write);
+                    PostWriteActivity_.intent(getApplicationContext()).start();
                     Log.i(LOG_TAG, "nav_write Clicked");
                     return true;
                 case R.id.navigation_search:
@@ -249,24 +242,25 @@ public class AppBaseActivity extends AppCompatActivity
     public void setFragment(int id) {
         lastFragmentId = id;
         Fragment fragment = null;
+        FragmentManager fragmentManager = getFragmentManager();
         switch (id) {
             case R.id.nav_map:
                 fragment = new GoogleMapFragment_().builder().build();
+                fragmentManager.beginTransaction().replace(R.id.content, fragment)
+                        .commit();
                 break;
             case R.id.nav_list:
                 fragment = new PostListFragment_().builder().build();
+                fragmentManager.beginTransaction().replace(R.id.content, fragment)
+                        .commit();
                 break;
             case R.id.nav_write:
-                fragment = new PostWriteFragment_().builder().build();
+                PostWriteActivity_.intent(this).start();
                 break;
-            default:
-                fragment = new PostListFragment_().builder().build();
+            case R.id.nav_search:
+                SearchFilterActivity_.intent(this).start();
                 break;
         }
-
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content, fragment)
-                .commit();
 
         DrawerLayout drawer = findViewById(R.id.drawer);
         drawer.closeDrawer(GravityCompat.START);

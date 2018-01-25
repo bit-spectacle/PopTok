@@ -3,7 +3,7 @@ package com.poptok.android.poptok.view.user;
 import android.widget.TextView;
 
 import com.poptok.android.poptok.model.user.UserInfo;
-import com.poptok.android.poptok.service.user.JSONResult;
+import com.poptok.android.poptok.model.JSONResult;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.UiThread;

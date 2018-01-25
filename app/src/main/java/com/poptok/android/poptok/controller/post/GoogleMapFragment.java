@@ -3,7 +3,6 @@ package com.poptok.android.poptok.controller.post;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -53,7 +52,7 @@ import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.model.location.LocationParam;
 import com.poptok.android.poptok.model.post.PostMapItem;
 import com.poptok.android.poptok.service.location.LocationProvider;
-import com.poptok.android.poptok.service.post.PostThread;
+import com.poptok.android.poptok.service.post.PostMapThread;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -110,7 +109,7 @@ public class GoogleMapFragment extends Fragment
     private static final int FASTEST_UPDATE_INTERVAL_MS = 15000;
 
     @Bean
-    PostThread postThread;
+    PostMapThread postMapThread;
 
     LocationProvider locationProvider;
 
@@ -163,9 +162,9 @@ public class GoogleMapFragment extends Fragment
 
         locationProvider = new LocationProvider(this.getActivity());
 
-        postThread.setMainHandler(postDataHandler);
-        postThread.setDaemon(true);
-        postThread.start();
+        postMapThread.setMainHandler(postDataHandler);
+        postMapThread.setDaemon(true);
+        postMapThread.start();
 
         return layout;
     }
@@ -428,7 +427,7 @@ public class GoogleMapFragment extends Fragment
 
     private  void callPostMapApi() {
         LocationParam locationParam = LocationParam.getGoogleLocationParam(googleMap);
-        Message.obtain(postThread.backHandler, PostThread.cPostMap, locationParam).sendToTarget();
+        Message.obtain(postMapThread.backHandler, PostMapThread.cPostMap, locationParam).sendToTarget();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.poptok.android.poptok.service.user;
+package com.poptok.android.poptok.model;
 
 /**
  * Created by BIT on 2018-01-19.

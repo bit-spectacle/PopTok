@@ -14,7 +14,7 @@
 //import com.poptok.android.poptok.R;
 //import com.poptok.android.poptok.model.location.LocationParam;
 //import com.poptok.android.poptok.model.post.PostMapItem;
-//import com.poptok.android.poptok.service.post.PostThread;
+//import com.poptok.android.poptok.service.post.PostMapThread;
 //
 //import net.daum.mf.map.api.MapPOIItem;
 //import net.daum.mf.map.api.MapPoint;
@@ -44,7 +44,7 @@
 //    Button trackingOnButton;
 //
 //    @Bean
-//    PostThread postThread;
+//    PostMapThread postMapThread;
 //
 //    @Bean
 //    DefaultCalloutBalloonAdapter defaultCalloutBalloonAdapter;
@@ -91,7 +91,7 @@
 //                                locationParam.top.latitude, locationParam.top.longitude,
 //                                locationParam.bottom.latitude, locationParam.bottom.longitude) );
 //
-//                Message.obtain(postThread.backHandler, PostThread.cPostMap, locationParam).sendToTarget();
+//                Message.obtain(postMapThread.backHandler, PostMapThread.cPostMap, locationParam).sendToTarget();
 //            }
 //        });
 //
@@ -101,9 +101,9 @@
 //
 //        mapView.setCalloutBalloonAdapter(defaultCalloutBalloonAdapter);
 //
-//        postThread.setMainHandler(postDataHandler);
-//        postThread.setDaemon(true);
-//        postThread.start();
+//        postMapThread.setMainHandler(postDataHandler);
+//        postMapThread.setDaemon(true);
+//        postMapThread.start();
 //    }
 //
 //    // postThread에서 postMap data가 넘어오면 UI 처리를 해준다.

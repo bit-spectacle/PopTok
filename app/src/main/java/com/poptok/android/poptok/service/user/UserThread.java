@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.model.user.UserLoginParam;
 import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.user.UserInfo;

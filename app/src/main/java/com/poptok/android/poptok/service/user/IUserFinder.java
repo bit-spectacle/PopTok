@@ -1,5 +1,6 @@
 package com.poptok.android.poptok.service.user;
 
+import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.model.user.UserInfo;
 import com.poptok.android.poptok.service.Config;
 import com.poptok.android.poptok.service.interceptor.CookiePreserveHttpRequestInterceptor;

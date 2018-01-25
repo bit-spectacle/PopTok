@@ -7,6 +7,7 @@ import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.GsonBuilder;
 import com.poptok.android.poptok.exception.HttpResponseException;
 import com.poptok.android.poptok.exception.JSONResultException;
+import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.model.user.UserInfo;
 import com.poptok.android.poptok.service.Config;
 
@@ -121,7 +122,7 @@ public class UserProvider {
     }
 
     private class JSONResultLogin extends JSONResult<UserInfo> {}
-    private class JSONResultFetchUserList extends com.poptok.android.poptok.service.user.JSONResult<List<UserInfo>> {}
+    private class JSONResultFetchUserList extends JSONResult<List<UserInfo>> {}
 
 }
 //public class UserProvider implements IUserFinder {

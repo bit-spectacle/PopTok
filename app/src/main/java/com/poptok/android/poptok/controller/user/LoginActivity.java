@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.poptok.android.poptok.R;
@@ -17,7 +17,7 @@ import com.poptok.android.poptok.controller.AppBaseActivity;
 import com.poptok.android.poptok.model.user.UserInfo;
 import com.poptok.android.poptok.model.user.UserLoginParam;
 import com.poptok.android.poptok.model.auth.AuthStore;
-import com.poptok.android.poptok.service.user.JSONResult;
+import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.service.user.UserThread;
 
 import org.androidannotations.annotations.AfterViews;
@@ -49,6 +49,10 @@ public class LoginActivity extends AppCompatActivity {
 
     @AfterViews
     void init(){
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
         context = this.getApplicationContext();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 

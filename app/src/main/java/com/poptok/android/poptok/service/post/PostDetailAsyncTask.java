@@ -5,13 +5,13 @@ import android.os.AsyncTask;
 import com.poptok.android.poptok.controller.post.PostDetailActivity;
 import com.poptok.android.poptok.model.post.PostItem;
 
-public class PostAsyncTask extends AsyncTask<Integer, String, PostItem> {
+public class PostDetailAsyncTask extends AsyncTask<Integer, String, PostItem> {
 
     IPostItemFinder postItemFinder;
 
     PostDetailActivity postDetailActivity;
 
-    public PostAsyncTask(PostDetailActivity activity, IPostItemFinder postItemFinder) {
+    public PostDetailAsyncTask(PostDetailActivity activity, IPostItemFinder postItemFinder) {
         this.postDetailActivity = activity;
         this.postItemFinder = postItemFinder;
     }

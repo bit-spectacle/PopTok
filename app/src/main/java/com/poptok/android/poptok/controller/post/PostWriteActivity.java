@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -19,12 +20,19 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.controller.AppBaseActivity;
 import com.poptok.android.poptok.controller.BaseActivity;
 import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.post.PostWriteParam;
+import com.poptok.android.poptok.model.upload.UploadParam;
+import com.poptok.android.poptok.service.location.LocationProvider;
 import com.poptok.android.poptok.service.post.IPostItemFinder;
 import com.poptok.android.poptok.service.post.PostWriteAsyncTask;
+import com.poptok.android.poptok.service.upload.FileUpladAsyncTask;
+import com.poptok.android.poptok.service.upload.IUploadResult;
+import com.poptok.android.poptok.service.upload.IUploader;
+import com.poptok.android.poptok.tools.RealPathUtil;
 import com.poptok.android.poptok.view.post.PostWrite;
 
 import org.androidannotations.annotations.AfterViews;
@@ -33,11 +41,15 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.rest.spring.annotations.RestService;
+import org.springframework.core.io.FileSystemResource;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @EActivity(R.layout.post_write)
-public class PostWriteActivity extends BaseActivity {
+public class PostWriteActivity extends BaseActivity implements IUploadResult<JSONResult<String >> {
 
     private static final String TAG = "PostWriteActivity";
     private final int GALLERY_CODE = 1112;
@@ -46,6 +58,8 @@ public class PostWriteActivity extends BaseActivity {
 
     @RestService
     IPostItemFinder postItemFinder;
+    @RestService
+    IUploader iUploader;
 
     @ViewById(R.id.radioGroupKind)
     RadioGroup radioGroupKind;
@@ -73,6 +87,8 @@ public class PostWriteActivity extends BaseActivity {
     Uri imageUri;
 
     PostWriteAsyncTask postWriteAsyncTask;
+    FileUpladAsyncTask fileUpladAsyncTask;
+    LocationProvider locationProvider;
 
     boolean isKindAppointChecked = false;
     boolean isOpenChecked = true;
@@ -83,6 +99,7 @@ public class PostWriteActivity extends BaseActivity {
     public void init() {
         param = new PostWriteParam();
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        locationProvider = new LocationProvider(this);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -174,10 +191,10 @@ public class PostWriteActivity extends BaseActivity {
         // Todo 상점 번호
         param.setLocationNo(0);
 
-        // Todo 위치
-        LatLng location = new LatLng(0, 0);
-        param.setLatitude(location.latitude);
-        param.setLongitude(location.longitude);
+        // Todo 상점 선택시 위치 반영
+        Location nowLocation = locationProvider.getLocation();
+        param.setLatitude(nowLocation.getLatitude());
+        param.setLongitude(nowLocation.getLongitude());
 
         postWriteAsyncTask = new PostWriteAsyncTask(postItemFinder, this);
         postWriteAsyncTask.execute(param);
@@ -186,12 +203,23 @@ public class PostWriteActivity extends BaseActivity {
     public void writeResultHandler(JSONResult<Integer> result) {
         Log.d(TAG, String.format("%s", result.getCode()));
 
-        //Bitmap image = getBitmap(this.imageUri);
-//        File imageFile = new File(String.valueOf(this.imageUri));
-//        if(imageFile != null && imageFile.exists()) {
-//            FileSystemResource fileSystemResource = new FileSystemResource(imageFile);
-//
-//        }
+        if(imageUri != null) {
+            String realPath = RealPathUtil.getRealPath(this, imageUri);
+            FileSystemResource image = new FileSystemResource(realPath);
+            UploadParam param = new UploadParam("post", String.valueOf(result.getData()), image);
+
+            fileUpladAsyncTask = new FileUpladAsyncTask(iUploader, this);
+            fileUpladAsyncTask.execute(param);
+        }
+        else {
+            goToMain();
+        }
+    }
+
+    private void goToMain() {
+        Intent intent = new Intent(this, AppBaseActivity.class);
+        startActivity(intent);
+        this.finish();
     }
 
 
@@ -256,5 +284,11 @@ public class PostWriteActivity extends BaseActivity {
             return 270;
         }
         return 0;
+    }
+
+    @Override
+    public void uplodResultHandler(JSONResult<String> result) {
+        Log.d(TAG, result.getData());
+        goToMain();
     }
 }

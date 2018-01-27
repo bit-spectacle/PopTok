@@ -1,37 +1,29 @@
 package com.poptok.android.poptok.controller.post;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.media.ExifInterface;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.controller.AppBaseActivity;
 import com.poptok.android.poptok.controller.BaseActivity;
 import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.post.PostWriteParam;
+import com.poptok.android.poptok.model.store.StoreItem;
 import com.poptok.android.poptok.model.upload.UploadParam;
-import com.poptok.android.poptok.service.location.LocationProvider;
+import com.poptok.android.poptok.service.IAsyncResultHandler;
 import com.poptok.android.poptok.service.post.IPostItemFinder;
 import com.poptok.android.poptok.service.post.PostWriteAsyncTask;
 import com.poptok.android.poptok.service.upload.FileUpladAsyncTask;
-import com.poptok.android.poptok.service.upload.IUploadResult;
 import com.poptok.android.poptok.service.upload.IUploader;
+import com.poptok.android.poptok.tools.KeyboardHelper;
 import com.poptok.android.poptok.tools.RealPathUtil;
 import com.poptok.android.poptok.view.post.PostWrite;
 
@@ -43,18 +35,11 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.rest.spring.annotations.RestService;
 import org.springframework.core.io.FileSystemResource;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 @EActivity(R.layout.post_write)
-public class PostWriteActivity extends BaseActivity implements IUploadResult<JSONResult<String >> {
+public class PostWriteActivity extends BaseActivity implements IAsyncResultHandler<JSONResult<String >> {
 
     private static final String TAG = "PostWriteActivity";
     private final int GALLERY_CODE = 1112;
-
-    InputMethodManager imm;
 
     @RestService
     IPostItemFinder postItemFinder;
@@ -88,7 +73,6 @@ public class PostWriteActivity extends BaseActivity implements IUploadResult<JSO
 
     PostWriteAsyncTask postWriteAsyncTask;
     FileUpladAsyncTask fileUpladAsyncTask;
-    LocationProvider locationProvider;
 
     boolean isKindAppointChecked = false;
     boolean isOpenChecked = true;
@@ -98,8 +82,6 @@ public class PostWriteActivity extends BaseActivity implements IUploadResult<JSO
     @AfterViews
     public void init() {
         param = new PostWriteParam();
-        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        locationProvider = new LocationProvider(this);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -137,14 +119,7 @@ public class PostWriteActivity extends BaseActivity implements IUploadResult<JSO
 
     @Click(R.id.layoutPostWrite)
     public void layoutPostWriteClicked(View v) {
-        hideKeyboard();
-    }
-
-
-    private void hideKeyboard() {
-        imm.hideSoftInputFromWindow(editKakaoLink.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(editContent.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(editHash.getWindowToken(), 0);
+        KeyboardHelper.hideKeyboard(this, editKakaoLink, editContent, editHash);
     }
 
     @Click(R.id.btnWriteOk)
@@ -188,13 +163,11 @@ public class PostWriteActivity extends BaseActivity implements IUploadResult<JSO
         // 이미지
         param.setImage("");
 
-        // Todo 상점 번호
-        param.setLocationNo(0);
-
-        // Todo 상점 선택시 위치 반영
-        Location nowLocation = locationProvider.getLocation();
-        param.setLatitude(nowLocation.getLatitude());
-        param.setLongitude(nowLocation.getLongitude());
+        // 주변 상점이나 내위치 선택
+        StoreItem storeItem = postWrite.getStoreItem();
+        param.setLocationNo(storeItem.getLocationNo());
+        param.setLatitude(storeItem.getLatitude());
+        param.setLongitude(storeItem.getLongitude());
 
         postWriteAsyncTask = new PostWriteAsyncTask(postItemFinder, this);
         postWriteAsyncTask.execute(param);
@@ -246,48 +219,8 @@ public class PostWriteActivity extends BaseActivity implements IUploadResult<JSO
         }
     }
 
-    private Bitmap getBitmap(Uri imgUri) {
-
-        String imagePath = getRealPathFromURI(imgUri); // path 경로
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(imagePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-        int exifDegree = exifOrientationToDegrees(exifOrientation);
-
-        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);//경로를 통해 비트맵으로 전환
-        //ivImage.setImageBitmap(rotate(bitmap, exifDegree));//이미지 뷰에 비트맵 넣기
-        return bitmap;
-
-    }
-
-    private String getRealPathFromURI(Uri contentUri) {
-        int column_index = 0;
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
-        if (cursor.moveToFirst()) {
-            column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        }
-
-        return cursor.getString(column_index);
-    }
-
-    private int exifOrientationToDegrees(int exifOrientation) {
-        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            return 90;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            return 180;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            return 270;
-        }
-        return 0;
-    }
-
     @Override
-    public void uplodResultHandler(JSONResult<String> result) {
+    public void resultHandler(JSONResult<String> result) {
         Log.d(TAG, result.getData());
         goToMain();
     }

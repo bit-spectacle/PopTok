@@ -28,6 +28,9 @@ public interface IPostItemFinder {
     @Get("/posting/list/{lastNo}")
     List<PostListItem> findPostList(@Path int lastNo);
 
+    @Get("/posting/list/{topLat}/{topLong}/{botLat}/{botLong}")
+    List<PostListItem> findPostList(@Path double topLat, @Path double topLong, @Path double botLat, @Path double botLong);
+
     @Get("/posting/map/{topLat}/{topLong}/{botLat}/{botLong}/{zoomLevel}/{userNo}")
     List<PostMapItem> findPostMap(@Path double topLat, @Path double topLong, @Path double botLat, @Path double botLong, @Path int zoomLevel, @Path int userNo);
 

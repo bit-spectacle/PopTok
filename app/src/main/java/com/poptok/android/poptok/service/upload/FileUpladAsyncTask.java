@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.model.upload.UploadParam;
+import com.poptok.android.poptok.service.IAsyncResultHandler;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -14,11 +15,11 @@ import org.springframework.util.MultiValueMap;
 public class FileUpladAsyncTask extends AsyncTask<UploadParam, String, JSONResult<String>> {
 
     IUploader iUploader;
-    IUploadResult<JSONResult<String>> iUploadResult;
+    IAsyncResultHandler<JSONResult<String>> iAsyncResultHandler;
 
-    public FileUpladAsyncTask(IUploader iUploader, IUploadResult<JSONResult<String>> iUploadResult) {
+    public FileUpladAsyncTask(IUploader iUploader, IAsyncResultHandler<JSONResult<String>> iAsyncResultHandler) {
         this.iUploader = iUploader;
-        this.iUploadResult = iUploadResult;
+        this.iAsyncResultHandler = iAsyncResultHandler;
     }
 
     @Override
@@ -36,6 +37,6 @@ public class FileUpladAsyncTask extends AsyncTask<UploadParam, String, JSONResul
     @Override
     protected void onPostExecute(JSONResult<String> jsonResult) {
         super.onPostExecute(jsonResult);
-        iUploadResult.uplodResultHandler(jsonResult);
+        iAsyncResultHandler.resultHandler(jsonResult);
     }
 }

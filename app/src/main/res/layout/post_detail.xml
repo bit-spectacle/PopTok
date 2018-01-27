@@ -124,7 +124,7 @@
                     android:textColor="#ffffff"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:text="닉네임이다."/>
+                    android:text=""/>
                 <TextView
                     android:id="@+id/textDetailDate"
                     android:layout_below="@+id/textDetailNick"
@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#ffffff"
                     android:textSize="12sp"
-                    android:text="날자." />
+                    android:text="" />
                 <TextView
                     android:id="@+id/textDetailContent"
                     android:layout_below="@+id/imageDetailUser"
@@ -147,7 +147,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="#ffffff"
-                    android:text="컨텐츠." />
+                    android:text="" />
 
                 <Button
                     android:id="@+id/btnKakaoChat"

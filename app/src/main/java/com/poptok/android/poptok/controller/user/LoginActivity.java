@@ -1,6 +1,5 @@
 package com.poptok.android.poptok.controller.user;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -8,7 +7,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +17,7 @@ import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.user.UserInfo;
 import com.poptok.android.poptok.model.user.UserParam;
 import com.poptok.android.poptok.service.user.UserThread;
+import com.poptok.android.poptok.tools.KeyboardHelper;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -44,17 +43,12 @@ public class LoginActivity extends AppCompatActivity {
     @Bean
     AuthStore authStore;
 
-    Context context;
-    InputMethodManager imm;
-
     @AfterViews
     void init(){
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
-        context = this.getApplicationContext();
-        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         userThread.setMainHandler(loginHandler);
         userThread.setDaemon(true);
@@ -79,13 +73,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
-    private class JSONResultLogin extends JSONResult<UserInfo> {}
-
-
     private void hideKeyboard()
     {
-        imm.hideSoftInputFromWindow(userNameEditText.getWindowToken(), 0);
-        imm.hideSoftInputFromWindow(passwordEditText.getWindowToken(), 0);
+        KeyboardHelper.hideKeyboard(this, userNameEditText, passwordEditText);
     }
 
     private void goToMain() {

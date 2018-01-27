@@ -7,6 +7,8 @@ import com.google.android.gms.maps.model.LatLngBounds;
 
 /**
  * Created by BIT on 2018-01-08.
+ * 미사용 예정
+ * SearchParam으로 대체
  */
 
 public class LocationParam {

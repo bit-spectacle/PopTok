@@ -12,16 +12,26 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.model.search.SearchParam;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 @EActivity(R.layout.search_searchfilter)
 public class SearchFilterActivity extends AppCompatActivity {
 
     private static final String TAG = "SearchFilterActivity";
+
+    @Bean
+    SearchParam searchParam;
+
     @ViewById
     TextView textFirst;
     @ViewById
@@ -40,8 +50,6 @@ public class SearchFilterActivity extends AppCompatActivity {
     RadioButton radioPostNormal;
     @ViewById
     RadioButton radioPostAppoint;
-    @ViewById
-    RadioButton radioPostTresure;
 
     @ViewById
     EditText textSearchWord;
@@ -55,6 +63,10 @@ public class SearchFilterActivity extends AppCompatActivity {
             actionBar.hide();
         }
         initEvent();
+        BindSearch();
+    }
+
+    private void BindSearch() {
     }
 
     private void initEvent() {
@@ -78,6 +90,39 @@ public class SearchFilterActivity extends AppCompatActivity {
         } else {
             calendarLayout.setVisibility(View.GONE);
         }
+    }
+
+    @Click(R.id.btnToday)
+    public void btnTodayClicked(View v) {
+        Date today = new Date();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        textFirst.setText(sdf.format(today));
+        textLast.setText(sdf.format(today));
+    }
+
+    @Click(R.id.btnWeek)
+    public void btnWeekClicked(View v) {
+        Date today = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -7);
+        Date weekago = calendar.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        textFirst.setText(sdf.format(weekago));
+        textLast.setText(sdf.format(today));
+    }
+
+    @Click(R.id.btnMonth)
+    public void btnMonthClicked(View v) {
+        Date today = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+        Date monthago = calendar.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        textFirst.setText(sdf.format(monthago));
+        textLast.setText(sdf.format(today));
     }
 
     @Click(R.id.textFirst)

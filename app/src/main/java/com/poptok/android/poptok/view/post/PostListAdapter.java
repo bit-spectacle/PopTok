@@ -21,34 +21,18 @@ import java.util.List;
 @EBean
 public class PostListAdapter extends BaseAdapter {
 
-    private int lastNo;
     private List<PostListItem> items;
 
     @RootContext
     Context context;
-
-    @RestService
-    IPostItemFinder postItemFinder;
 
     public PostListAdapter() {
         Log.d("PostListAdapter", "before");
         items = new ArrayList<PostListItem>();
     }
 
-    @AfterInject
-    @Background
-    void initAdapter() {
-        Log.d("initAdapter", "before");
-        lastNo = 0;
-        while (true) {
-            List<PostListItem> postItems = postItemFinder.findPostList(lastNo);
-            Log.d("initAdapter", String.format("item count:%d", postItems.size()));
-            if(postItems.size() > 0) {
-                items.addAll(postItems);
-                lastNo = (postItems.get(postItems.size() - 1)).getPostNo();
-                break;
-            }
-        }
+    public void setItems(List<PostListItem> items) {
+        this.items = items;
     }
 
     @Override
@@ -67,16 +51,7 @@ public class PostListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        int itemSize = items.size();
-        while(itemSize == 0) {
-            try {
-                Thread.sleep(10);
-                itemSize = items.size();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        return itemSize;
+        return items.size();
     }
 
     @Override

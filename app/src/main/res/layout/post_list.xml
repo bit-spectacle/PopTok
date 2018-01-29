@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#ffffff">
+    android:paddingBottom="60dp"
+    android:background="#ffffff"
+    android:fillViewport="true">
 
-    <GridView
+    <com.poptok.android.poptok.view.ExpandableHeightGridView
         android:id="@+id/gridPost"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:verticalSpacing="5dp"
         android:horizontalSpacing="5dp"
         android:stretchMode="columnWidth"
+        android:isScrollContainer="false"
         android:numColumns="3"/>
-</LinearLayout>
+</ScrollView>

@@ -49,8 +49,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.poptok.android.poptok.R;
-import com.poptok.android.poptok.model.location.LocationParam;
 import com.poptok.android.poptok.model.post.PostMapItem;
+import com.poptok.android.poptok.model.search.SearchParam;
+import com.poptok.android.poptok.model.setting.PoptokAppSettings;
 import com.poptok.android.poptok.service.location.LocationProvider;
 import com.poptok.android.poptok.service.post.PostMapThread;
 
@@ -97,8 +98,7 @@ public class GoogleMapFragment extends Fragment
         GoogleMap.OnMarkerClickListener,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener
-{
+        LocationListener {
 
     private static final String LOG_TAG = "GoogleMapFragment";
 
@@ -110,6 +110,12 @@ public class GoogleMapFragment extends Fragment
 
     @Bean
     PostMapThread postMapThread;
+
+    @Bean
+    SearchParam searchParam;
+
+    @Bean
+    PoptokAppSettings poptokAppSettings;
 
     LocationProvider locationProvider;
 
@@ -132,8 +138,7 @@ public class GoogleMapFragment extends Fragment
     private String[] LikelyAttributions = null;
     private LatLng[] LikelyLatLngs = null;
 
-    public GoogleMapFragment()
-    {
+    public GoogleMapFragment() {
         // required
     }
 
@@ -148,7 +153,7 @@ public class GoogleMapFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.post_map, container, false);
 
-        mapView = (MapView)layout.findViewById(R.id.map);
+        mapView = (MapView) layout.findViewById(R.id.map);
         mapView.getMapAsync(this);
 
         ballonBasic = LayoutInflater.from(this.getActivity()).inflate(R.layout.post_balloon_basic, null);
@@ -176,10 +181,10 @@ public class GoogleMapFragment extends Fragment
 
             googleMap.clear();
 
-            List<PostMapItem> list = (List<PostMapItem>)msg.obj;
+            List<PostMapItem> list = (List<PostMapItem>) msg.obj;
             Log.d(LOG_TAG, String.format("postDataHandler size: %d", list.size()));
 
-            for(int i=0; i< list.size(); i++) {
+            for (int i = 0; i < list.size(); i++) {
                 addMarker(list.get(i), false);
             }
         }
@@ -191,21 +196,22 @@ public class GoogleMapFragment extends Fragment
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.title(postMapItem.getPostDate());
         markerOptions.position(position);
+        markerOptions.zIndex(postMapItem.getPostNo());
 
-        if(postMapItem.getGroupCount() == 1) {
+        if (postMapItem.getGroupCount() == 1) {
             textPostBasic.setText(postMapItem.getContent());
             textPostBasic.setBackgroundResource(R.drawable.balloon_basic);
             textPostBasic.setTextColor(Color.BLACK);
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(ballonBasic)));
-        }
-        else {
+        } else {
             textPostGroup.setText(postMapItem.getContent());
             textPostGroup.setBackgroundResource(R.drawable.balloon_group);
             textPostGroup.setTextColor(Color.BLACK);
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(ballonGroup)));
         }
 
-        Marker marker = googleMap.addMarker(markerOptions);;
+        Marker marker = googleMap.addMarker(markerOptions);
+        ;
         marker.setTag(postMapItem.getPostNo());
 
         return marker;
@@ -222,7 +228,7 @@ public class GoogleMapFragment extends Fragment
         super.onStop();
         mapView.onStop();
 
-        if ( googleApiClient != null && googleApiClient.isConnected())
+        if (googleApiClient != null && googleApiClient.isConnected())
             googleApiClient.disconnect();
     }
 
@@ -236,7 +242,7 @@ public class GoogleMapFragment extends Fragment
     public void onResume() {
         super.onResume();
         mapView.onResume();
-        if ( googleApiClient != null)
+        if (googleApiClient != null)
             googleApiClient.connect();
     }
 
@@ -245,7 +251,7 @@ public class GoogleMapFragment extends Fragment
         super.onPause();
         mapView.onPause();
 
-        if ( googleApiClient != null && googleApiClient.isConnected()) {
+        if (googleApiClient != null && googleApiClient.isConnected()) {
             LocationServices.getFusedLocationProviderClient(this.activity).removeLocationUpdates(
                     new LocationCallback() {
 
@@ -266,11 +272,11 @@ public class GoogleMapFragment extends Fragment
         super.onDestroy();
         mapView.onLowMemory();
 
-        if ( googleApiClient != null ) {
+        if (googleApiClient != null) {
             googleApiClient.unregisterConnectionCallbacks(this);
             googleApiClient.unregisterConnectionFailedListener(this);
 
-            if ( googleApiClient.isConnected()) {
+            if (googleApiClient.isConnected()) {
                 LocationServices.getFusedLocationProviderClient(this.activity).removeLocationUpdates(
                         new LocationCallback() {
 
@@ -282,14 +288,14 @@ public class GoogleMapFragment extends Fragment
     }
 
     Activity activity;
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         //액티비티가 처음 생성될 때 실행되는 함수
 
-        if(mapView != null)
-        {
+        if (mapView != null) {
             mapView.onCreate(savedInstanceState);
         }
         this.activity = getActivity();
@@ -303,17 +309,23 @@ public class GoogleMapFragment extends Fragment
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에 지도의 초기위치를 서울로 이동
         setCurrentLocation(null, "위치정보 가져올 수 없음", "위치 퍼미션과 GPS 활성 여부 확인");
 
+        int zoomLevel = 17;
+        if(poptokAppSettings.isGpson() == false) {
+            zoomLevel = searchParam.getZoomLevel();
+            if(zoomLevel < 6 || zoomLevel > 20) zoomLevel = 17;
+        }
+
         googleMap.getUiSettings().setCompassEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.setMinZoomPreference(6);
         googleMap.setMaxZoomPreference(20);
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // 사용권한체크
             int hasFineLocationPermission = ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION);
 
-            if ( hasFineLocationPermission == PackageManager.PERMISSION_DENIED) {
+            if (hasFineLocationPermission == PackageManager.PERMISSION_DENIED) {
                 //사용권한이 없을경우
                 //권한 재요청
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
@@ -328,12 +340,11 @@ public class GoogleMapFragment extends Fragment
     }
 
     private void setGoogleMapEvent() {
-        if ( googleApiClient == null) {
+        if (googleApiClient == null) {
             buildGoogleApiClient();
         }
 
-        if ( ActivityCompat.checkSelfPermission(this.activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-        {
+        if (ActivityCompat.checkSelfPermission(this.activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             googleMap.setMyLocationEnabled(true);
 
             googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
@@ -393,41 +404,40 @@ public class GoogleMapFragment extends Fragment
     }
 
     public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
-        if ( currentMarker != null ) currentMarker.remove();
+        if (currentMarker != null) currentMarker.remove();
 
-        if ( location != null) {
+        LatLng selectedLocation;
+
+        if (location != null) {
             //현재위치의 위도 경도 가져옴
-            LatLng currentLocation = new LatLng( location.getLatitude(), location.getLongitude());
-
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(currentLocation);
-            markerOptions.title(markerTitle);
-            markerOptions.snippet(markerSnippet);
-            markerOptions.draggable(true);
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-            currentMarker = this.googleMap.addMarker(markerOptions);
-
-            this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
-            return;
+            selectedLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        } else {
+            if (poptokAppSettings.isGpson()) {
+                Location nowLocation = locationProvider.getLocation();
+                selectedLocation = nowLocation == null ? DEFAULT_LOCATION : new LatLng(nowLocation.getLatitude(), nowLocation.getLongitude());
+            } else {
+                LatLng center = searchParam.getCenter();
+                selectedLocation = center == null ? DEFAULT_LOCATION : center;
+            }
         }
 
-        Location nowLocation = locationProvider.getLocation();
-        LatLng nowLatLng = nowLocation == null ? DEFAULT_LOCATION : new LatLng(nowLocation.getLatitude(), nowLocation.getLongitude());
-
         MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(nowLatLng);
+        markerOptions.position(selectedLocation);
         markerOptions.title(markerTitle);
         markerOptions.snippet(markerSnippet);
         markerOptions.draggable(true);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         currentMarker = this.googleMap.addMarker(markerOptions);
 
-        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(nowLatLng));
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(selectedLocation));
     }
 
-    private  void callPostMapApi() {
-        LocationParam locationParam = LocationParam.getGoogleLocationParam(googleMap);
-        Message.obtain(postMapThread.backHandler, PostMapThread.cPostMap, locationParam).sendToTarget();
+    private void callPostMapApi() {
+//        LocationParam locationParam = LocationParam.getGoogleLocationParam(googleMap);
+//        searchParam.setTop(new LatLng(locationParam.top.latitude, locationParam.top.longitude));
+//        searchParam.setBottom(new LatLng(locationParam.bottom.latitude, locationParam.bottom.longitude));
+        searchParam.setGoogleLocation(googleMap);
+        Message.obtain(postMapThread.backHandler, PostMapThread.cPostMap, searchParam).sendToTarget();
     }
 
     @Override
@@ -442,7 +452,7 @@ public class GoogleMapFragment extends Fragment
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if ( !checkLocationServicesStatus()) {
+        if (!checkLocationServicesStatus()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
             builder.setTitle("위치 서비스 비활성화");
             builder.setMessage("앱을 사용하기 위해서는 위치 서비스가 필요합니다.\n" +
@@ -456,7 +466,7 @@ public class GoogleMapFragment extends Fragment
                     startActivityForResult(callGPSSettingIntent, GPS_ENABLE_REQUEST_CODE);
                 }
             });
-            builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.cancel();
@@ -470,8 +480,8 @@ public class GoogleMapFragment extends Fragment
         locationRequest.setInterval(UPDATE_INTERVAL_MS);
         locationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
 
-        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if ( ActivityCompat.checkSelfPermission(this.activity,
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this.activity,
                     Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
                 LocationServices.getFusedLocationProviderClient(this.activity).requestLocationUpdates(locationRequest,
@@ -491,11 +501,11 @@ public class GoogleMapFragment extends Fragment
 
     @Override
     public void onConnectionSuspended(int cause) {
-        if ( cause ==  CAUSE_NETWORK_LOST )
+        if (cause == CAUSE_NETWORK_LOST)
             Log.e(LOG_TAG, "onConnectionSuspended(): Google Play services " +
                     "connection lost.  Cause: network lost.");
-        else if (cause == CAUSE_SERVICE_DISCONNECTED )
-            Log.e(LOG_TAG,"onConnectionSuspended():  Google Play services " +
+        else if (cause == CAUSE_SERVICE_DISCONNECTED)
+            Log.e(LOG_TAG, "onConnectionSuspended():  Google Play services " +
                     "connection lost.  Cause: service disconnected");
 
     }
@@ -510,7 +520,7 @@ public class GoogleMapFragment extends Fragment
         @SuppressWarnings("MissingPermission")
         PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi
                 .getCurrentPlace(googleApiClient, null);
-        result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>(){
+        result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
 
             @Override
             public void onResult(@NonNull PlaceLikelihoodBuffer placeLikelihoods) {
@@ -520,14 +530,14 @@ public class GoogleMapFragment extends Fragment
                 LikelyAttributions = new String[MAXENTRIES];
                 LikelyLatLngs = new LatLng[MAXENTRIES];
 
-                for(PlaceLikelihood placeLikelihood : placeLikelihoods) {
+                for (PlaceLikelihood placeLikelihood : placeLikelihoods) {
                     LikelyPlaceNames[i] = (String) placeLikelihood.getPlace().getName();
                     LikelyAddresses[i] = (String) placeLikelihood.getPlace().getAddress();
                     LikelyAttributions[i] = (String) placeLikelihood.getPlace().getAttributions();
                     LikelyLatLngs[i] = placeLikelihood.getPlace().getLatLng();
 
                     i++;
-                    if(i > MAXENTRIES - 1 ) {
+                    if (i > MAXENTRIES - 1) {
                         break;
                     }
                 }
@@ -547,7 +557,7 @@ public class GoogleMapFragment extends Fragment
     @Override
     public boolean onMarkerClick(Marker marker) {
 
-        int postNo = (int)marker.getTag();
+        int postNo = (int) marker.getTag();
         Intent intent = new Intent(this.activity, PostDetailActivity_.class);
         intent.putExtra("postNo", postNo);
         startActivity(intent);

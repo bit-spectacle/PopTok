@@ -5,8 +5,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.location.LocationParam;
+import com.poptok.android.poptok.model.search.SearchParam;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -48,9 +50,15 @@ public class PostMapThread extends Thread {
             Message result = new Message();
             switch (msg.what) {
                 case PostMapThread.cPostMap :
-                    LocationParam locationParam = (LocationParam)msg.obj;
+//                    LocationParam locationParam = (LocationParam)msg.obj;
+//                    int userNo = authStore.isLogin() ? authStore.getUserInfo().getUserNo() : 0;
+//                    result.obj = postItemFinder.findPostMap(locationParam.top.latitude,locationParam.top.longitude,locationParam.bottom.latitude,locationParam.bottom.longitude,1, userNo);
+
+                    SearchParam searchParam = (SearchParam)msg.obj;
                     int userNo = authStore.isLogin() ? authStore.getUserInfo().getUserNo() : 0;
-                    result.obj = postItemFinder.findPostMap(locationParam.top.latitude,locationParam.top.longitude,locationParam.bottom.latitude,locationParam.bottom.longitude,1, userNo);
+                    LatLng top = searchParam.getTop();
+                    LatLng bot = searchParam.getBottom();
+                    result.obj = postItemFinder.findPostMap(top.latitude, top.longitude, bot.latitude, bot.longitude,1, userNo);
                     break;
                 case PostMapThread.cPostList :
                     break;

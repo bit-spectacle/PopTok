@@ -1,20 +1,24 @@
 package com.poptok.android.poptok.model.search;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 
-/**
- * Created by BIT on 2018-01-23.
- */
+import org.androidannotations.annotations.EBean;
 
+@EBean(scope = EBean.Scope.Singleton)
 public class SearchParam {
     LatLng top;
     LatLng bottom;
+    LatLng center;
     String dateFirst;
     String dateLast;
     String loactionKind;
     String openKind;
     String postKind;
     String searchWord;
+    int zoomLevel;
 
     public LatLng getTop() {
         return top;
@@ -30,6 +34,14 @@ public class SearchParam {
 
     public void setBottom(LatLng bottom) {
         this.bottom = bottom;
+    }
+
+    public LatLng getCenter() {
+        return center;
+    }
+
+    public void setCenter(LatLng center) {
+        this.center = center;
     }
 
     public String getDateFirst() {
@@ -106,5 +118,30 @@ public class SearchParam {
 
     public void setSearchWord(String searchWord) {
         this.searchWord = searchWord;
+    }
+
+    public void setLoactionKind(String loactionKind) {
+        this.loactionKind = loactionKind;
+    }
+
+    public void setOpenKind(String openKind) {
+        this.openKind = openKind;
+    }
+
+    public int getZoomLevel() {
+        return zoomLevel;
+    }
+
+    public void setZoomLevel(int zoomLevel) {
+        this.zoomLevel = zoomLevel;
+    }
+
+    public void setGoogleLocation(GoogleMap googleMap) {
+        Projection projection = googleMap.getProjection();
+        LatLngBounds bounds = projection.getVisibleRegion().latLngBounds;
+        this.center = googleMap.getCameraPosition().target;
+        this.top = bounds.northeast;
+        this.bottom = bounds.southwest;
+        this.zoomLevel = (int)googleMap.getCameraPosition().zoom;
     }
 }

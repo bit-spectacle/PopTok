@@ -63,4 +63,5 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'net.alhazmy13.wordcloud:library:0.2.0-beta'
+    compile 'com.github.Cutta:TagView:1.3'
 }

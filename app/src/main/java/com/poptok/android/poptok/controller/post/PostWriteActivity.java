@@ -137,9 +137,18 @@ public class PostWriteActivity extends BaseActivity implements IAsyncResultHandl
         param.setContent(content);
 
         // 해시
-        String tag = editHash.getText().toString();
+        String tag = editHash.getText().toString().replace(" ", "");
         if (tag != null && tag.length() > 0) {
-            param.setTag(tag);
+            String[] splited = tag.split(",");
+            String resultTag = "";
+            for(String word : splited) {
+                if(word.startsWith("#") == false) {
+                    word = "#" + word;
+                }
+                if(resultTag.length() > 0) resultTag += ",";
+                resultTag += word;
+            }
+            param.setTag(resultTag);
         }
 
         // 글 종류 일반/모임

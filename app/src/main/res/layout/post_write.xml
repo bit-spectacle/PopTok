@@ -217,6 +217,19 @@
                     android:gravity="top"
                     android:lines="5" />
 
+                <com.cunoraz.tagview.TagView
+                    xmlns:tagview="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/tagGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    tagview:lineMargin="5dp"
+                    tagview:tagMargin="5dp"
+                    tagview:textPaddingLeft="8dp"
+                    tagview:textPaddingTop="5dp"
+                    tagview:textPaddingRight="8dp"
+                    tagview:textPaddingBottom="5dp" />
+
                 <EditText
                     android:id="@+id/editHash"
                     android:layout_width="match_parent"

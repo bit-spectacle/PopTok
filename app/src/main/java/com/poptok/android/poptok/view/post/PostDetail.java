@@ -58,6 +58,8 @@ public class PostDetail {
     @ViewById
     TextView textDetailContent;
     @ViewById
+    TextView textDetailTag;
+    @ViewById
     TextView textDetailViewCount;
     @ViewById
     TextView textDetailCommentCount;
@@ -104,6 +106,7 @@ public class PostDetail {
 
         textDetailDate.setText(postItem.getPostDate());
         textDetailContent.setText(postItem.getContent());
+        textDetailTag.setText(postItem.getTag());
         textDetailViewCount.setText(String.format("%d views", postItem.getViewsCnt()));
         textDetailCommentCount.setText(String.format("%d", postItem.getCommentCnt()));
         textDetailLikeCount.setText(String.format("%d",postItem.getLikeCnt()));

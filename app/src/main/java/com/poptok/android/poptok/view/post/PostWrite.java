@@ -5,11 +5,18 @@ import android.location.Location;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.cunoraz.tagview.Tag;
+import com.cunoraz.tagview.TagView;
+import com.poptok.android.poptok.model.hash.TagItem;
 import com.poptok.android.poptok.model.search.SearchParam;
 import com.poptok.android.poptok.model.store.StoreItem;
 import com.poptok.android.poptok.service.IAsyncResultHandler;
+import com.poptok.android.poptok.service.hash.HashListAsyncTask;
+import com.poptok.android.poptok.service.hash.IHashfindResultHandler;
+import com.poptok.android.poptok.service.hash.IHashfinder;
 import com.poptok.android.poptok.service.location.LocationProvider;
 import com.poptok.android.poptok.service.store.IStoreFinder;
 import com.poptok.android.poptok.service.store.StoreListAsyncTask;
@@ -21,10 +28,11 @@ import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.rest.spring.annotations.RestService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @EBean
-public class PostWrite implements IAsyncResultHandler<List<StoreItem>>{
+public class PostWrite implements IAsyncResultHandler<List<StoreItem>>, IHashfindResultHandler{
 
     private static final String TAG = "PostWrite";
 
@@ -39,11 +47,21 @@ public class PostWrite implements IAsyncResultHandler<List<StoreItem>>{
 
     @RestService
     IStoreFinder iStoreFinder;
+    @RestService
+    IHashfinder iHashfinder;
 
     @ViewById
     Spinner spinnerLocation;
 
+    @ViewById
+    TagView tagGroup;
+
+    @ViewById
+    EditText editHash;
+
     StoreListAsyncTask storeListAsyncTask;
+    HashListAsyncTask hashListAsyncTask;
+
     LocationProvider locationProvider;
 
     public StoreItem getStoreItem() {
@@ -61,6 +79,9 @@ public class PostWrite implements IAsyncResultHandler<List<StoreItem>>{
         locationProvider = new LocationProvider(context);
         storeListAsyncTask = new StoreListAsyncTask(iStoreFinder, this);
         storeListAsyncTask.execute(searchParam);
+
+        hashListAsyncTask = new HashListAsyncTask(iHashfinder, this);
+        hashListAsyncTask.execute(50);
     }
 
     @Override
@@ -85,6 +106,27 @@ public class PostWrite implements IAsyncResultHandler<List<StoreItem>>{
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    @Override
+    public void hashFindResultHandler(List<TagItem> result) {
+        List<Tag> tags = new ArrayList<>(result.size());
+        for(TagItem item :result) {
+            tags.add(new Tag(item.getTag()));
+        }
+        tagGroup.addTags(tags);
+
+        tagGroup.setOnTagClickListener(new TagView.OnTagClickListener() {
+            @Override
+            public void onTagClick(Tag tag, int i) {
+                String beforHash = editHash.getText().toString();
+                if(beforHash.contains(tag.text) == false) {
+                    String afterHash = beforHash;
+                    afterHash += "#" + tag.text + ",";
+                    editHash.setText(afterHash);
+                }
             }
         });
     }

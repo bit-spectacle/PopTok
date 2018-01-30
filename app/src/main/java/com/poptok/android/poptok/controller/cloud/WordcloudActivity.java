@@ -1,50 +1,72 @@
 package com.poptok.android.poptok.controller.cloud;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.model.hash.TagItem;
+import com.poptok.android.poptok.service.IAsyncResultHandler;
+import com.poptok.android.poptok.service.hash.HashListAsyncTask;
+import com.poptok.android.poptok.service.hash.IHashfindResultHandler;
+import com.poptok.android.poptok.service.hash.IHashfinder;
 
 import net.alhazmy13.wordcloud.ColorTemplate;
 import net.alhazmy13.wordcloud.WordCloud;
 import net.alhazmy13.wordcloud.WordCloudView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.rest.spring.annotations.RestService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by BIT on 2018-01-24.
- */
-
 @EActivity(R.layout.cloud_word)
-public class WordcloudActivity extends AppCompatActivity {
+public class WordcloudActivity extends AppCompatActivity implements IHashfindResultHandler {
 
     @ViewById
     WordCloudView wordCloud;
 
-    List<WordCloud> list;
+    @RestService
+    IHashfinder iHashfinder;
+    HashListAsyncTask hashListAsyncTask;
 
     @AfterViews
     public void init() {
-        list = getWordList();
+        hashListAsyncTask = new HashListAsyncTask(iHashfinder, this);
+        hashListAsyncTask.execute(50);
+    }
+
+    @Click
+    public void fabRefreshClicked(View v) {
+        hashListAsyncTask = new HashListAsyncTask(iHashfinder, this);
+        hashListAsyncTask.execute(50);
+    }
+
+    @Override
+    public void hashFindResultHandler(List<TagItem> result) {
+        List<WordCloud> list = getWordCloudList(result);
+
         wordCloud.setDataSet(list);
-        wordCloud.setSize(600,350);
+        wordCloud.setSize(500,350);
         wordCloud.setColors(ColorTemplate.MATERIAL_COLORS);
         wordCloud.notifyDataSetChanged();
     }
 
-    private List<WordCloud> getWordList() {
-        String[] data = "맛,소문,터,가격,번,친구,나,단골,단골손님,손님,처음,피자,종류,한판,치킨,양념,양념치킨,비교,불가".split(",");
-        List<WordCloud> list = new ArrayList<>();
-        Random random = new Random();
-        for (String s : data) {
-            list.add(new WordCloud(s,random.nextInt(50)));
+    private List<WordCloud> getWordCloudList(List<TagItem> result) {
+        List<WordCloud> list = new ArrayList<>(result.size());
+        for(TagItem item : result) {
+            WordCloud wordCloud = new WordCloud(item.getTag(), item.getCount());
+            list.add(wordCloud);
         }
+
         return  list;
     }
-
 }

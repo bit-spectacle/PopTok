@@ -23,6 +23,7 @@ allprojects {
         mavenCentral()
         maven {
             url 'http://repo.springsource.org/release'
+            url "https://jitpack.io"
         }
     }
 }

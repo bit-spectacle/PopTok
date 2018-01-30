@@ -89,7 +89,7 @@ public class AppBaseActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "textNick Clicked" + a +" saveInstance : " + savedInstanceState);
-                ProfileActivity_.intent(getApplicationContext()).start();
+                ProfileActivity_.intent(AppBaseActivity.this).start();
             }
         });
 
@@ -114,7 +114,7 @@ public class AppBaseActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "nav_write Clicked");
-                PostWriteActivity_.intent(getApplicationContext()).start();
+                PostWriteActivity_.intent(AppBaseActivity.this).start();
             }
         });
 
@@ -186,7 +186,7 @@ public class AppBaseActivity extends AppCompatActivity
                     return true;
                 case R.id.navigation_write:
                     //setFragment(R.id.nav_write);
-                    PostWriteActivity_.intent(getApplicationContext()).start();
+                    PostWriteActivity_.intent(AppBaseActivity.this).start();
                     Log.i(LOG_TAG, "nav_write Clicked");
                     return true;
                 case R.id.navigation_search:

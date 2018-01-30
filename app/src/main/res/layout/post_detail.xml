@@ -148,13 +148,21 @@
                     android:textStyle="bold"
                     android:textColor="#ffffff"
                     android:text="" />
+                <TextView
+                    android:id="@+id/textDetailTag"
+                    android:layout_below="@+id/textDetailContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"/>
 
                 <Button
                     android:id="@+id/btnKakaoChat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:layout_below="@+id/textDetailContent"
+                    android:layout_below="@+id/textDetailTag"
                     android:background="@color/colorPrimary"
                     android:textColor="#ffffff"
                     android:textSize="18dp"

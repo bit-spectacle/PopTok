@@ -56,6 +56,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.poptok.android.poptok.R;
+import com.poptok.android.poptok.controller.AppBaseActivity;
 import com.poptok.android.poptok.model.post.PostMapItem;
 import com.poptok.android.poptok.model.search.SearchParam;
 import com.poptok.android.poptok.model.setting.PoptokAppSettings;
@@ -213,8 +214,8 @@ public class GoogleMapFragment extends Fragment
         // 이미지
         String imageUrl = postMapItem.getImage();
         if(imageUrl.length() > 0) {
-            Context context = this.getActivity();
-            Glide.with(context)
+
+            Glide.with(this.activity)
                     .load(imageUrl)
                     .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL)
                             .signature(new IntegerVersionSignature(postNo)))
@@ -585,9 +586,15 @@ public class GoogleMapFragment extends Fragment
         int postNo = Integer.parseInt(tagSplit[0]);
         int groupCount = Integer.parseInt(tagSplit[1]);
 
-        Intent intent = new Intent(this.activity, PostDetailActivity_.class);
-        intent.putExtra("postNo", postNo);
-        startActivity(intent);
+        if(groupCount == 1) {
+            Intent intent = new Intent(this.activity, PostDetailActivity_.class);
+            intent.putExtra("postNo", postNo);
+            startActivity(intent);
+        }
+        else {
+            AppBaseActivity appBaseActivity = (AppBaseActivity)this.activity;
+            appBaseActivity.setFragment(R.id.nav_list);
+        }
 
         return true;
     }

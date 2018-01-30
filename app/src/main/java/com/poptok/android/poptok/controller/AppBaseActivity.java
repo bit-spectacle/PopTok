@@ -31,6 +31,7 @@ import com.poptok.android.poptok.controller.post.PostWriteActivity_;
 import com.poptok.android.poptok.controller.search.SearchFilterActivity_;
 import com.poptok.android.poptok.controller.user.ProfileActivity_;
 import com.poptok.android.poptok.controller.user.SettingMenuActivity_;
+import com.poptok.android.poptok.service.Config;
 import com.poptok.android.poptok.service.location.LocationCollectService;
 import com.poptok.android.poptok.service.location.LocationReportService_;
 import com.poptok.android.poptok.tools.BottomNavigationViewHelper;
@@ -162,11 +163,13 @@ public class AppBaseActivity extends AppCompatActivity
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setService() {
-        Context context = getApplicationContext();
-        Intent collectIntent = new Intent(context, LocationCollectService.class);
-        startService(collectIntent);
+        if(Config.isService) {
+            Context context = getApplicationContext();
+            Intent collectIntent = new Intent(context, LocationCollectService.class);
+            startService(collectIntent);
 
-        LocationReportService_.intent(context).start();
+            LocationReportService_.intent(context).start();
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

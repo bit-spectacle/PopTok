@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -27,8 +28,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.ViewTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -54,6 +61,7 @@ import com.poptok.android.poptok.model.search.SearchParam;
 import com.poptok.android.poptok.model.setting.PoptokAppSettings;
 import com.poptok.android.poptok.service.location.LocationProvider;
 import com.poptok.android.poptok.service.post.PostMapThread;
+import com.poptok.android.poptok.tools.IntegerVersionSignature;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
@@ -123,14 +131,10 @@ public class GoogleMapFragment extends Fragment
     private GoogleMap googleMap = null;
     private GoogleApiClient googleApiClient = null;
     private Marker currentMarker = null;
+
     View ballonBasic;
-    View ballonFriend;
-    View ballonGroup;
-    View ballonSecret;
+    RelativeLayout postBasicLayout;
     TextView textPostBasic;
-    TextView textPostFriend;
-    TextView textPostGroup;
-    TextView textPostSecret;
 
     private final static int MAXENTRIES = 5;
     private String[] LikelyPlaceNames = null;
@@ -157,13 +161,8 @@ public class GoogleMapFragment extends Fragment
         mapView.getMapAsync(this);
 
         ballonBasic = LayoutInflater.from(this.getActivity()).inflate(R.layout.post_balloon_basic, null);
-        ballonFriend = LayoutInflater.from(this.getActivity()).inflate(R.layout.post_balloon_friend, null);
-        ballonGroup = LayoutInflater.from(this.getActivity()).inflate(R.layout.post_balloon_group, null);
-        ballonSecret = LayoutInflater.from(this.getActivity()).inflate(R.layout.post_balloon_secret, null);
+        postBasicLayout = (RelativeLayout) ballonBasic.findViewById(R.id.postBasicLayout);
         textPostBasic = (TextView) ballonBasic.findViewById(R.id.textPostBasic);
-        textPostFriend = (TextView) ballonFriend.findViewById(R.id.textPostFriend);
-        textPostGroup = (TextView) ballonGroup.findViewById(R.id.textPostGroup);
-        textPostSecret = (TextView) ballonSecret.findViewById(R.id.textPostSecret);
 
         locationProvider = new LocationProvider(this.getActivity());
 
@@ -193,26 +192,50 @@ public class GoogleMapFragment extends Fragment
     private Marker addMarker(PostMapItem postMapItem, boolean isSelectedMarker) {
 
         LatLng position = new LatLng(postMapItem.getLatitude(), postMapItem.getLongitude());
+
+        int postNo = postMapItem.getPostNo();
+        int groupCount = postMapItem.getGroupCount();
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.title(postMapItem.getPostDate());
         markerOptions.position(position);
-        markerOptions.zIndex(postMapItem.getPostNo());
+        markerOptions.zIndex(postNo);
 
-        if (postMapItem.getGroupCount() == 1) {
-            textPostBasic.setText(postMapItem.getContent());
-            textPostBasic.setBackgroundResource(R.drawable.balloon_basic);
-            textPostBasic.setTextColor(Color.BLACK);
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(ballonBasic)));
+        // 내용
+        textPostBasic.setText(postMapItem.getContent());
+
+        // 말풍선 종류
+        if (groupCount == 1) {
+            postBasicLayout.setBackgroundResource(R.drawable.balloon_basic);
         } else {
-            textPostGroup.setText(postMapItem.getContent());
-            textPostGroup.setBackgroundResource(R.drawable.balloon_group);
-            textPostGroup.setTextColor(Color.BLACK);
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(ballonGroup)));
+            postBasicLayout.setBackgroundResource(R.drawable.balloon_group);
         }
 
+        // 이미지
+        String imageUrl = postMapItem.getImage();
+        if(imageUrl.length() > 0) {
+            Context context = this.getActivity();
+            Glide.with(context)
+                    .load(imageUrl)
+                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .signature(new IntegerVersionSignature(postNo)))
+                    .into(new ViewTarget<TextView, Drawable>(textPostBasic) {
+                        @Override
+                        public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
+                            TextView view = this.view;
+                            view.setBackground(resource);
+                        }
+                    });
+            textPostBasic.setTextColor(Color.WHITE);
+        }
+        else {
+            textPostBasic.setBackground(null);
+            textPostBasic.setTextColor(Color.BLACK);
+        }
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(ballonBasic)));
+
         Marker marker = googleMap.addMarker(markerOptions);
-        ;
-        marker.setTag(postMapItem.getPostNo());
+        String markerTag = String.format("{0}|{1}", postNo, groupCount);
+        marker.setTag(markerTag);
 
         return marker;
     }
@@ -556,11 +579,16 @@ public class GoogleMapFragment extends Fragment
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        String markerTag = marker.getTag().toString();
+        String[] tagSplit = markerTag.split("|");
 
-        int postNo = (int) marker.getTag();
+        int postNo = Integer.parseInt(tagSplit[0]);
+        int groupCount = Integer.parseInt(tagSplit[1]);
+
         Intent intent = new Intent(this.activity, PostDetailActivity_.class);
         intent.putExtra("postNo", postNo);
         startActivity(intent);
+
         return true;
     }
 }

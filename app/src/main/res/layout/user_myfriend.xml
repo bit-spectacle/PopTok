@@ -6,12 +6,20 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/friendList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="내 친구"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="20dp"/>
+        android:gravity="center"/>
+
+    <!--<TextView-->
+        <!--android:id="@+id/myfriendList"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="내 친구"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:gravity="center"/>-->
 
 
 

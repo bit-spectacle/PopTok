@@ -5,7 +5,6 @@ import com.poptok.android.poptok.model.user.UserInfo;
 import org.androidannotations.annotations.EBean;
 
 
-
 @EBean(scope = EBean.Scope.Singleton)
 public class AuthStore {
 
@@ -22,6 +21,10 @@ public class AuthStore {
 
     public void setUserStatus(String status){
         this.userInfo.setStatus(status);
+    }
+
+    public void setUserImage(String imageUrl){
+        this.userInfo.setProfileImage(imageUrl);
     }
 
     public boolean isLogin() {

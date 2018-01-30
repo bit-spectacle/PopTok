@@ -21,7 +21,7 @@ import com.poptok.android.poptok.model.upload.UploadParam;
 import com.poptok.android.poptok.service.IAsyncResultHandler;
 import com.poptok.android.poptok.service.post.IPostItemFinder;
 import com.poptok.android.poptok.service.post.PostWriteAsyncTask;
-import com.poptok.android.poptok.service.upload.FileUpladAsyncTask;
+import com.poptok.android.poptok.service.upload.FileUploadAsyncTask;
 import com.poptok.android.poptok.service.upload.IUploader;
 import com.poptok.android.poptok.tools.KeyboardHelper;
 import com.poptok.android.poptok.tools.RealPathUtil;
@@ -72,7 +72,7 @@ public class PostWriteActivity extends BaseActivity implements IAsyncResultHandl
     Uri imageUri;
 
     PostWriteAsyncTask postWriteAsyncTask;
-    FileUpladAsyncTask fileUpladAsyncTask;
+    FileUploadAsyncTask fileUploadAsyncTask;
 
     boolean isKindAppointChecked = false;
     boolean isOpenChecked = true;
@@ -190,8 +190,8 @@ public class PostWriteActivity extends BaseActivity implements IAsyncResultHandl
             FileSystemResource image = new FileSystemResource(realPath);
             UploadParam param = new UploadParam("post", String.valueOf(result.getData()), image);
 
-            fileUpladAsyncTask = new FileUpladAsyncTask(iUploader, this);
-            fileUpladAsyncTask.execute(param);
+            fileUploadAsyncTask = new FileUploadAsyncTask(iUploader, this);
+            fileUploadAsyncTask.execute(param);
         }
         else {
             goToMain();

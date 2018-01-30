@@ -38,4 +38,7 @@ public interface IUserFinder {
     @Get("/auth/changeStatus/{status}/{userNo}")
     JSONResult<UserInfo> changeStatus(@Path String status, @Path int userNo);
 
+//    @Get("/auth/UpdateImage/{post}/{imageUrl}")
+//    JSONResult<String> updateImage(@Path int userNo, @Path String imageUrl);
+
 }

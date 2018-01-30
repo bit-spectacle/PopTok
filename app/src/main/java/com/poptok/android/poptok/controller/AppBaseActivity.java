@@ -25,6 +25,7 @@ import android.view.View;
 
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.controller.cloud.WordcloudActivity_;
+import com.poptok.android.poptok.controller.friend.FriendListActivity_;
 import com.poptok.android.poptok.controller.post.GoogleMapFragment_;
 import com.poptok.android.poptok.controller.post.PostListFragment_;
 import com.poptok.android.poptok.controller.post.PostWriteActivity_;
@@ -189,7 +190,7 @@ public class AppBaseActivity extends AppCompatActivity
                     return true;
                 case R.id.navigation_write:
                     //setFragment(R.id.nav_write);
-                    PostWriteActivity_.intent(AppBaseActivity.this).start();
+                    PostWriteActivity_.intent(getApplicationContext()).start();
                     Log.i(LOG_TAG, "nav_write Clicked");
                     return true;
                 case R.id.navigation_search:
@@ -263,6 +264,11 @@ public class AppBaseActivity extends AppCompatActivity
             case R.id.nav_search:
                 SearchFilterActivity_.intent(this).start();
                 break;
+            case R.id.nav_friendList:
+                FriendListActivity_.intent(this).start();
+                break;
+//            case R.id.nav_searchFriend:
+//                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer);

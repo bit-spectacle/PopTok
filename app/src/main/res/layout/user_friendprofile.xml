@@ -4,21 +4,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/friendProfile">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/jini"
-            app:civ_border_color="#FFFFFF"
-            app:civ_border_width="2dp"
+        <ImageView
+            android:id="@+id/friendProfileImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"/>
         <!--android:src="@drawable/default_profile"-->
@@ -33,7 +32,7 @@
 
         <TextView
             android:layout_marginTop="10dp"
-            android:id="@+id/nickNameTextView"
+            android:id="@+id/friendNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -42,12 +41,27 @@
             android:textSize="20dp"/>
         <TextView
             android:layout_marginTop="5dp"
+            android:id="@+id/friendStatusTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Status"
             android:textSize="15dp"
-            android:layout_toEndOf="@+id/nickNameTextView"/>
+            android:layout_toEndOf="@+id/friendNameTextView"/>
 
+    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id = "@+id/profileButton"
+                android:gravity="right"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="110dp"
+                android:layout_marginTop="10dp"
+                />
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

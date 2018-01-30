@@ -1,6 +1,5 @@
 package com.poptok.android.poptok.service.upload;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 
 import com.poptok.android.poptok.model.JSONResult;
@@ -12,12 +11,12 @@ import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-public class FileUpladAsyncTask extends AsyncTask<UploadParam, String, JSONResult<String>> {
+public class FileUploadAsyncTask extends AsyncTask<UploadParam, String, JSONResult<String>> {
 
     IUploader iUploader;
     IAsyncResultHandler<JSONResult<String>> iAsyncResultHandler;
 
-    public FileUpladAsyncTask(IUploader iUploader, IAsyncResultHandler<JSONResult<String>> iAsyncResultHandler) {
+    public FileUploadAsyncTask(IUploader iUploader, IAsyncResultHandler<JSONResult<String>> iAsyncResultHandler) {
         this.iUploader = iUploader;
         this.iAsyncResultHandler = iAsyncResultHandler;
     }

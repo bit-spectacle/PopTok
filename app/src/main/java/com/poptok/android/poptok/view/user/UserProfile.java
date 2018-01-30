@@ -19,13 +19,9 @@ public class UserProfile {
     @ViewById
     TextView textProfileNick;
 
-    @ViewById
-    TextView textProfileImageUrl;
-
     @UiThread
     public void setView(JSONResult<UserInfo> jsonResult) {
         UserInfo userInfo = jsonResult.getData();
         textProfileNick.setText(userInfo.getNickname());
-        textProfileImageUrl.setText(userInfo.getProfileImage());
     }
 }

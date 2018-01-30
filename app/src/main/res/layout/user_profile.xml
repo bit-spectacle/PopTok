@@ -17,27 +17,18 @@
             android:scaleType="fitCenter"
             android:src="@drawable/back" />
 
-        <TextView
-            android:id="@+id/textProfileNick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text=""
-            android:textSize="28dp" />
 
-        <TextView
-            android:id="@+id/textProfileImageUrl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text=""
-            android:textSize="28dp" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/textProfileImageUrl"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:text=""-->
+            <!--android:textSize="28dp" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,12 +48,14 @@
         android:gravity="center"
         android:layout_marginTop="20dp">
         <TextView
-            android:id="@+id/userNickNameTextView"
+            android:id="@+id/textProfileNick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NickName"
-            android:textSize="25dp"
-            />
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text=""
+            android:textSize="28dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -71,17 +64,26 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:src="@drawable/jini"
-            android:id="@+id/profileImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            app:civ_border_color="#FFFFFF"
-            app:civ_border_width="2dp"
-/>
+        <!--<de.hdodenhof.circleimageview.CircleImageView-->
+
+            <!--android:id="@+id/profileImage"-->
+            <!--android:layout_width="150dp"-->
+            <!--android:layout_height="150dp"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_gravity="center"-->
+            <!--app:civ_border_color="#FFFFFF"-->
+            <!--app:civ_border_width="2dp"-->
+<!--/>-->
+        <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+            />
+        <!--android:src="@drawable/jini"-->
             <!--android:src="@drawable/default_profile"-->
 
 
@@ -99,7 +101,6 @@
             android:id="@+id/userStatusTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="test"
             android:textSize="23dp"/>
     </LinearLayout>
     <LinearLayout

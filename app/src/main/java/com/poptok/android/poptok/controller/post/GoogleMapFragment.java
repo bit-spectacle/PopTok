@@ -234,7 +234,7 @@ public class GoogleMapFragment extends Fragment
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(ballonBasic)));
 
         Marker marker = googleMap.addMarker(markerOptions);
-        String markerTag = String.format("{0}|{1}", postNo, groupCount);
+        String markerTag = String.format("%d|%d", postNo, groupCount);
         marker.setTag(markerTag);
 
         return marker;
@@ -580,7 +580,7 @@ public class GoogleMapFragment extends Fragment
     @Override
     public boolean onMarkerClick(Marker marker) {
         String markerTag = marker.getTag().toString();
-        String[] tagSplit = markerTag.split("|");
+        String[] tagSplit = markerTag.split("\\|");
 
         int postNo = Integer.parseInt(tagSplit[0]);
         int groupCount = Integer.parseInt(tagSplit[1]);

@@ -39,7 +39,7 @@ public class AddMeFriendAsyncTask extends AsyncTask<Integer, String , JSONResult
         if(jsonResult.getCode().equals("FAIL"))
             return null;
         return jsonResult;
-    }
+}
 
     @Override
     protected  void onPostExecute(JSONResult<List<FriendList>> friendLists){

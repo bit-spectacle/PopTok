@@ -32,13 +32,10 @@ public interface IFriendFinder {
     @Get("/friend/RequestFriendStatus/{userNo}/{userNo2}")
     JSONResult<Integer> RequestFriend(@Path int userNo, @Path int userNo2);
 
-    @Get("/friend/findFriend/{userNo}")
-    JSONResult<List<FriendList>> findFriend(@Path int userNo);
-
     @Get("/friend/AddMeFriend/{userNo}")
     JSONResult<List<FriendList>> addMeFriend(@Path int userNo);
 
-    @Get("/friend/MyFriend/{userNo}")
+    @Get("/friend/GetFriendProfile/{userNo}")
     JSONResult<List<FriendList>> getFriendProfile(@Path int userNo);
 
 }

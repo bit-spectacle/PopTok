@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -98,17 +97,26 @@ public class ProfileActivity extends BaseActivity implements IAsyncResultHandler
             actionBar.hide();
         }
 
-//        Glide.with(this).load(result.getData())
+//
+//        Glide.with(this).load(authStore.getUserInfo().getProfileImage())
+//                .apply(new RequestOptions().placeholder(R.drawable.poptok_logo))
+//                .into(profileImage);
+//        Glide.with(this).load(authStore.getUserInfo().getProfileImage())
 //                .apply(new RequestOptions().signature(new ObjectKey(UUID.randomUUID().toString())))
 //                .into(profileImage);
 //        Glide.with(this).load(authStore.getUserInfo().getProfileImage()).apply(
 //                new RequestOptions().bitmapTransform(
 //                        new CropCircleTransformation()).centerCrop().override(600,600)).into(profileImage);
-        Glide.with(this).load(authStore.getUserInfo().getProfileImage()).apply(new RequestOptions().centerCrop()
-                .override(600,600))
-                .into(profileImage);
+//        Glide.with(this).load(authStore.getUserInfo().getProfileImage()).apply(new RequestOptions().centerCrop()
+//                .override(600,600))
+//                .into(profileImage);
 
-        profileImage.setVisibility(View.INVISIBLE);
+//        profileImage.setVisibility(View.VISIBLE);
+//        String profileImage = authStore.getUserInfo().getProfileImage();
+
+//        URL url = new URL(profileImage);
+//
+//        profileImage.setImageResource(URLEncoder.encode(authStore.getUserInfo().getProfileImage(),"UTF-8"));
 
         userProfileAsyncTask = new UserProfileAsyncTask(this, userFinder);
         userProfileAsyncTask.execute(authStore.getUserInfo().getEmail());

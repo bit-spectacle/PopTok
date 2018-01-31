@@ -1,9 +1,11 @@
 package com.poptok.android.poptok.service.friend;
 
 import android.os.AsyncTask;
+import android.view.View;
 
 import com.poptok.android.poptok.controller.friend.FriendListActivity;
 import com.poptok.android.poptok.model.JSONResult;
+import com.poptok.android.poptok.model.auth.AuthStore;
 
 /**
  * created by bit on 2018-01-27.
@@ -15,9 +17,18 @@ public class AcceptFriendAsyncTask extends AsyncTask<Integer, String, JSONResult
     //FriendList Activity 만들기
     FriendListActivity friendListActivity;
 
+    AuthStore authStore;
+    View v ;
+
 
     public AcceptFriendAsyncTask(FriendListActivity activity, IFriendFinder friendFinder){
         this.friendListActivity = activity;
+        this.friendFinder = friendFinder;
+    }
+
+    public AcceptFriendAsyncTask(AuthStore authStore, View v , IFriendFinder friendFinder ){
+        this.authStore = authStore;
+        this.v = v;
         this.friendFinder = friendFinder;
     }
 

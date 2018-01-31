@@ -31,6 +31,8 @@ import org.androidannotations.rest.spring.annotations.RestService;
 
 import java.util.List;
 
+//import com.poptok.android.poptok.service.friend.GetFriendListAsyncTask;
+
 /**
  * Created by BIT on 2018-01-26.
  */
@@ -92,7 +94,7 @@ public class FriendListActivity extends BaseActivity implements IAsyncResultHand
 
     }
 
-    @Click
+    @Click(R.id.profileButton)
     public void profileButton(){
         if(profileButton.getText().equals("추가")){
             //어떤 친구의 값인지 어떻게 알아내지?
@@ -111,6 +113,8 @@ public class FriendListActivity extends BaseActivity implements IAsyncResultHand
     }
 
 
+
+
     @Override
     public void resultHandler(JSONResult<List<FriendList>> result) {
 
@@ -126,13 +130,13 @@ public class FriendListActivity extends BaseActivity implements IAsyncResultHand
         }if(result.getCode().equals("SUCC1")){
             Log.i(LOG_TAG, "*******************************************친구 있습니다.");
             Toast.makeText(getApplicationContext(), "나를 추가한 친구 있습니다.", Toast.LENGTH_LONG).show();
-            profileButton.setText("추가");
+//            profileButton.setText("추가");
             friendListAdapter.setItems(result.getData());
             addMeFriendView.setAdapter(friendListAdapter);
         }if(result.getCode().equals("SUCC")){
             Log.i(LOG_TAG, "*******************************************친구 있습니다.");
             Toast.makeText(getApplicationContext(), "친구 있습니다.", Toast.LENGTH_LONG).show();
-            profileButton.setText("삭제");
+//            profileButton.setText("삭제");
             friendListAdapter.setItems(result.getData());
             myFriendGridView.setAdapter(friendListAdapter);
         }

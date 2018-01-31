@@ -19,7 +19,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="5dp"/>
         <!--android:src="@drawable/default_profile"-->
 
     </RelativeLayout>
@@ -56,11 +56,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id = "@+id/profileButton"
-                android:gravity="right"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="110dp"
                 android:layout_marginTop="10dp"
+                android:text=""
                 />
+            <!--android:gravity="right"-->
+            <!--android:layout_gravity = "right"-->
+            <!--android:layout_marginLeft="110dp"-->
         </RelativeLayout>
     </LinearLayout>
 

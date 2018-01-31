@@ -28,7 +28,7 @@ public class GetFriendListAsyncTask extends AsyncTask<Integer, String, JSONResul
 
     @Override
     protected JSONResult<List<FriendList>> doInBackground(Integer... userNo) {
-        JSONResult<List<FriendList>> result = friendFinder.findFriend(userNo[0]);
+        JSONResult<List<FriendList>> result = friendFinder.getFriendProfile(userNo[0]);
         return result;
 
     }

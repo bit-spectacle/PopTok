@@ -2,6 +2,7 @@ package com.poptok.android.poptok.view.friend;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +31,9 @@ public class FriendItemView extends LinearLayout {
     @ViewById(R.id.friendStatusTextView)
     TextView friendStatus;
 
+    @ViewById(R.id.profileButton)
+    Button profileButton;
+
 
 
 
@@ -45,8 +49,9 @@ public class FriendItemView extends LinearLayout {
 
 //        friendName.setText("Test");
         Glide.with(this).load(friendList.getProfileImage())
-                .apply(new RequestOptions().placeholder(R.drawable.loading))
+                .apply(new RequestOptions().placeholder(R.drawable.poptok_logo))
                 .into(friendImage);
+
     }
 
 }

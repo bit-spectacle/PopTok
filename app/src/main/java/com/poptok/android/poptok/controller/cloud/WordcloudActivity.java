@@ -31,6 +31,7 @@ import java.util.Random;
 @EActivity(R.layout.cloud_word)
 public class WordcloudActivity extends AppCompatActivity implements IHashfindResultHandler {
 
+    private static final String TAG = "WordcloudActivity";
     @ViewById
     WordCloudView wordCloud;
 
@@ -53,6 +54,11 @@ public class WordcloudActivity extends AppCompatActivity implements IHashfindRes
     @Override
     public void hashFindResultHandler(List<TagItem> result) {
         List<WordCloud> list = getWordCloudList(result);
+
+        Log.d(TAG, list.get(0).getText());
+
+        wordCloud.clearCache(true);
+        wordCloud.clearHistory();
 
         wordCloud.setDataSet(list);
         wordCloud.setSize(500,350);

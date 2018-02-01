@@ -34,21 +34,26 @@ import com.poptok.android.poptok.controller.search.SearchFilterActivity_;
 import com.poptok.android.poptok.controller.user.LoginActivity_;
 import com.poptok.android.poptok.controller.user.ProfileActivity_;
 import com.poptok.android.poptok.controller.user.SettingMenuActivity_;
+import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.auth.AuthStore_;
 import com.poptok.android.poptok.service.Config;
+import com.poptok.android.poptok.service.IAsyncResultHandler;
 import com.poptok.android.poptok.service.location.LocationCollectService;
 import com.poptok.android.poptok.service.location.LocationReportService_;
+import com.poptok.android.poptok.service.user.IUserFinder;
+import com.poptok.android.poptok.service.user.IUserFinder_;
+import com.poptok.android.poptok.service.user.UserLogoutAsyncTask;
 import com.poptok.android.poptok.tools.BottomNavigationViewHelper;
 
 public class AppBaseActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final String LOG_TAG = "AppBaseActivity";
     BroadcastReceiver receiver;
 
     int lastFragmentId = R.id.nav_map;
-
+    AuthStore authStore;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -91,31 +96,32 @@ public class AppBaseActivity extends AppCompatActivity
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_app_base);
         final Activity activity = this;
 
-        final AuthStore authStore = AuthStore_.getInstance_(activity);
-        NavigationMenuItemView Login = headerView.findViewById(R.id.userLogin);
-        NavigationMenuItemView Logout = headerView.findViewById(R.id.userLogOut);
+        authStore = AuthStore_.getInstance_(activity);
+        Menu menu = navigationView.getMenu();
+        MenuItem userLogin =  menu.findItem(R.id.userLogin);
+        MenuItem userLogOut =  menu.findItem(R.id.userLogOut);
+
         if (authStore.isLogin()) {
-            Login.setVisibility(View.INVISIBLE);
-            Logout.setVisibility(View.VISIBLE);
+            userLogin.setVisible(false);
+            userLogOut.setVisible(true);
         } else {
-            Login.setVisibility(View.VISIBLE);
-            Logout.setVisibility(View.INVISIBLE);
+            userLogin.setVisible(true);
+            userLogOut.setVisible(false);
         }
-
-        Login.setOnClickListener(new View.OnClickListener() {
+        userLogin.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onMenuItemClick(MenuItem item) {
                 LoginActivity_.intent(activity).start();
-
+                return false;
             }
         });
-
-        Logout.setOnClickListener(new View.OnClickListener() {
+        userLogOut.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public void onClick(View v) {
-//                UserLogoutAsyncTask userLogoutAsyncTask = new UserLogoutAsyncTask()
-
-
+            public boolean onMenuItemClick(MenuItem item) {
+                IUserFinder iUserFinder = new IUserFinder_(activity);
+                UserLogoutAsyncTask userLogoutAsyncTask = new UserLogoutAsyncTask(iUserFinder, AppBaseActivity.this);
+                userLogoutAsyncTask.execute(authStore.getUserInfo().getUserNo());
+                return false;
             }
         });
 
@@ -306,4 +312,10 @@ public class AppBaseActivity extends AppCompatActivity
     }
 
 
+    public void logoutResultHandler(JSONResult<Integer> result) {
+        authStore.clear();
+        Intent intent = this.getIntent();
+        finish();
+        startActivity(intent);
+    }
 }

@@ -33,4 +33,8 @@ public class AuthStore {
         }
         return  false;
     }
+
+    public void clear() {
+        this.userInfo = new UserInfo();
+    }
 }

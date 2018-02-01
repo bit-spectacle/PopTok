@@ -2,21 +2,18 @@ package com.poptok.android.poptok.service.user;
 
 import android.os.AsyncTask;
 
+import com.poptok.android.poptok.controller.AppBaseActivity;
 import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.service.IAsyncResultHandler;
-
-/**
- * Created by BIT on 2018-02-01.
- */
 
 public class UserLogoutAsyncTask extends AsyncTask<Integer, String, JSONResult<Integer>> {
 
     IUserFinder iUserFinder;
-    IAsyncResultHandler iAsyncResultHandler;
+    AppBaseActivity appBaseActivity;
 
-    public UserLogoutAsyncTask(IUserFinder iUserFinder, IAsyncResultHandler iAsyncResultHandler) {
+    public UserLogoutAsyncTask(IUserFinder iUserFinder, AppBaseActivity appBaseActivity) {
         this.iUserFinder = iUserFinder;
-        this.iAsyncResultHandler = iAsyncResultHandler;
+        this.appBaseActivity = appBaseActivity;
     }
 
     @Override
@@ -28,7 +25,6 @@ public class UserLogoutAsyncTask extends AsyncTask<Integer, String, JSONResult<I
     @Override
     protected void onPostExecute(JSONResult<Integer> integerJSONResult) {
         super.onPostExecute(integerJSONResult);
-
-        this.iAsyncResultHandler.resultHandler(integerJSONResult);
+        this.appBaseActivity.logoutResultHandler(integerJSONResult);
     }
 }

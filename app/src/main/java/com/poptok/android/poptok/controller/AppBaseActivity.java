@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.internal.NavigationMenuItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -23,6 +22,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.poptok.android.poptok.R;
 import com.poptok.android.poptok.controller.cloud.WordcloudActivity_;
@@ -38,7 +39,6 @@ import com.poptok.android.poptok.model.JSONResult;
 import com.poptok.android.poptok.model.auth.AuthStore;
 import com.poptok.android.poptok.model.auth.AuthStore_;
 import com.poptok.android.poptok.service.Config;
-import com.poptok.android.poptok.service.IAsyncResultHandler;
 import com.poptok.android.poptok.service.location.LocationCollectService;
 import com.poptok.android.poptok.service.location.LocationReportService_;
 import com.poptok.android.poptok.service.user.IUserFinder;
@@ -100,11 +100,23 @@ public class AppBaseActivity extends AppCompatActivity
         Menu menu = navigationView.getMenu();
         MenuItem userLogin =  menu.findItem(R.id.userLogin);
         MenuItem userLogOut =  menu.findItem(R.id.userLogOut);
+        TextView textNick = headerView.findViewById(R.id.textNick);
+        ImageView imageView = headerView.findViewById(R.id.imageView);
 
         if (authStore.isLogin()) {
+            textNick.setText(authStore.getUserInfo().getNickname());
+            //"192.168.1.20"+
+//            imageView.setImageURI(Uri.parse(authStore.getUserInfo().getProfileImage()));
+//            Glide.with(this).load(authStore.getUserInfo().getProfileImage()).apply(
+//                    new RequestOptions().centerCrop().override(600,600)
+//            ).into(imageView);
+
+
+
             userLogin.setVisible(false);
             userLogOut.setVisible(true);
         } else {
+            textNick.setText("로그인해주세요");
             userLogin.setVisible(true);
             userLogOut.setVisible(false);
         }

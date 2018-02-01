@@ -111,8 +111,6 @@ public class AppBaseActivity extends AppCompatActivity
 //                    new RequestOptions().centerCrop().override(600,600)
 //            ).into(imageView);
 
-
-
             userLogin.setVisible(false);
             userLogOut.setVisible(true);
         } else {
@@ -120,6 +118,28 @@ public class AppBaseActivity extends AppCompatActivity
             userLogin.setVisible(true);
             userLogOut.setVisible(false);
         }
+        textNick.setOnClickListener(new TextView.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if (authStore.isLogin()) {
+                    ProfileActivity_.intent(AppBaseActivity.this).start();
+                }else{
+                    LoginActivity_.intent(AppBaseActivity.this).start();
+                }
+            }
+        });
+
+        imageView.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (authStore.isLogin()) {
+                    ProfileActivity_.intent(AppBaseActivity.this).start();
+                }else{
+                    LoginActivity_.intent(AppBaseActivity.this).start();
+                }
+            }
+        });
+
         userLogin.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -134,14 +154,6 @@ public class AppBaseActivity extends AppCompatActivity
                 UserLogoutAsyncTask userLogoutAsyncTask = new UserLogoutAsyncTask(iUserFinder, AppBaseActivity.this);
                 userLogoutAsyncTask.execute(authStore.getUserInfo().getUserNo());
                 return false;
-            }
-        });
-
-        headerView.findViewById(R.id.textNick).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(LOG_TAG, "textNick Clicked" + activity + " saveInstance : " + savedInstanceState);
-                ProfileActivity_.intent(AppBaseActivity.this).start();
             }
         });
 

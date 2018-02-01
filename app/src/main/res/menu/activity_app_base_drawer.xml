@@ -36,5 +36,13 @@
                 <!--android:title="친구 검색" />-->
         </menu>
     </item>
+    <item android:title = "로그인"
+        android:id = "@+id/userLogin">
+
+    </item>
+    <item android:title = "로그아웃"
+        android:id = "@+id/userLogOut">
+
+    </item>
 
 </menu>

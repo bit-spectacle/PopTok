@@ -10,8 +10,6 @@ import org.androidannotations.rest.spring.annotations.Path;
 import org.androidannotations.rest.spring.annotations.Rest;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
-import java.util.List;
-
 @Rest(rootUrl = Config.apiUrl,
         converters = {MappingJackson2HttpMessageConverter.class},
         interceptors = {CookiePreserveHttpRequestInterceptor.class})
@@ -27,7 +25,7 @@ public interface IUserFinder {
     JSONResult<Integer> userJoin(@Path String email, @Path String password, @Path String nickname);
 
     @Get("/auth/logout/{userNo}")
-    List<UserInfo> userLogout(@Path int userNo );
+    JSONResult<Integer> userLogout(@Path int userNo );
 
     @Get("/auth/changeNickname/{nickname}/{userNo}")
     JSONResult<UserInfo> changeNickname(@Path String nickname, @Path int userNo);

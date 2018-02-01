@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.NavigationMenuItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -30,8 +31,11 @@ import com.poptok.android.poptok.controller.post.GoogleMapFragment_;
 import com.poptok.android.poptok.controller.post.PostListFragment_;
 import com.poptok.android.poptok.controller.post.PostWriteActivity_;
 import com.poptok.android.poptok.controller.search.SearchFilterActivity_;
+import com.poptok.android.poptok.controller.user.LoginActivity_;
 import com.poptok.android.poptok.controller.user.ProfileActivity_;
 import com.poptok.android.poptok.controller.user.SettingMenuActivity_;
+import com.poptok.android.poptok.model.auth.AuthStore;
+import com.poptok.android.poptok.model.auth.AuthStore_;
 import com.poptok.android.poptok.service.Config;
 import com.poptok.android.poptok.service.location.LocationCollectService;
 import com.poptok.android.poptok.service.location.LocationReportService_;
@@ -70,7 +74,7 @@ public class AppBaseActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            WordcloudActivity_.intent(AppBaseActivity.this).start();
+                WordcloudActivity_.intent(AppBaseActivity.this).start();
             }
         });
 
@@ -85,12 +89,40 @@ public class AppBaseActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_app_base);
-        final Activity a = this;
+        final Activity activity = this;
+
+        final AuthStore authStore = AuthStore_.getInstance_(activity);
+        NavigationMenuItemView Login = headerView.findViewById(R.id.userLogin);
+        NavigationMenuItemView Logout = headerView.findViewById(R.id.userLogOut);
+        if (authStore.isLogin()) {
+            Login.setVisibility(View.INVISIBLE);
+            Logout.setVisibility(View.VISIBLE);
+        } else {
+            Login.setVisibility(View.VISIBLE);
+            Logout.setVisibility(View.INVISIBLE);
+        }
+
+        Login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginActivity_.intent(activity).start();
+
+            }
+        });
+
+        Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                UserLogoutAsyncTask userLogoutAsyncTask = new UserLogoutAsyncTask()
+
+
+            }
+        });
 
         headerView.findViewById(R.id.textNick).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(LOG_TAG, "textNick Clicked" + a +" saveInstance : " + savedInstanceState);
+                Log.i(LOG_TAG, "textNick Clicked" + activity + " saveInstance : " + savedInstanceState);
                 ProfileActivity_.intent(AppBaseActivity.this).start();
             }
         });
@@ -98,7 +130,7 @@ public class AppBaseActivity extends AppCompatActivity
         headerView.findViewById(R.id.btn_menu_map).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(LOG_TAG, "nav_map Clicked" + a +" saveInstance : " + savedInstanceState);
+                Log.i(LOG_TAG, "nav_map Clicked" + activity + " saveInstance : " + savedInstanceState);
                 setFragment(R.id.nav_map);
             }
         });
@@ -160,11 +192,9 @@ public class AppBaseActivity extends AppCompatActivity
     }
 
 
-
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setService() {
-        if(Config.isService) {
+        if (Config.isService) {
             Context context = getApplicationContext();
             Intent collectIntent = new Intent(context, LocationCollectService.class);
             startService(collectIntent);
@@ -274,7 +304,6 @@ public class AppBaseActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer);
         drawer.closeDrawer(GravityCompat.START);
     }
-
 
 
 }

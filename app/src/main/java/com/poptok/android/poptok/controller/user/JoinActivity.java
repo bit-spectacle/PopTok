@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -51,6 +52,9 @@ public class JoinActivity extends AppCompatActivity {
     @ViewById(R.id.cancelButton)
     Button cancelButton;
 
+    @ViewById(R.id.agreeCheckBox)
+    CheckBox agreeCheckBox;
+
     @RestService
     IUserFinder userFinder;
 
@@ -82,6 +86,11 @@ public class JoinActivity extends AppCompatActivity {
         //중복확인 및 비밀번호 체크
 
     }
+    @Click
+    public void agreeCheckBox(){
+        agreeCheckBox.setChecked(true);
+    }
+
 
     public void nicknameCheckHandler(JSONResult<Integer> jsonResult){
 
@@ -147,6 +156,11 @@ public class JoinActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "닉네임을 입력해주세요", Toast.LENGTH_LONG).show();
             return;
         }
+
+//        if(!agreeCheckBox.isChecked()){
+//            Toast.makeText(getApplicationContext(), "이용약관 동의를 해주세요", Toast.LENGTH_LONG).show();
+//            return;
+//        }
 
 
 //        checkEmailAsyncTask = new CheckEmailAsyncTask(this, userFinder);

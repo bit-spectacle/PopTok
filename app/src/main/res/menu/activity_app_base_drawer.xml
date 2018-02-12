@@ -36,6 +36,21 @@
                 <!--android:title="친구 검색" />-->
         </menu>
     </item>
+    <item android:title = "추천 목록"
+        android:id="@+id/recommendList">
+        <menu>
+            <!--<item-->
+            <!--android:id = "@+id/recommendFriend"-->
+            <!--android:title = "친구 추천" />-->
+            <item
+                android:id = "@+id/recommendPlace"
+                android:icon="@drawable/map"
+                android:title = "장소 추천" />
+
+        </menu>
+
+    </item>
+
     <item android:title = "로그인"
         android:id = "@+id/userLogin">
 
@@ -44,5 +59,6 @@
         android:id = "@+id/userLogOut">
 
     </item>
+
 
 </menu>

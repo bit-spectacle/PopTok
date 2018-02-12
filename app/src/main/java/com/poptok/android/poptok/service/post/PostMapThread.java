@@ -7,7 +7,6 @@ import android.os.Message;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.poptok.android.poptok.model.auth.AuthStore;
-import com.poptok.android.poptok.model.location.LocationParam;
 import com.poptok.android.poptok.model.search.SearchParam;
 
 import org.androidannotations.annotations.Bean;
@@ -50,7 +49,7 @@ public class PostMapThread extends Thread {
             Message result = new Message();
             switch (msg.what) {
                 case PostMapThread.cPostMap :
-//                    LocationParam locationParam = (LocationParam)msg.obj;
+//                    RecommendLocationParam locationParam = (RecommendLocationParam)msg.obj;
 //                    int userNo = authStore.isLogin() ? authStore.getUserInfo().getUserNo() : 0;
 //                    result.obj = postItemFinder.findPostMap(locationParam.top.latitude,locationParam.top.longitude,locationParam.bottom.latitude,locationParam.bottom.longitude,1, userNo);
 

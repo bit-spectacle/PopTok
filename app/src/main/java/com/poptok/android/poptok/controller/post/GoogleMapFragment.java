@@ -457,7 +457,7 @@ public class GoogleMapFragment extends Fragment
     }
 
     private void callPostMapApi() {
-//        LocationParam locationParam = LocationParam.getGoogleLocationParam(googleMap);
+//        RecommendLocationParam locationParam = RecommendLocationParam.getGoogleLocationParam(googleMap);
 //        searchParam.setTop(new LatLng(locationParam.top.latitude, locationParam.top.longitude));
 //        searchParam.setBottom(new LatLng(locationParam.bottom.latitude, locationParam.bottom.longitude));
         searchParam.setGoogleLocation(googleMap);

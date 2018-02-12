@@ -57,6 +57,10 @@
         <activity android:name=".controller.post.PostWriteActivity_" />
         <activity android:name=".controller.search.SearchFilterActivity_" android:noHistory="true" />
         <activity android:name=".controller.cloud.WordcloudActivity_" android:noHistory="true"  />
+        <activity android:name=".controller.recommend.RecommendLocationActivity_"/>
+        <activity android:name=".controller.recommend.RecommendMapActivity_"/>
+
+        <!--<activity android:name=".controller.recommend.RecomnmendMapActivity_"/>-->
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

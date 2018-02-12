@@ -31,6 +31,7 @@ import com.poptok.android.poptok.controller.friend.FriendListActivity_;
 import com.poptok.android.poptok.controller.post.GoogleMapFragment_;
 import com.poptok.android.poptok.controller.post.PostListFragment_;
 import com.poptok.android.poptok.controller.post.PostWriteActivity_;
+import com.poptok.android.poptok.controller.recommend.RecommendLocationActivity_;
 import com.poptok.android.poptok.controller.search.SearchFilterActivity_;
 import com.poptok.android.poptok.controller.user.LoginActivity_;
 import com.poptok.android.poptok.controller.user.ProfileActivity_;
@@ -103,6 +104,9 @@ public class AppBaseActivity extends AppCompatActivity
         TextView textNick = headerView.findViewById(R.id.textNick);
         ImageView imageView = headerView.findViewById(R.id.imageView);
 
+        MenuItem recommendList = menu.findItem(R.id.recommendList);
+
+
         if (authStore.isLogin()) {
             textNick.setText(authStore.getUserInfo().getNickname());
             //"192.168.1.20"+
@@ -113,10 +117,12 @@ public class AppBaseActivity extends AppCompatActivity
 
             userLogin.setVisible(false);
             userLogOut.setVisible(true);
+            recommendList.setVisible(true);
         } else {
             textNick.setText("로그인해주세요");
             userLogin.setVisible(true);
             userLogOut.setVisible(false);
+            recommendList.setVisible(false);
         }
         textNick.setOnClickListener(new TextView.OnClickListener(){
             @Override
@@ -139,6 +145,34 @@ public class AppBaseActivity extends AppCompatActivity
                 }
             }
         });
+
+//        MenuItem recommendFriend = menu.findItem(R.id.recommendFriend);
+        MenuItem recommendPlace = menu.findItem(R.id.recommendPlace);
+
+//        recommendFriend.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                if(authStore.isLogin())
+//                {
+//
+//                }
+//                return false;
+//            }
+//        });
+//
+//        recommendPlace.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                if(authStore.isLogin())
+//                {
+//                    RecommendLocationActivity_.intent(activity).start();
+//                }
+//
+//                return false;
+//            }
+//        });
+
+
 
         userLogin.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -326,6 +360,9 @@ public class AppBaseActivity extends AppCompatActivity
                 break;
             case R.id.nav_friendList:
                 FriendListActivity_.intent(this).start();
+                break;
+            case R.id.recommendPlace:
+                RecommendLocationActivity_.intent(this).start();
                 break;
 //            case R.id.nav_searchFriend:
 //                break;

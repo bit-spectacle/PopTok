@@ -12,7 +12,7 @@
 //import android.widget.Button;
 //
 //import com.poptok.android.poptok.R;
-//import com.poptok.android.poptok.model.location.LocationParam;
+//import com.poptok.android.poptok.model.location.RecommendLocationParam;
 //import com.poptok.android.poptok.model.post.PostMapItem;
 //import com.poptok.android.poptok.service.post.PostMapThread;
 //
@@ -85,7 +85,7 @@
 //                MapPoint center = mapView.getMapCenterPoint();
 //                MapPoint.GeoCoordinate gc = center.getMapPointGeoCoord();
 //
-//                LocationParam locationParam = LocationParam.getLoacationParam(zoomLevel, width, height, gc.latitude,  gc.longitude );
+//                RecommendLocationParam locationParam = RecommendLocationParam.getLoacationParam(zoomLevel, width, height, gc.latitude,  gc.longitude );
 //                Log.i(LOG_TAG,
 //                        String.format("display size check %f %f %f %f",
 //                                locationParam.top.latitude, locationParam.top.longitude,
